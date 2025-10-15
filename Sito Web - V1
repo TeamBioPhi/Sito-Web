@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioPhi - From Nature to Nature</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background: #2a5a2b;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav {
+            background: #333;
+            color: #fff;
+            padding: 0.5rem;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .container {
+            padding: 20px;
+            margin: auto;
+            overflow: hidden;
+            max-width: 1000px;
+        }
+        .section {
+            background: #fff;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .section h2 {
+            color: #2a5a2b;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #333;
+            color: #fff;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .gallery img {
+            width: 45%;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .collaboration-models {
+            display: flex;
+            justify-content: space-between;
+        }
+        .model {
+            flex-basis: 30%;
+            background: #e7e7e7;
+            padding: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>BioPhi</h1>
+        <p>From Nature to Nature</p>
+    </header>
+
+    <nav>
+        <a href="#visione">Visione</a>
+        <a href="#processo">Processo</a>
+        <a href="#prodotti">Prodotti</a>
+        <a href="#contatti">Contatti</a>
+    </nav>
+
+    <div class="container">
+
+        <section id="visione" class="section">
+            <h2>La Nostra Visione Industriale</h2>
+            [cite_start]<p>Trasformiamo tonnellate al giorno di trebbie di birra, scarti di crostacei e residui agricoli in packaging sostenibili per alimenti ed eventi sociali. [cite: 9] [cite_start]La nostra visione è chiara: le altre generazioni hanno inquinato il pianeta, noi lo nutriremo. [cite: 17]</p>
+            [cite_start]<p>Siamo la prima filiera per biopolimeri avanzati da scarti locali, con l'obiettivo di creare una bioraffineria che valorizzi le realtà locali partendo da scarti a km 0. [cite: 6, 20]</p>
+            <h3>I Nostri Punti di Forza:</h3>
+            <ul>
+                [cite_start]<li>Team industriale strutturato: compounding, produzione, logistica. [cite: 11]</li>
+                [cite_start]<li>Focus business: impatto su mercato reale con prodotti validati. [cite: 12]</li>
+                [cite_start]<li>Asset attivi: forniture sicure, partner industriali, co-sviluppo. [cite: 13]</li>
+            </ul>
+        </section>
+
+        <section id="processo" class="section">
+            <h2>Il Processo</h2>
+            [cite_start]<p>Partiamo da materie prime naturali molto comuni, raccolte come scarti dalle più grandi industrie d'Italia. [cite: 29] [cite_start]Attraverso un processo unico, siamo in grado di fornire il prodotto più adatto alle tue esigenze. [cite: 30]</p>
+            <ul>
+                [cite_start]<li><strong>Input:</strong> Trebbie, Crostacei, Residui agricoli e da floricoltura. [cite: 31]</li>
+                [cite_start]<li><strong>Cuore tecnologico:</strong> Processo innovativo Green. [cite: 32, 37]</li>
+                [cite_start]<li><strong>Output:</strong> Biofilm per packaging, bicchieri biodegradabili, carta alimentare. [cite: 33]</li>
+            </ul>
+        </section>
+
+        <section id="prodotti" class="section">
+            <h2>Applicazioni dei Nostri Prodotti</h2>
+            <div class="gallery">
+                <div>
+                    <h3>Eventi</h3>
+                    [cite_start]<p>Bicchieri e packaging per festival, eventi di gala e sociali per un'esperienza con effetto "wow". [cite: 71, 78, 81, 82]</p>
+                </div>
+                <div>
+                    <h3>Ristorazione e Logistica</h3>
+                    [cite_start]<p>Offriamo packaging brandizzato per l'industria cosmetica e gourmet, oltre a soluzioni per grandi spedizioni e imballaggi. [cite: 83, 84, 98, 99, 100]</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer id="contatti" class="footer">
+        <h2>Contatti</h2>
+        <p>Scrivici per scoprire di più o per avviare una collaborazione.</p>
+        <p>Email: <a href="mailto:hello@biophi.it" style="color: #fff;">hello@biophi.it</a></p>
+        <p>&copy; 2025 BioPhi. Tutti i diritti riservati.</p>
+    </footer>
+
+</body>
+</html>
