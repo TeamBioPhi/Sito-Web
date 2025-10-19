@@ -352,7 +352,8 @@
         /* RESPONSIVE DESIGN */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2.5em;
+                font-size: 2.2em;
+                line-height: 1.2;
             }
 
             .process-flow {
@@ -375,9 +376,25 @@
             .tam-grid {
                 grid-template-columns: 1fr;
             }
+
+            .contact-button {
+                min-height: 44px; /* Standard Apple */
+                font-size: 1.1em;
+                padding: 15px 25px;
+            }
+            
+            body {
+                font-size: 16px; /* Previene zoom automatico iOS */
+            }
+
+            .section {
+                padding: 40px 0;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
         }
-    
-}
 
         /* CONTACT SECTION */
         .contact-section {
@@ -402,6 +419,7 @@
             display: inline-block;
             margin: 20px;
         }
+}
 
         .contact-button:hover {
             transform: translateY(-3px);
