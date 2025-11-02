@@ -79,8 +79,8 @@ img {
 
 /* Slide 1: Hero */
 .hero .logo {
-    width: 120px;
-    margin-bottom: 1rem;
+    width: 600px;
+    margin-bottom: 0rem;
 }
 .hero .tagline {
     font-size: 1.5rem;
@@ -109,7 +109,7 @@ img {
     padding-left: 1.5rem; /* Spazio per l'icona finta */
 }
 #slide4 .icon-list li::before {
-    content: '•'; /* Sostituisci con icone vere se le hai */
+    content: []; /* Sostituisci con icone vere se le hai */
     position: absolute;
     left: 0;
     top: 0;
@@ -269,5 +269,162 @@ img {
 
     .process-step {
         text-align: left;
+    }
+}
+
+/* --- Stili per la Timeline Orizzontale --- */
+
+.timeline-container-horizontal {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    max-width: 1000px;
+    position: relative;
+    padding: 2rem 0;
+    margin-top: 2rem;
+}
+
+/* La linea orizzontale */
+.timeline-container-horizontal::before {
+    content: '';
+    position: absolute;
+    top: 50%; /* Si centra verticalmente */
+    left: 5%;
+    width: 90%;
+    height: 4px;
+    background-color: #d8dccf; /* Colore linea grigio chiaro */
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.timeline-item-horizontal {
+    flex: 1; /* Occupa spazio equo */
+    display: flex;
+    flex-direction: column; /* Impila contenuto e pallino */
+    align-items: center; /* Centra orizzontalmente */
+    position: relative;
+    z-index: 2; /* Sta sopra la linea */
+}
+
+/* Il pallino sulla linea */
+.timeline-dot-horizontal {
+    width: 16px;
+    height: 16px;
+    background-color: #333; /* Colore pallino scuro */
+    border: 3px solid #e9ede4; /* Colore sfondo per effetto "buco" */
+    border-radius: 50%;
+    /* Il pallino è parte del flow flex */
+}
+
+/* Box del contenuto (data, titolo, p) */
+.timeline-content-box {
+    background-color: #f7f8f6;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    width: 90%;
+    text-align: center;
+}
+
+.timeline-content-box h3 {
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+}
+.timeline-content-box p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+.timeline-date {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #000;
+}
+
+/* --- Logica per alternare Sopra/Sotto --- */
+
+/* Item DISPARI (1, 3, 5...) -> Contenuto SOPRA */
+.timeline-item-horizontal:nth-child(odd) {
+    flex-direction: column-reverse; /* Inverte l'ordine: pallino sotto, contenuto sopra */
+}
+.timeline-item-horizontal:nth-child(odd) .timeline-content-box {
+    margin-bottom: 2rem; /* Spazio tra contenuto e pallino */
+}
+
+/* Item PARI (2, 4, 6...) -> Contenuto SOTTO */
+.timeline-item-horizontal:nth-child(even) {
+    flex-direction: column; /* Ordine normale: contenuto sotto, pallino sopra */
+}
+.timeline-item-horizontal:nth-child(even) .timeline-content-box {
+    margin-top: 2rem; /* Spazio tra pallino e contenuto */
+}
+
+
+/* --- Responsive (Mobile) -> Torna Verticale --- */
+@media (max-width: 768px) {
+    
+    .timeline-container-horizontal {
+        flex-direction: column; /* Impila gli item verticalmente */
+        padding: 0;
+        width: 90%;
+    }
+
+    /* La linea torna verticale */
+    .timeline-container-horizontal::before {
+        left: 15px; /* Sposta la linea a sinistra */
+        top: 0;
+        width: 4px;
+        height: 100%;
+    }
+
+    .timeline-item-horizontal {
+        flex-direction: column; /* Resetta l'ordine */
+        align-items: flex-start; /* Allinea tutto a sinistra */
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    /* Nasconde il pallino "in-flow" */
+    .timeline-dot-horizontal {
+        display: none;
+    }
+
+    /* Ricrea il pallino in posizione assoluta (come nella timeline verticale) */
+    .timeline-item-horizontal::after {
+        content: '';
+        position: absolute;
+        left: 7px; /* (15px linea) - (16px pallino / 2) */
+        top: 1.2rem; /* Regola posizione verticale */
+        width: 16px;
+        height: 16px;
+        background-color: #333;
+        border: 3px solid #e9ede4;
+        border-radius: 50%;
+        z-index: 3;
+    }
+
+    .timeline-content-box {
+        width: 100%;
+        margin-left: 3.5rem; /* Spazio per la linea e il pallino */
+        margin-top: 0;
+        margin-bottom: 0;
+        text-align: left;
+    }
+
+    /* Resetta l'ordine per tutti */
+    .timeline-item-horizontal:nth-child(odd),
+    .timeline-item-horizontal:nth-child(even) {
+        flex-direction: column;
+    }
+    
+    .timeline-item-horizontal:nth-child(odd) .timeline-content-box,
+    .timeline-item-horizontal:nth-child(even) .timeline-content-box {
+        margin: 0;
+        margin-left: 3.5rem;
+        padding-top: 0.5rem;
+    }
+    
+    .timeline-date {
+        margin-top: 0;
     }
 }
