@@ -43,7 +43,7 @@ h1, h2, h3, h4, h5 {
 .hero-section {
     /* Rimosso il gradiente verde: ora l'immagine è naturale con solo un velo scuro per leggere il testo */
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
-                url('images/header-bg.jpg') no-repeat center center !important; 
+                url('images/Banner Linkedin.png') no-repeat center center !important; 
     background-size: cover !important;
     padding: 160px 0 120px 0;
     text-align: center;
@@ -179,5 +179,6 @@ footer {
     height: auto;
     display: block;
 }
+
 
 
