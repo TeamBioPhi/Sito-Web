@@ -18,7 +18,7 @@ body {
 }
 
 .navbar-logo {
-    height: 45px;
+    height: 90px;
     width: auto;
 }
 
@@ -26,7 +26,7 @@ body {
 .hero-section {
     /* 1. Cambia 'header-bg.jpg' con il nome esatto del tuo file nella cartella images */
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                url('images/header-bg.jpg') no-repeat center center !important; 
+                url('images/Banner Linkedin.png') no-repeat center center !important; 
     background-size: cover !important;
     height: 80vh;
     display: flex;
@@ -90,3 +90,4 @@ footer {
     border-top: 5px solid var(--primary-green);
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
+
