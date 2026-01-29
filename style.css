@@ -91,7 +91,7 @@ img {
 }
 
 .brand img {
-    height: 45px;
+    height: 90px;
     width: auto;
 }
 
@@ -117,7 +117,7 @@ img {
     height: 75vh; /* Altezza ottimale */
     /* Overlay scuro leggero per leggere il testo bianco */
     background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                url('images/header-bg.jpg') no-repeat center center;
+                url('images/Banner Linkedin.png') no-repeat center center;
     background-size: cover;
     display: flex;
     align-items: center;
@@ -313,3 +313,4 @@ img {
         width: 100%; /* Su mobile occupa tutto lo schermo */
     }
 }
+
