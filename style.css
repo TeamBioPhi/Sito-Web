@@ -41,7 +41,7 @@ h1, h2, h3, h4, h5 {
 
 /* --- HERO SECTION (HEADER) --- */
 .hero-section {
-    background: linear-gradient(rgba(46, 74, 33, 0.6), rgba(46, 74, 33, 0.6)), 
+    background: linear-gradient(rgba(46, 74, 33, 0), rgba(46, 74, 33, 0)), 
                 url('images/Banner Linkedin.png') no-repeat center center !important; 
     background-size: cover !important;
     padding: 150px 0 100px 0;
@@ -169,3 +169,4 @@ footer {
     background-color: var(--primary-green);
     color: white;
     padding: 4
+
