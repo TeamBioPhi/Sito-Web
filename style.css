@@ -50,7 +50,7 @@ h1, h2, h3, h4, h5 {
 .hero-section {
     /* Per cambiare l'immagine, modifica l'URL tra le parentesi qui sotto */
     background: linear-gradient(rgba(46, 74, 33, 0.6), rgba(46, 74, 33, 0.6)), 
-                url('images/Banner Linedin.png'); 
+                url('images/Banner Linkedin.png'); 
     background-size: cover;
     background-position: center;
     background-attachment: fixed; /* Effetto parallasse leggero */
@@ -179,4 +179,5 @@ footer {
     transform: translateY(-3px);
     display: inline-block;
 }
+
 
