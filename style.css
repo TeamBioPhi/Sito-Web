@@ -1,183 +1,92 @@
-/* --- VARIABILI E RESET --- */
+/* --- RESET E VARIABILI --- */
 :root {
     --primary-green: #6C9A46;
     --dark-green: #2E4A21;
     --light-bg: #f8f9fa;
-    --text-dark: #333;
-    --header-text-color: #ffffff; /* Colore personalizzabile per i testi dell'header */
+    --text-white: #ffffff; /* Colore per i contenuti dell'header */
 }
 
 body {
     font-family: 'Open Sans', sans-serif;
-    color: var(--text-dark);
-    overflow-x: hidden;
-    padding-top: 70px; /* Spazio per la navbar fissa */
+    padding-top: 70px;
 }
 
-h1, h2, h3, h4, h5 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-}
-
-/* --- NAVBAR --- */
+/* --- NAVBAR E LOGO --- */
 .navbar {
-    background-color: white;
+    background-color: white !important;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.navbar-brand {
-    display: flex;
-    align-items: center;
-    padding: 5px 0;
-}
-
 .navbar-logo {
-    height: 90px;
+    height: 45px;
     width: auto;
-    transition: transform 0.3s ease;
-}
-
-.nav-link {
-    color: var(--text-dark);
-    font-weight: 600;
-}
-
-.nav-link:hover {
-    color: var(--primary-green);
 }
 
 /* --- HERO SECTION (HEADER) --- */
 .hero-section {
-    /* Per cambiare l'immagine, modifica l'URL tra le parentesi qui sotto */
-    background: linear-gradient(rgba(46, 74, 33, 0.6), rgba(46, 74, 33, 0.6)), 
-                url('images/Banner Linkedin.png'); 
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Effetto parallasse leggero */
-    color: var(--header-text-color); /* Usa la variabile definita sopra */
-    padding: 150px 0 100px 0;
+    /* 1. Cambia 'header-bg.jpg' con il nome esatto del tuo file nella cartella images */
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                url('images/header-bg.jpg') no-repeat center center !important; 
+    background-size: cover !important;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
 }
 
+/* Colore dei contenuti dell'header (Titolo e Sottotitolo) */
 .hero-section h1, 
 .hero-section p {
-    color: var(--header-text-color); /* Forza il colore scelto */
+    color: var(--text-white) !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Migliora la leggibilità */
 }
 
 .hero-btn {
-    background-color: var(--primary-green);
-    color: white;
+    background-color: var(--primary-green) !important;
+    color: white !important;
     padding: 12px 30px;
     border-radius: 30px;
-    text-decoration: none;
     font-weight: 600;
-    transition: all 0.3s;
-    border: none;
+    text-decoration: none;
     display: inline-block;
 }
 
-.hero-btn:hover {
-    background-color: white;
-    color: var(--primary-green);
-}
-
-/* --- SEZIONI GENERALI --- */
+/* --- SEZIONI --- */
 .section-padding { padding: 80px 0; }
+.bg-light { background-color: var(--light-bg) !important; }
 
-.section-title {
-    text-align: center;
-    margin-bottom: 50px;
+/* --- FOOTER E ICONE LINKEDIN --- */
+footer {
+    background-color: var(--dark-green) !important;
+    color: white !important;
+    padding: 50px 0 20px 0;
 }
 
-.section-title h2 {
-    color: var(--dark-green);
-    position: relative;
-    display: inline-block;
-    padding-bottom: 15px;
+/* Assicuriamoci che l'icona LinkedIn sia visibile */
+.fab.fa-linkedin, .fa-linkedin-in {
+    font-family: "Font Awesome 6 Brands" !important;
+    display: inline-block !important;
 }
 
-.section-title h2::after {
-    content: '';
-    position: absolute;
-    width: 50px;
-    height: 3px;
-    background-color: var(--primary-green);
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+.social-link {
+    color: white !important;
+    margin: 0 10px;
+    font-size: 1.5rem;
+    transition: 0.3s;
+    text-decoration: none !important;
 }
 
-/* --- CARDS E TIMELINE --- */
+.social-link:hover {
+    color: var(--primary-green) !important;
+    transform: scale(1.1);
+}
+
+/* --- CARTE E ALTRI STILI --- */
 .feature-card {
     background: white;
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-    transition: transform 0.3s;
-    height: 100%;
     border-top: 5px solid var(--primary-green);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
-
-.feature-card:hover { transform: translateY(-10px); }
-
-.icon-circle {
-    width: 70px;
-    height: 70px;
-    background-color: #e8f5e9;
-    color: var(--primary-green);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-.timeline-step {
-    position: relative;
-    padding-left: 30px;
-    margin-bottom: 30px;
-    border-left: 2px solid var(--primary-green);
-}
-
-.timeline-step::before {
-    content: '';
-    position: absolute;
-    left: -6px;
-    top: 0;
-    width: 10px;
-    height: 10px;
-    background: var(--primary-green);
-    border-radius: 50%;
-}
-
-.quote-box {
-    background-color: var(--primary-green);
-    color: white;
-    padding: 40px;
-    border-radius: 20px;
-    font-style: italic;
-    font-size: 1.2rem;
-    text-align: center;
-}
-
-/* --- FOOTER E SOCIAL --- */
-footer {
-    background-color: var(--dark-green);
-    color: white;
-    padding: 50px 0 20px 0;
-}
-
-.social-link {
-    color: #e8f5e9;
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.social-link:hover {
-    color: var(--primary-green);
-    transform: translateY(-3px);
-    display: inline-block;
-}
-
-
