@@ -1,17 +1,25 @@
-/* --- RESET E VARIABILI --- */
+/* --- VARIABILI --- */
 :root {
     --primary-green: #6C9A46;
     --dark-green: #2E4A21;
     --light-bg: #f8f9fa;
-    --text-white: #ffffff; /* Colore per i contenuti dell'header */
+    --text-dark: #333;
+    --header-content-color: #ffffff; /* Colore per testi e bottoni nell'header */
 }
 
+/* --- BASE --- */
 body {
     font-family: 'Open Sans', sans-serif;
+    color: var(--text-dark);
     padding-top: 70px;
 }
 
-/* --- NAVBAR E LOGO --- */
+h1, h2, h3, h4, h5 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+/* --- NAVBAR --- */
 .navbar {
     background-color: white !important;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -22,24 +30,28 @@ body {
     width: auto;
 }
 
+.nav-link {
+    color: var(--text-dark) !important;
+    font-weight: 600;
+}
+
+.nav-link:hover {
+    color: var(--primary-green) !important;
+}
+
 /* --- HERO SECTION (HEADER) --- */
 .hero-section {
-    /* 1. Cambia 'header-bg.jpg' con il nome esatto del tuo file nella cartella images */
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+    background: linear-gradient(rgba(46, 74, 33, 0.6), rgba(46, 74, 33, 0.6)), 
                 url('images/Banner Linkedin.png') no-repeat center center !important; 
     background-size: cover !important;
-    height: 80vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 150px 0 100px 0;
     text-align: center;
 }
 
-/* Colore dei contenuti dell'header (Titolo e Sottotitolo) */
 .hero-section h1, 
 .hero-section p {
-    color: var(--text-white) !important;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Migliora la leggibilità */
+    color: var(--header-content-color) !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
 }
 
 .hero-btn {
@@ -47,47 +59,113 @@ body {
     color: white !important;
     padding: 12px 30px;
     border-radius: 30px;
-    font-weight: 600;
     text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: none;
     display: inline-block;
+}
+
+.hero-btn:hover {
+    background-color: white !important;
+    color: var(--primary-green) !important;
 }
 
 /* --- SEZIONI --- */
 .section-padding { padding: 80px 0; }
-.bg-light { background-color: var(--light-bg) !important; }
 
-/* --- FOOTER E ICONE LINKEDIN --- */
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title h2 {
+    color: var(--dark-green);
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+.section-title h2::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    background-color: var(--primary-green);
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* --- CARTE E ICONE (RIPRISTINATE) --- */
+.feature-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+    height: 100%;
+    border-top: 5px solid var(--primary-green);
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+.icon-circle {
+    width: 70px;
+    height: 70px;
+    background-color: #e8f5e9; /* Il verde chiaro del cerchio */
+    color: var(--primary-green); /* Colore dell'icona interna */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin: 0 auto 20px auto; /* Centrato */
+}
+
+/* --- ROADMAP --- */
+.timeline-step {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 30px;
+    border-left: 2px solid var(--primary-green);
+}
+
+.timeline-step::before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    background: var(--primary-green);
+    border-radius: 50%;
+}
+
+/* --- FOOTER E SOCIAL --- */
 footer {
     background-color: var(--dark-green) !important;
     color: white !important;
     padding: 50px 0 20px 0;
 }
 
-/* Assicuriamoci che l'icona LinkedIn sia visibile */
-.fab.fa-linkedin, .fa-linkedin-in {
-    font-family: "Font Awesome 6 Brands" !important;
-    display: inline-block !important;
-}
-
 .social-link {
-    color: white !important;
+    color: #e8f5e9 !important;
     margin: 0 10px;
-    font-size: 1.5rem;
-    transition: 0.3s;
+    transition: all 0.3s ease;
     text-decoration: none !important;
+    font-size: 1.5rem;
+    display: inline-block;
 }
 
 .social-link:hover {
     color: var(--primary-green) !important;
-    transform: scale(1.1);
+    transform: translateY(-3px);
 }
 
-/* --- CARTE E ALTRI STILI --- */
-.feature-card {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    border-top: 5px solid var(--primary-green);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
+.quote-box {
+    background-color: var(--primary-green);
+    color: white;
+    padding: 4
