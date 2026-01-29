@@ -63,7 +63,43 @@ footer { background: #2E4A21 !important; color: white !important; padding: 50px 
 .section-title { text-align: center; margin-bottom: 40px; }
 .section-title h2 { color: #2E4A21; margin-bottom: 10px; }
 
-/* Responsive mobile */
+/* Container per ogni riga di prodotto */
+.product-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+    margin-bottom: 80px; /* Spazio tra gli stream */
+}
+
+/* Inverte l'ordine per lo Stream B (Immagine a sinistra) */
+.flex-reverse {
+    flex-direction: row-reverse;
+}
+
+/* Gestione testo e immagine */
+.product-text {
+    flex: 1;
+}
+
+.product-image {
+    flex: 1;
+}
+
+.product-image img {
+    width: 100%;
+    max-width: 500px; /* Limita la grandezza massima */
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    display: block;
+    margin: 0 auto;
+}
+
+/* Mobile: mette tutto in colonna */
 @media (max-width: 768px) {
-    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .product-row, .product-row.flex-reverse {
+        flex-direction: column;
+        text-align: center;
+    }
 }
