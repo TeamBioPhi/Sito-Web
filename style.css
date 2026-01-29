@@ -1,431 +1,181 @@
-/* --- Stili Globali --- */
-html {
-    scroll-behavior: smooth;
+/* --- VARIABILI E RESET --- */
+:root {
+    --primary-green: #6C9A46;
+    --dark-green: #2E4A21;
+    --light-bg: #f8f9fa;
+    --text-dark: #333;
+    --header-text-color: #ffffff; /* Colore personalizzabile per i testi dell'header */
 }
 
 body {
-    /* Colore di sfondo principale dalle slide */
-    background-color: #e9ede4; 
-    /* Colore testo principale */
-    color: #333;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    color: var(--text-dark);
+    overflow-x: hidden;
+    padding-top: 70px; /* Spazio per la navbar fissa */
 }
 
-h1, h2, h3, h4, h5, h6 {
-    color: #222;
-    margin-bottom: 1rem;
+h1, h2, h3, h4, h5 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
 }
 
-h1 { font-size: 4.5rem; margin: 0.5rem 0; }
-h2 { font-size: 2.5rem; }
-h3 { font-size: 1.5rem; }
-p, li { font-size: 1.1rem; line-height: 1.6; }
-
-ul {
-    list-style-type: none;
-    padding-left: 0;
+/* --- NAVBAR --- */
+.navbar {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-li {
-    margin-bottom: 0.75rem;
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
 }
 
-a {
-    color: #0056b3;
+.navbar-logo {
+    height: 45px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.nav-link {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+.nav-link:hover {
+    color: var(--primary-green);
+}
+
+/* --- HERO SECTION (HEADER) --- */
+.hero-section {
+    /* Per cambiare l'immagine, modifica l'URL tra le parentesi qui sotto */
+    background: linear-gradient(rgba(46, 74, 33, 0.6), rgba(46, 74, 33, 0.6)), 
+                url('images/Banner Linedin.png'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Effetto parallasse leggero */
+    color: var(--header-text-color); /* Usa la variabile definita sopra */
+    padding: 150px 0 100px 0;
+    text-align: center;
+}
+
+.hero-section h1, 
+.hero-section p {
+    color: var(--header-text-color); /* Forza il colore scelto */
+}
+
+.hero-btn {
+    background-color: var(--primary-green);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: none;
+    display: inline-block;
+}
+
+.hero-btn:hover {
+    background-color: white;
+    color: var(--primary-green);
+}
+
+/* --- SEZIONI GENERALI --- */
+.section-padding { padding: 80px 0; }
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title h2 {
+    color: var(--dark-green);
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
+}
+
+.section-title h2::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    background-color: var(--primary-green);
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* --- CARDS E TIMELINE --- */
+.feature-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+    height: 100%;
+    border-top: 5px solid var(--primary-green);
+}
+
+.feature-card:hover { transform: translateY(-10px); }
+
+.icon-circle {
+    width: 70px;
+    height: 70px;
+    background-color: #e8f5e9;
+    color: var(--primary-green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.timeline-step {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 30px;
+    border-left: 2px solid var(--primary-green);
+}
+
+.timeline-step::before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    background: var(--primary-green);
+    border-radius: 50%;
+}
+
+.quote-box {
+    background-color: var(--primary-green);
+    color: white;
+    padding: 40px;
+    border-radius: 20px;
+    font-style: italic;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+/* --- FOOTER E SOCIAL --- */
+footer {
+    background-color: var(--dark-green);
+    color: white;
+    padding: 50px 0 20px 0;
+}
+
+.social-link {
+    color: #e8f5e9;
+    transition: all 0.3s ease;
     text-decoration: none;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* --- Struttura Slide --- */
-.slide {
-    min-height: 100vh; /* Ogni slide occupa almeno l'intera altezza dello schermo */
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 4rem 2rem;
-    box-sizing: border-box; /* Include padding nel calcolo dell'altezza */
-    text-align: center;
-    /*border-bottom: 1px solid #d8dccf; /* Sottile separatore tra slide */
-}
-
-/* Layout a due colonne */
-.two-columns {
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    gap: 3rem;
-    text-align: left;
-}
-
-.two-columns .content-left,
-.two-columns .content-right {
-    flex-basis: 45%; /* Ogni colonna occupa il 45% */
-}
-
-.two-columns ul {
-    list-style-type: '• '; /* Stile bullet point come da slide */
-    padding-left: 1.2rem;
-}
-
-/* --- Stili Slide Specifiche --- */
-
-/* Slide 1: Hero */
-.hero .logo {
-    width: 600px;
-    margin-bottom: 0rem;
-}
-.hero .tagline {
-    font-size: 1.5rem;
-    color: #555;
-}
-
-/* Slide 2: Mission/Vision */
-#slide2 {
-    gap: 2rem;
-}
-.mission-vision {
-    max-width: 500px;
-}
-.mission-vision h2 {
-    border-bottom: 2px solid #333;
+.social-link:hover {
+    color: var(--primary-green);
+    transform: translateY(-3px);
     display: inline-block;
-    padding-bottom: 0.5rem;
 }
-
-/* Slide 4: Ecosistema */
-#slide4 .content-right h3 {
-    text-align: left;
-}
-#slide4 .icon-list li {
-    position: relative;
-    padding-left: 1.5rem; /* Spazio per l'icona finta */
-}
-#slide4 .icon-list li::before {
-    content: []; /* Sostituisci con icone vere se le hai */
-    position: absolute;
-    left: 0;
-    top: 0;
-    font-size: 1.2rem;
-    line-height: 1.6;
-}
-.highlight {
-    background-color: #d8dccf; /* Sfondo per box evidenziato */
-    padding: 1rem;
-    border-radius: 8px;
-    margin-top: 2rem;
-    text-align: left;
-}
-
-/* Slide 5 & 8: Gallerie Immagini */
-.image-gallery {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1.5rem;
-    margin-top: 2rem;
-    flex-wrap: wrap; /* Per mobile */
-}
-.image-gallery img {
-    border-radius: 20px; /* Angoli arrotondati come da slide */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-#slide5 .image-gallery img {
-    max-width: 250px;
-    width: 30%;
-}
-#slide8 .image-gallery img {
-    max-width: 350px;
-    width: 40%;
-}
-.text-row {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    max-width: 700px;
-    margin-top: 2rem;
-}
-
-/* Slide 6: Griglia Mercati */
-.market-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    max-width: 900px;
-    margin-top: 2rem;
-}
-.market-item img {
-    width: 100%;
-    border-radius: 20px;
-}
-.market-item h3 {
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-}
-
-/* Slide 7: Processo */
-.process-step {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    text-align: left;
-}
-.process-step .icon {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #555;
-    line-height: 1.2;
-}
-.process-step h3 {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-}
-
-/* Slide 9: Contatti */
-.qr-code {
-    width: 200px;
-    height: 200px;
-    margin: 1rem 0;
-}
-.contact-link {
-    display: inline-block;
-    background-color: #333;
-    color: #e9ede4;
-    padding: 1rem 2.5rem;
-    border-radius: 8px;
-    font-weight: bold;
-    margin: 1rem 0;
-    font-size: 1.2rem;
-    transition: background-color 0.3s ease;
-}
-.contact-link:hover {
-    background-color: #555;
-}
-#slide9 p {
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-/* --- Responsive Design (per dispositivi mobili) --- */
-@media (max-width: 768px) {
-    h1 { font-size: 3rem; }
-    h2 { font-size: 2rem; }
-    
-    .slide {
-        padding: 3rem 1rem;
-    }
-
-    /* Le colonne diventano righe */
-    .two-columns {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .two-columns .content-left,
-    .two-columns .content-right {
-        flex-basis: 100%; /* Colonne a larghezza piena */
-    }
-
-    .two-columns ul {
-        text-align: left;
-    }
-
-    #slide4 .content-right h3 {
-        text-align: center;
-    }
-    #slide4 .icon-list {
-        text-align: left;
-    }
-    .highlight {
-        text-align: center;
-    }
-
-    .image-gallery {
-        flex-direction: column;
-    }
-
-    #slide5 .image-gallery img,
-    #slide8 .image-gallery img {
-        width: 90%;
-        max-width: 400px;
-    }
-
-    .text-row {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .market-grid {
-        grid-template-columns: 1fr; /* Griglia a colonna singola */
-    }
-
-    .process-step {
-        text-align: left;
-    }
-}
-
-/* --- Stili per la Timeline Orizzontale --- */
-
-.timeline-container-horizontal {
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    max-width: 1000px;
-    position: relative;
-    padding: 2rem 0;
-    margin-top: 2rem;
-}
-
-/* La linea orizzontale */
-.timeline-container-horizontal::before {
-    content: '';
-    position: absolute;
-    top: 50%; /* Si centra verticalmente */
-    left: 5%;
-    width: 90%;
-    height: 4px;
-    background-color: #d8dccf; /* Colore linea grigio chiaro */
-    transform: translateY(-50%);
-    z-index: 1;
-}
-
-.timeline-item-horizontal {
-    flex: 1; /* Occupa spazio equo */
-    display: flex;
-    flex-direction: column; /* Impila contenuto e pallino */
-    align-items: center; /* Centra orizzontalmente */
-    position: relative;
-    z-index: 2; /* Sta sopra la linea */
-}
-
-/* Il pallino sulla linea */
-.timeline-dot-horizontal {
-    width: 16px;
-    height: 16px;
-    background-color: #333; /* Colore pallino scuro */
-    border: 3px solid #e9ede4; /* Colore sfondo per effetto "buco" */
-    border-radius: 50%;
-    /* Il pallino è parte del flow flex */
-}
-
-/* Box del contenuto (data, titolo, p) */
-.timeline-content-box {
-    background-color: #f7f8f6;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    width: 90%;
-    text-align: center;
-}
-
-.timeline-content-box h3 {
-    margin-top: 0.5rem;
-    font-size: 1.2rem;
-}
-.timeline-content-box p {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin-bottom: 0;
-}
-.timeline-date {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #000;
-}
-
-/* --- Logica per alternare Sopra/Sotto --- */
-
-/* Item DISPARI (1, 3, 5...) -> Contenuto SOPRA */
-.timeline-item-horizontal:nth-child(odd) {
-    flex-direction: column-reverse; /* Inverte l'ordine: pallino sotto, contenuto sopra */
-}
-.timeline-item-horizontal:nth-child(odd) .timeline-content-box {
-    margin-bottom: 2rem; /* Spazio tra contenuto e pallino */
-}
-
-/* Item PARI (2, 4, 6...) -> Contenuto SOTTO */
-.timeline-item-horizontal:nth-child(even) {
-    flex-direction: column; /* Ordine normale: contenuto sotto, pallino sopra */
-}
-.timeline-item-horizontal:nth-child(even) .timeline-content-box {
-    margin-top: 2rem; /* Spazio tra pallino e contenuto */
-}
-
-
-/* --- Responsive (Mobile) -> Torna Verticale --- */
-@media (max-width: 768px) {
-    
-    .timeline-container-horizontal {
-        flex-direction: column; /* Impila gli item verticalmente */
-        padding: 0;
-        width: 90%;
-    }
-
-    /* La linea torna verticale */
-    .timeline-container-horizontal::before {
-        left: 15px; /* Sposta la linea a sinistra */
-        top: 0;
-        width: 4px;
-        height: 100%;
-    }
-
-    .timeline-item-horizontal {
-        flex-direction: column; /* Resetta l'ordine */
-        align-items: flex-start; /* Allinea tutto a sinistra */
-        width: 100%;
-        margin-bottom: 2rem;
-    }
-
-    /* Nasconde il pallino "in-flow" */
-    .timeline-dot-horizontal {
-        display: none;
-    }
-
-    /* Ricrea il pallino in posizione assoluta (come nella timeline verticale) */
-    .timeline-item-horizontal::after {
-        content: '';
-        position: absolute;
-        left: 7px; /* (15px linea) - (16px pallino / 2) */
-        top: 1.2rem; /* Regola posizione verticale */
-        width: 16px;
-        height: 16px;
-        background-color: #333;
-        border: 3px solid #e9ede4;
-        border-radius: 50%;
-        z-index: 3;
-    }
-
-    .timeline-content-box {
-        width: 100%;
-        margin-left: 3.5rem; /* Spazio per la linea e il pallino */
-        margin-top: 0;
-        margin-bottom: 0;
-        text-align: left;
-    }
-
-    /* Resetta l'ordine per tutti */
-    .timeline-item-horizontal:nth-child(odd),
-    .timeline-item-horizontal:nth-child(even) {
-        flex-direction: column;
-    }
-    
-    .timeline-item-horizontal:nth-child(odd) .timeline-content-box,
-    .timeline-item-horizontal:nth-child(even) .timeline-content-box {
-        margin: 0;
-        margin-left: 3.5rem;
-        padding-top: 0.5rem;
-    }
-    
-    .timeline-date {
-        margin-top: 0;
-    }
-}
-
