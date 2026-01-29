@@ -1,4 +1,4 @@
-/* --- RESET GENERALE --- */
+/* 1. RESET TOTALE - Pulisce ogni interferenza esterna */
 * {
     margin: 0;
     padding: 0;
@@ -7,169 +7,189 @@
 
 body {
     font-family: 'Open Sans', sans-serif;
+    color: #333;
     line-height: 1.6;
-    color: #333;/* --- RESET --- */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Open Sans', sans-serif; color: #333; line-height: 1.6; }
-a { text-decoration: none; color: inherit; }
-img { max-width: 100%; height: auto; display: block; }
-
-/* --- LAYOUT --- */
-.container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
-.section-padding { padding: 80px 0; }
-.bg-light { background-color: #f8f9fa; }
-.text-start { text-align: left; }
-.mb-50 { margin-bottom: 50px; }
-.rounded { border-radius: 15px; }
-.shadow { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-
-/* GRIGLIE PURE (No Bootstrap) */
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; }
-.align-center { align-items: center; }
-
-/* --- NAVBAR --- */
-.navbar { background: white; height: 80px; display: flex; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-.nav-container { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-.navbar-logo { height: 45px; }
-.nav-links { display: flex; list-style: none; gap: 25px; }
-.nav-links a { font-weight: 600; transition: 0.3s; }
-.nav-links a:hover { color: #6C9A46; }
-
-/* --- HERO (Header naturale) --- */
-.hero-section { 
-    padding: 180px 0 120px 0; 
-    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('images/header-bg.jpg') no-repeat center center; 
-    background-size: cover; 
-    text-align: center; 
-    color: white; 
-}
-.hero-section h1 { font-family: 'Montserrat'; font-size: 3.5rem; margin-bottom: 20px; }
-.hero-btn { background: #6C9A46; color: white; padding: 15px 35px; border-radius: 50px; display: inline-block; font-weight: 700; transition: 0.3s; }
-.hero-btn:hover { background: white; color: #6C9A46; }
-
-/* --- ICONE VERDI --- */
-.icon-circle { 
-    width: 75px; height: 75px; background: #e8f5e9; color: #6C9A46; 
-    border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-    margin: 0 auto 20px; font-size: 28px; 
-}
-.feature-card { background: white; padding: 40px 25px; border-radius: 15px; text-align: center; border-top: 5px solid #6C9A46; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-
-/* --- CITAZIONE --- */
-.quote-box { background: #6C9A46; color: white; padding: 50px; border-radius: 20px; font-style: italic; font-size: 1.3rem; text-align: center; }
-
-/* --- ROADMAP --- */
-.roadmap-container { max-width: 600px; margin: 0 auto; }
-.timeline-step { border-left: 2px solid #6C9A46; padding: 0 0 40px 30px; position: relative; }
-.timeline-step::before { content: ''; position: absolute; left: -7px; top: 0; width: 12px; height: 12px; background: #6C9A46; border-radius: 50%; }
-.no-border { border-left: none; }
-
-/* --- FOOTER VERDE --- */
-.footer { background: #2E4A21; color: white; padding: 60px 0 30px; text-align: center; }
-.social-links { margin: 20px 0; }
-.social-link { color: white; transition: 0.3s; display: inline-block; }
-.social-link:hover { color: #6C9A46; transform: scale(1.1); }
-.copyright { margin-top: 30px; font-size: 0.9rem; opacity: 0.7; }
-
-/* Responsive */
-@media (max-width: 768px) {
-    .grid-2, .grid-3 { grid-template-columns: 1fr; }
-    .hero-section h1 { font-size: 2.5rem; }
-    .nav-links { display: none; } /* Per semplicità mobile in Pure CSS */
-}
-    background-color: #fff;
+    padding-top: 80px; /* Spazio per la navbar */
 }
 
-/* --- HEADER (Immagine naturale) --- */
-.hero-section {
-    height: 60vh;
-    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
-                url('images/Linkedin Banner.png') no-repeat center center;
-    background-size: cover;
+/* 2. NAVBAR */
+.navbar {
+    background-color: #ffffff !important;
+    height: 80px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    text-align: center;
-    color: white;
-    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
 }
 
-.hero-section h1 { font-family: 'Montserrat', sans-serif; font-size: 3rem; margin-bottom: 10px; }
-
-/* --- GRIGLIA DELLE CARD (Sostituisce Bootstrap) --- */
-.container {
-    max-width: 1100px;
+.nav-container {
+    width: 100%;
+    max-width: 1140px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+.navbar-logo {
+    height: 45px;
+    display: block;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
     gap: 30px;
 }
 
-/* --- LE ICONCINE NEI CERCHI VERDI --- */
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #6C9A46;
+}
+
+/* 3. HERO SECTION - Immagine naturale */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                url('images/header-bg.jpg') no-repeat center center;
+    background-size: cover;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #ffffff;
+}
+
+.hero-section h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+}
+
+.hero-btn {
+    background-color: #6C9A46;
+    color: white;
+    padding: 15px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    transition: 0.3s;
+    border: none;
+}
+
+.hero-btn:hover {
+    background-color: #ffffff;
+    color: #6C9A46;
+}
+
+/* 4. LE ICONCINE NEI CERCHI VERDI (Ripristinate) */
+.icon-circle {
+    width: 80px !important;
+    height: 80px !important;
+    background-color: #e8f5e9 !important; /* Verde chiaro */
+    color: #6C9A46 !important;           /* Icona verde scuro */
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 30px !important;
+    margin: 0 auto 20px auto !important;
+}
+
 .feature-card {
-    background: white;
+    background: #ffffff;
     padding: 40px 20px;
     border-radius: 15px;
     text-align: center;
     box-shadow: 0 10px 20px rgba(0,0,0,0.05);
     border-top: 5px solid #6C9A46;
+    height: 100%;
 }
 
-.icon-circle {
-    width: 80px;
-    height: 80px;
-    background-color: #e8f5e9; /* Verde chiaro */
-    color: #6C9A46;           /* Icona verde */
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 30px;
-    margin: 0 auto 20px auto;
-}
-
-/* --- CITAZIONE (Card Verde) --- */
+/* 5. LA CITAZIONE (Box solido verde) */
 .quote-box {
-    background-color: #6C9A46;
-    color: white;
-    padding: 40px;
+    background-color: #6C9A46 !important;
+    color: #ffffff !important;
+    padding: 50px;
     border-radius: 20px;
     font-style: italic;
+    font-size: 1.3rem;
     text-align: center;
-    margin: 40px 0;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
-/* --- FOOTER VERDE SCURO --- */
+/* 6. GRIGLIE (Sostituiscono Bootstrap) */
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+/* 7. FOOTER (Verde Scuro) */
 footer {
-    background-color: #2E4A21; /* Il tuo verde scuro */
-    color: white;
-    padding: 60px 20px 20px 20px;
+    background-color: #2E4A21 !important; /* Verde BioPhi scuro */
+    color: #ffffff !important;
+    padding: 60px 20px 30px 20px;
     text-align: center;
 }
 
-footer a {
-    color: white;
-    margin: 0 10px;
-    font-size: 1.5rem;
+.social-link {
+    color: #ffffff !important;
+    font-size: 2rem;
     text-decoration: none;
+    transition: 0.3s;
 }
 
-footer h3 { margin-bottom: 10px; }
-
-/* --- BOTTONE --- */
-.hero-btn {
-    background-color: #6C9A46;
-    color: white;
-    padding: 12px 30px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 20px;
+.social-link:hover {
+    color: #6C9A46 !important;
 }
 
+/* 8. ROADMAP */
+.timeline-step {
+    border-left: 2px solid #6C9A46;
+    padding: 0 0 40px 30px;
+    position: relative;
+    text-align: left;
+}
+
+.timeline-step::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    background: #6C9A46;
+    border-radius: 50%;
+}
+
+/* UTILITY */
+.section-padding { padding: 80px 0; }
+.bg-light { background-color: #f8f9fa; }
+.rounded { border-radius: 15px; }
+.shadow { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
