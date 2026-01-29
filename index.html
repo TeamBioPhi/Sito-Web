@@ -6,16 +6,16 @@
     <title>BioPhi - From Nature To Nature</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=3.0">
 </head>
 <body>
 
     <nav class="navbar">
         <div class="container nav-container">
-            <a class="navbar-brand" href="#">
-                <img src="images/BioPhi - Logo.svg" alt="BioPhi Logo" class="navbar-logo">
+            <a href="#" class="brand">
+                <img src="images/BioPhi - Logo.svg" alt="BioPhi Logo">
             </a>
-            <ul class="nav-links">
+            <ul class="nav-menu">
                 <li><a href="#chi-siamo">Chi Siamo</a></li>
                 <li><a href="#tecnologia">Tecnologia</a></li>
                 <li><a href="#prodotti">Prodotti</a></li>
@@ -25,137 +25,101 @@
         </div>
     </nav>
 
-    <header class="hero-section">
+    <header class="hero">
         <div class="container">
             <h1>From Nature To Nature</h1>
             <p>Bioraffiniamo scarti in nuovi materiali chiudendo cicli industriali.</p>
-            <a href="#contatti" class="hero-btn">Scopri il Futuro</a>
+            <a href="#contatti" class="btn-main">Scopri il Futuro</a>
         </div>
     </header>
 
     <section id="chi-siamo" class="section-padding bg-light">
         <div class="container grid-2">
-            <div class="quote-box">
+            <div class="quote-card">
                 "Ogni scarto è un'opportunità. Ogni opportunità un nuovo inizio."
             </div>
-            <div>
-                <div class="section-title text-start">
-                    <h2>La Nostra Visione</h2>
-                </div>
+            <div class="vision-text">
+                <h2>La Nostra Visione</h2>
                 <p>BioPhi opera nel settore della Chimica Verde e delle Biotecnologie Industriali.</p>
-                <p>La nostra missione è trasformare quotidianamente tonnellate di rifiuti agricoli e industriali in materiali ad alto valore aggiunto. Ci posizioniamo come la prima bioraffineria per biopolimeri avanzati da scarti locali, promuovendo un modello di economia circolare reale.</p>
+                <p>La nostra missione è trasformare quotidianamente tonnellate di rifiuti agricoli e industriali in materiali ad alto valore aggiunto. Ci posizioniamo come la prima bioraffineria per biopolimeri avanzati da scarti locali.</p>
             </div>
         </div>
     </section>
 
     <section id="tecnologia" class="section-padding">
         <div class="container">
-            <div class="section-title">
+            <div class="section-header">
                 <h2>Bioraffineria "Wet-to-Value"</h2>
                 <p>Un processo unico, adattabile e a basso impatto energetico.</p>
             </div>
-            
             <div class="grid-3">
-                <div class="feature-card">
-                    <div class="icon-circle"><i class="fas fa-leaf"></i></div>
-                    <h4>Input: Biomassa</h4>
-                    <p>Recuperiamo sottoprodotti agro-industriali come trebbie di birra, scarti di caffè e lolla di riso.</p>
-                    <small style="color: #666;">Accordi di fornitura consolidati (>500kg/giorno garantiti).</small>
+                <div class="card-feature">
+                    <div class="icon-wrap"><i class="fas fa-leaf"></i></div>
+                    <h3>Input: Biomassa</h3>
+                    <p>Recuperiamo sottoprodotti agro-industriali come trebbie di birra e scarti di caffè.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="icon-circle"><i class="fas fa-flask"></i></div>
-                    <h4>Processo Innovativo</h4>
-                    <p>Trattiamo biomasse umide (80% acqua) senza la fase energivora di pre-essiccazione.</p>
-                    <p>Utilizziamo le fibre come agenti attivi "Smart-Degrade" per programmare la biodegradabilità.</p>
+                <div class="card-feature">
+                    <div class="icon-wrap"><i class="fas fa-flask"></i></div>
+                    <h3>Processo Innovativo</h3>
+                    <p>Trattiamo biomasse umide senza la fase energivora di pre-essiccazione.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="icon-circle"><i class="fas fa-recycle"></i></div>
-                    <h4>Output: Valore</h4>
-                    <p>Convertiamo lo scarto in granuli bioplastici e ingredienti funzionali, chiudendo il ciclo della natura.</p>
+                <div class="card-feature">
+                    <div class="icon-wrap"><i class="fas fa-recycle"></i></div>
+                    <h3>Output: Valore</h3>
+                    <p>Convertiamo lo scarto in granuli bioplastici e ingredienti funzionali.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="prodotti" class="section-padding bg-light">
-    <div class="container">
-        <div class="section-title">
-            <h2>Prodotti B2B</h2>
-            <p>Semilavorati industriali ad alte prestazioni per l'economia circolare.</p>
-        </div>
-
-        <div class="product-row">
-            <div class="product-text">
-                <h3>Stream A: Granuli Bioplastici</h3>
-                <p><strong>Descrizione:</strong> Pellet ottenuto miscelando biomassa con matrici biopolimeriche.</p>
-                <p><strong>Applicazioni:</strong> Packaging compostabile, stampaggio a iniezione.</p>
-            </div>
-            <div class="product-image">
-                <img src="images/Compound.JPG" alt="Stream A">
-            </div>
-        </div>
-
-        <div class="product-row flex-reverse">
-            <div class="product-text">
-                <h3>Stream B: Ingredienti Funzionali</h3>
-                <p><strong>Descrizione:</strong> Concentrati proteici e zuccheri estratti durante la raffinazione.</p>
-                <p><strong>Applicazioni:</strong> Nutraceutica, cosmetica e industria chimica.</p>
-            </div>
-            <div class="product-image">
-                <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=80" alt="Stream B">
-            </div>
-        </div>
-
-        <div class="product-row">
-            <div class="product-text">
-                <h3>Stream C: Prodotti Alto Consumo</h3>
-                <p><strong>Descrizione:</strong> Prodotti bio-based e biodegradabili sviluppati con i nostri partner.</p>
-                <p><strong>Applicazioni:</strong> Eventi, vita quotidiana, ufficio.</p>
-            </div>
-            <div class="product-image">
-                <img src="images/biophiglass.png" alt="Stream C">
-            </div>
-        </div>
-    </div>
-    </section>
-
-    <section id="roadmap" class="section-padding">
         <div class="container">
-            <div class="section-title">
-                <h2>La Nostra Roadmap</h2>
+            <div class="section-header">
+                <h2>Prodotti B2B</h2>
             </div>
-            <div class="roadmap-container">
-                <div class="timeline-step">
-                    <h5>Q4 2026</h5>
-                    <p>Primo campione materiale.</p>
+
+            <div class="product-box">
+                <div class="p-info">
+                    <h3>Stream A: Granuli Bioplastici</h3>
+                    <p>Granulo termoplastico ottenuto miscelando biomassa con matrici biopolimeriche.</p>
                 </div>
-                <div class="timeline-step">
-                    <h5>Q2 2027</h5>
-                    <p>Impianto pilota: 1000 kg/giorno.</p>
+                <div class="p-img">
+                    <img src="images/Compound.JPG" alt="Granuli">
                 </div>
-                <div class="timeline-step no-border">
-                    <h5>Q2 2028</h5>
-                    <p>Avvio Bioraffineria Industriale.</p>
+            </div>
+
+            <div class="product-box reverse">
+                <div class="p-info">
+                    <h3>Stream B: Ingredienti Funzionali</h3>
+                    <p>Concentrati proteici vegetali ed emicellulosa estratti durante la raffinazione.</p>
+                </div>
+                <div class="p-img">
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=80" alt="Lab">
+                </div>
+            </div>
+
+            <div class="product-box">
+                <div class="p-info">
+                    <h3>Stream C: Prodotti Alto Consumo</h3>
+                    <p>Sviluppo di prodotti bio-based e biodegradabili per chiudere il cerchio.</p>
+                </div>
+                <div class="p-img">
+                    <img src="images/biophiglass.png" alt="Glass">
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="footer">
+    <footer class="main-footer">
         <div class="container">
             <h3>BioPhi</h3>
             <p>From Nature To Nature</p>
-            <div class="social-links">
-                <a href="https://www.linkedin.com/company/biophitaly" target="_blank" class="social-link">
-                    <i class="fab fa-linkedin fa-2x"></i>
-                </a>
+            <div class="socials">
+                <a href="https://www.linkedin.com/company/biophitaly" target="_blank"><i class="fab fa-linkedin"></i></a>
             </div>
-            <p class="copyright">&copy; 2026 BioPhi. Tutti i diritti riservati.</p>
+            <p class="copy">&copy; 2026 BioPhi. Tutti i diritti riservati.</p>
         </div>
     </footer>
 
 </body>
 </html>
-
-
-
