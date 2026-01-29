@@ -41,12 +41,13 @@ h1, h2, h3, h4, h5 {
 
 /* --- HERO SECTION (HEADER) --- */
 .hero-section {
-    background: linear-gradient(rgba(46, 74, 33, 0), rgba(46, 74, 33, 0)), 
-                url('images/Banner Linkedin.png') no-repeat center center !important; 
+    /* Rimosso il gradiente verde: ora l'immagine è naturale con solo un velo scuro per leggere il testo */
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                url('images/header-bg.jpg') no-repeat center center !important; 
     background-size: cover !important;
-    padding: 150px 0 100px 0;
+    padding: 160px 0 120px 0;
     text-align: center;
-}
+    color: white !important;
 
 .hero-section h1, 
 .hero-section p {
@@ -166,7 +167,17 @@ footer {
 }
 
 .quote-box {
-    background-color: var(--primary-green);
-    color: white;
-    padding: 4
+    background-color: var(--primary-green) !important;
+    color: white !important;
+    padding: 40px;
+    border-radius: 20px;
+    font-style: italic;
+    font-size: 1.2rem;
+    text-align: center;
+    /* Aggiunto shadow per non farlo sembrare un semplice rettangolo piatto */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    height: auto;
+    display: block;
+}
+
 
