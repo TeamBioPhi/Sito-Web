@@ -1,195 +1,69 @@
-/* 1. RESET TOTALE - Pulisce ogni interferenza esterna */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* --- RESET E BASICS --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Open Sans', sans-serif; color: #333; line-height: 1.6; padding-top: 80px; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
-body {
-    font-family: 'Open Sans', sans-serif;
-    color: #333;
-    line-height: 1.6;
-    padding-top: 80px; /* Spazio per la navbar */
-}
+/* --- NAVBAR --- */
+.navbar { background: white; height: 80px; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: flex; align-items: center; }
+.nav-container { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.navbar-logo { height: 45px; width: auto; }
+.nav-links { display: flex; list-style: none; gap: 20px; }
+.nav-links a { font-weight: 600; text-decoration: none; color: #333; }
 
-/* 2. NAVBAR */
-.navbar {
-    background-color: #ffffff !important;
-    height: 80px;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    z-index: 1000;
+/* --- HERO (HEADER NATURALE) --- */
+.hero-section { 
+    padding: 150px 0; 
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('images/header-bg.jpg') no-repeat center center; 
+    background-size: cover; 
+    text-align: center; 
+    color: white; 
 }
+.hero-section h1 { font-family: 'Montserrat'; font-size: 3rem; margin-bottom: 20px; }
+.hero-btn { background: #6C9A46; color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; display: inline-block; }
 
-.nav-container {
-    width: 100%;
-    max-width: 1140px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+/* --- GRIGLIE (Sostituiscono le colonne di Bootstrap) --- */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin: 40px 0; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; margin-top: 40px; }
 
-.navbar-logo {
-    height: 45px;
+/* --- IMMAGINI (Per non farle diventare enormi) --- */
+.img-responsive { 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 15px; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     display: block;
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 30px;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
-.nav-links a:hover {
-    color: #6C9A46;
-}
-
-/* 3. HERO SECTION - Immagine naturale */
-.hero-section {
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
-                url('images/header-bg.jpg') no-repeat center center;
-    background-size: cover;
-    height: 70vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: #ffffff;
-}
-
-.hero-section h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 3.5rem;
-    margin-bottom: 15px;
-}
-
-.hero-btn {
-    background-color: #6C9A46;
-    color: white;
-    padding: 15px 35px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: bold;
-    display: inline-block;
-    transition: 0.3s;
-    border: none;
-}
-
-.hero-btn:hover {
-    background-color: #ffffff;
-    color: #6C9A46;
-}
-
-/* 4. LE ICONCINE NEI CERCHI VERDI (Ripristinate) */
-.icon-circle {
-    width: 80px !important;
-    height: 80px !important;
-    background-color: #e8f5e9 !important; /* Verde chiaro */
-    color: #6C9A46 !important;           /* Icona verde scuro */
-    border-radius: 50% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    font-size: 30px !important;
-    margin: 0 auto 20px auto !important;
-}
-
-.feature-card {
-    background: #ffffff;
-    padding: 40px 20px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    border-top: 5px solid #6C9A46;
-    height: 100%;
-}
-
-/* 5. LA CITAZIONE (Box solido verde) */
-.quote-box {
-    background-color: #6C9A46 !important;
-    color: #ffffff !important;
-    padding: 50px;
-    border-radius: 20px;
-    font-style: italic;
-    font-size: 1.3rem;
-    text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-
-/* 6. GRIGLIE (Sostituiscono Bootstrap) */
-.container {
-    max-width: 1140px;
     margin: 0 auto;
-    padding: 0 20px;
 }
 
-.grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
+/* --- LE ICONCINE NEI CERCHI VERDI (Fisse) --- */
+.icon-circle { 
+    width: 70px !important; 
+    height: 70px !important; 
+    background-color: #e8f5e9 !important; 
+    color: #6C9A46 !important; 
+    border-radius: 50% !important; 
+    display: flex !important; 
+    align-items: center !important; 
+    justify-content: center !important; 
+    margin: 0 auto 20px auto !important; 
+    font-size: 24px !important; 
 }
+.feature-card { background: white; padding: 30px; border-radius: 15px; text-align: center; border-top: 5px solid #6C9A46; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
 
-.grid-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-}
+/* --- CITAZIONE --- */
+.quote-box { background: #6C9A46; color: white; padding: 40px; border-radius: 20px; font-style: italic; text-align: center; }
 
-/* 7. FOOTER (Verde Scuro) */
-footer {
-    background-color: #2E4A21 !important; /* Verde BioPhi scuro */
-    color: #ffffff !important;
-    padding: 60px 20px 30px 20px;
-    text-align: center;
-}
-
-.social-link {
-    color: #ffffff !important;
-    font-size: 2rem;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.social-link:hover {
-    color: #6C9A46 !important;
-}
-
-/* 8. ROADMAP */
-.timeline-step {
-    border-left: 2px solid #6C9A46;
-    padding: 0 0 40px 30px;
-    position: relative;
-    text-align: left;
-}
-
-.timeline-step::before {
-    content: '';
-    position: absolute;
-    left: -7px;
-    top: 0;
-    width: 12px;
-    height: 12px;
-    background: #6C9A46;
-    border-radius: 50%;
-}
+/* --- FOOTER VERDE SCURO --- */
+footer { background: #2E4A21 !important; color: white !important; padding: 50px 20px; text-align: center; }
+.social-link { color: white !important; font-size: 1.5rem; text-decoration: none; margin: 0 10px; }
 
 /* UTILITY */
 .section-padding { padding: 80px 0; }
 .bg-light { background-color: #f8f9fa; }
-.rounded { border-radius: 15px; }
-.shadow { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.section-title { text-align: center; margin-bottom: 40px; }
+.section-title h2 { color: #2E4A21; margin-bottom: 10px; }
+
+/* Responsive mobile */
+@media (max-width: 768px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
