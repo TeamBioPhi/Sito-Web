@@ -100,13 +100,15 @@ h1, h2, h3, h4, h5 {
 
 /* --- CARTE E ICONE (RIPRISTINATE) --- */
 .feature-card {
-    background: white;
+    background: white !important;
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.05);
     transition: transform 0.3s;
     height: 100%;
-    border-top: 5px solid var(--primary-green);
+    border-top: 5px solid var(--primary-green) !important;
+    text-align: center;
+    height: 100%;
 }
 
 .feature-card:hover {
@@ -116,10 +118,10 @@ h1, h2, h3, h4, h5 {
 .icon-circle {
     width: 70px;
     height: 70px;
-    background-color: #e8f5e9; /* Il verde chiaro del cerchio */
-    color: var(--primary-green); /* Colore dell'icona interna */
-    border-radius: 50%;
-    display: flex;
+    background-color: #e8f5e9 !important; /* Il verde chiaro del cerchio */
+    color: var(--primary-green) !important; /* Colore dell'icona interna */
+    border-radius: 50% !important;
+    display: flex !important;
     align-items: center;
     justify-content: center;
     font-size: 24px;
@@ -179,6 +181,7 @@ footer {
     height: auto;
     display: block;
 }
+
 
 
 
