@@ -53,6 +53,10 @@ img {
     background-color: #f8f9fa;
 }
 
+.text-center { 
+   text-align: center; 
+}
+
 /* Griglie personalizzate (Sostituiscono Bootstrap) */
 .grid-2 {
     display: grid;
@@ -203,6 +207,12 @@ img {
     transform: translateY(-10px);
 }
 
+.card-feature small { 
+   color: #666; 
+   display: block; 
+   margin-top: 10px; 
+}
+
 /* IL CERCHIO VERDE */
 .icon-wrap {
     width: 80px;
@@ -253,6 +263,88 @@ img {
     width: 450px; /* Larghezza massima fissa per non farle esplodere */
     border-radius: 15px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* Liste Check e Divisori */
+.check-list { 
+   margin-top: 20px; 
+}
+
+.check-list li { 
+   margin-bottom: 10px; 
+   display: flex; 
+   align-items: center; 
+}
+
+.check-list i { 
+   color: #6C9A46; 
+   margin-right: 12px; 
+}
+
+.stream-divider { 
+   border: 0; 
+   height: 1px; 
+   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0)); 
+   margin: 60px 0; 
+}
+
+/* =========================================
+   7. ROADMAP (RIPRISTINATA)
+   ========================================= */
+.roadmap-container { 
+   max-width: 600px; 
+   margin: 0 auto; 
+}
+
+.timeline-step { 
+   border-left: 3px solid #6C9A46; 
+   padding: 0 0 40px 30px; 
+   position: relative; 
+   margin-left: 10px; 
+}
+
+.timeline-step::before { 
+   content: '';
+   position: absolute; 
+   left: -9px; 
+   top: 0; 
+   width: 15px; 
+   height: 15px; 
+   background: #6C9A46;
+   border-radius: 50%; 
+   border: 3px solid #fff; 
+   box-shadow: 0 0 0 1px #6C9A46; 
+}
+
+.timeline-step h5 { 
+   color: #2E4A21; 
+   margin-bottom: 5px; 
+}
+
+.no-border { 
+   border-left: 3px solid transparent; 
+}
+
+/* =========================================
+   8. CONTATTI (CARD EMAIL & TEAM)
+   ========================================= */
+.contact-card { 
+   background: #fff;
+   padding: 40px; 
+   border-radius: 15px; 
+   text-align: center; 
+   box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+   height: 100%; 
+   border-bottom: 5px solid #6C9A46; 
+}
+
+.contact-card a { 
+   color: #333; 
+   font-weight: 600; 
+}
+
+.contact-card a:hover { 
+   color: #6C9A46; 
 }
 
 /* =========================================
@@ -313,5 +405,6 @@ img {
         width: 100%; /* Su mobile occupa tutto lo schermo */
     }
 }
+
 
 
