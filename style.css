@@ -345,8 +345,8 @@ img {
    position: absolute; 
    left: -9px; 
    top: 0; 
-   width: 16px; 
-   height: 16px; 
+   width: 15px; 
+   height: 15px; 
    background: #6C9A46;
    border-radius: 50%; 
    border: 3px solid #fff; 
@@ -442,6 +442,7 @@ img {
         width: 100%; /* Su mobile occupa tutto lo schermo */
     }
 }
+
 
 
 
