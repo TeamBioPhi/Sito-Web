@@ -81,11 +81,30 @@ img {
 }
 
 /* Stile per il titolo rosso */
-.award-title {
+/*.award-title {
     font-weight: bold;
     color: #dc3545;
     font-size: 1.5rem;
     display: block; /* Importante per mandarlo a capo */
+/*}
+/* Nuova regola per il logo immagine */
+.award-logo {
+    /* Imposta una larghezza massima.
+       Se il logo originale è più piccolo, non si sgranerà.
+       Se è più grande, verrà ridotto a questa misura. */
+    max-width: 180px; 
+    
+    /* Mantiene le proporzioni corrette (non stira l'immagine) */
+    height: auto;
+    
+    /* Aggiunge spazio sotto l'immagine prima del testo */
+    margin-bottom: 15px;
+    
+    /* Opzionale: se il logo non è perfettamente centrato, 
+       questo aiuta a forzarlo al centro */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* =========================================
@@ -423,6 +442,7 @@ img {
         width: 100%; /* Su mobile occupa tutto lo schermo */
     }
 }
+
 
 
 
