@@ -71,6 +71,23 @@ img {
     gap: 30px;
 }
 
+/* Classe magica per centrare qualsiasi cosa */
+.flex-center-column {
+    display: flex;
+    flex-direction: column; /* Mette gli elementi uno sotto l'altro */
+    align-items: center;    /* Centra orizzontalmente */
+    justify-content: center;/* Centra verticalmente */
+    text-align: center;     /* Assicura che anche il testo interno sia centrato */
+}
+
+/* Stile per il titolo rosso */
+.award-title {
+    font-weight: bold;
+    color: #dc3545;
+    font-size: 1.5rem;
+    display: block; /* Importante per mandarlo a capo */
+}
+
 /* =========================================
    3. NAVBAR
    ========================================= */
@@ -294,6 +311,7 @@ img {
 .roadmap-container { 
    max-width: 600px; 
    margin: 0 auto; 
+   padding-left: 20px;
 }
 
 .timeline-step { 
@@ -308,8 +326,8 @@ img {
    position: absolute; 
    left: -9px; 
    top: 0; 
-   width: 15px; 
-   height: 15px; 
+   width: 16px; 
+   height: 16px; 
    background: #6C9A46;
    border-radius: 50%; 
    border: 3px solid #fff; 
@@ -329,11 +347,11 @@ img {
    8. CONTATTI (CARD EMAIL & TEAM)
    ========================================= */
 .contact-card { 
-   background: #fff;
+   background: #ffffff;
    padding: 40px; 
    border-radius: 15px; 
    text-align: center; 
-   box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+   box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
    height: 100%; 
    border-bottom: 5px solid #6C9A46; 
 }
@@ -405,6 +423,7 @@ img {
         width: 100%; /* Su mobile occupa tutto lo schermo */
     }
 }
+
 
 
 
