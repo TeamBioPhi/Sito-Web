@@ -91,7 +91,7 @@ img {
 }
 
 .brand img {
-    height: 90px;
+    height: 80px;
     width: auto;
 }
 
@@ -313,4 +313,5 @@ img {
         width: 100%; /* Su mobile occupa tutto lo schermo */
     }
 }
+
 
