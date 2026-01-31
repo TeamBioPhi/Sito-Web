@@ -349,7 +349,7 @@ img {
 }
 
 .timeline-step { 
-   border-left: 5px solid #6C9A46; 
+   border-left: 1px solid #6C9A46; 
    padding: 0 0 40px 30px; 
    position: relative; 
    margin-left: 10px; 
@@ -358,25 +358,24 @@ img {
 .timeline-step::before { 
    content: '';
    position: absolute; 
-   left: 1.5px; 
-   /* 2. Spostiamo il pallino indietro del 50% della sua larghezza per centrarlo su quel punto */
-   transform: translateX(-50%);
+   left: -7.5px; 
    top: 0; 
-   width: 16px; 
-   height: 16px; 
-   background: #6C9A46;
+   width: 14px; 
+   height: 14px; 
+   background: #ffffff;
    border-radius: 50%; 
-   border: 3px solid #fff; 
-   box-shadow: 0 0 0 1px #6C9A46; 
+   border: 2px solid #6C9A46; 
+   box-shadow: 0 0 0 5px rgba(0,0,0,0.1); 
 }
 
 .timeline-step h5 { 
    color: #2E4A21; 
    margin-bottom: 5px; 
+   margin-top: -4px;
 }
 
 .no-border { 
-   border-left: 3px solid transparent; 
+   border-left: 1px solid transparent; 
 }
 
 /* =========================================
@@ -539,6 +538,7 @@ img {
         width: 100%; /* Su mobile occupa tutto lo schermo */
     }
 }
+
 
 
 
