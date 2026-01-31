@@ -340,58 +340,86 @@ img {
 }
 
 /* =========================================
-   7. ROADMAP (Stile "Bullseye" - Pallino Verde Pieno)
+   8. ROADMAP (Stile "Milestone Cards")
    ========================================= */
-.roadmap-wrapper {
-    max-width: 600px;
-    margin: 0 auto;
-    padding-left: 20px; 
+
+/* Griglia per le card della roadmap */
+.roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonne uguali */
+    gap: 30px; /* Spazio tra le card */
+    margin-top: 40px;
 }
 
-.timeline-step {
-    /* Linea verticale sottile */
-    border-left: 1px solid #6C9A46; 
-    padding: 0 0 40px 30px;
+/* La singola Card */
+.roadmap-card {
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 20px; /* Molto arrotondato */
+    text-align: left;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border-bottom: 5px solid #6C9A46; /* Bordo colorato SOTTO */
     position: relative;
+    transition: transform 0.3s ease;
+    overflow: hidden; /* Serve per il numero grande di sfondo */
 }
 
-.timeline-step::before {
-    content: '';
-    position: absolute;
-    
-    /* CALCOLO PERFETTO:
-       Pallino 16px. Metà = 8px.
-       Linea 1px. Metà = 0.5px.
-       8 - 0.5 = 7.5px di spostamento a sinistra.
-    */
-    left: 6.5px; 
-    top: 0;
-    width: 16px;
-    height: 16px;
-    
-    /* IL NUOVO STILE */
-    background: #6C9A46; /* Pallino interno VERDE PIENO */
-    border: 3px solid #ffffff; /* Bordo BIANCO spesso per staccare */
-    border-radius: 50%;
-    
-    /* Bordo esterno VERDE (creato con l'ombra) */
-    box-shadow: 0 0 0 2px #6C9A46; 
+/* Effetto sollevamento al passaggio del mouse */
+.roadmap-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(108, 154, 70, 0.15);
 }
 
-.timeline-step h5 {
+/* Il badge della data (es. Q4 2026) */
+.date-badge {
+    display: inline-block;
+    background-color: #e8f5e9; /* Verde chiarissimo sfondo */
+    color: #2E4A21; /* Verde scuro testo */
+    font-weight: 800;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    border: 1px solid #6C9A46;
+}
+
+/* Titolo della fase */
+.roadmap-card h3 {
     color: #2E4A21;
-    margin-bottom: 5px;
-    /* Allinea visivamente il testo al pallino */
-    margin-top: -4px; 
+    font-size: 1.5rem;
+    margin-bottom: 10px;
 }
 
-/* Rimuove la linea dall'ultimo step per pulizia */
-.no-border {
-    border-left: 1px solid transparent;
+/* Descrizione */
+.roadmap-card p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Numero decorativo grande (01, 02, 03) */
+.step-number {
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    font-size: 5rem;
+    font-weight: 900;
+    color: #f0f0f0; /* Grigio chiarissimo quasi invisibile */
+    z-index: 0; /* Va dietro al testo */
+    font-family: 'Montserrat', sans-serif;
+    pointer-events: none; /* Non cliccabile */
+}
+
+/* MOBILE: Le card vanno una sotto l'altra */
+@media (max-width: 768px) {
+    .roadmap-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
 }
 
 /* =========================================
-   8. CONTATTI (CARD EMAIL & TEAM)
+   9. CONTATTI (CARD EMAIL & TEAM)
    ========================================= */
 .contact-card { 
    background: #ffffff;
@@ -550,6 +578,7 @@ img {
         width: 100%; /* Su mobile occupa tutto lo schermo */
     }
 }
+
 
 
 
