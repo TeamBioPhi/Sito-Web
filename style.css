@@ -7,6 +7,21 @@
     box-sizing: border-box;
 }
 
+/* =========================================
+   SCORRIMENTO FLUIDO (Smooth Scroll)
+   ========================================= */
+html {
+    scroll-behavior: smooth;
+}
+
+/* IMPORTANTE: Questo serve perché hai la Navbar Fissa alta 80px.
+   Senza questa riga, quando clicchi, il titolo della sezione finirebbe
+   nascosto SOTTO la navbar. Questo crea un margine di sicurezza.
+*/
+section {
+    scroll-margin-top: 100px; /* 80px di navbar + 20px di spazio extra */
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
     color: #333;
@@ -522,6 +537,7 @@ img {
         width: 100%; /* Su mobile occupa tutto lo schermo */
     }
 }
+
 
 
 
