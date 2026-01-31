@@ -385,6 +385,83 @@ img {
 }
 
 /* =========================================
+   10. FORM DI CONTATTO (Nuovo Stile)
+   ========================================= */
+
+/* Layout specifico per i contatti */
+.contact-grid {
+    align-items: flex-start; /* Allinea in alto le colonne */
+}
+
+/* Stile del contenitore Form */
+.form-wrapper {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-top: 5px solid #6C9A46;
+}
+
+.biophi-form .form-group {
+    margin-bottom: 20px;
+    text-align: left; /* Etichette allineate a sinistra */
+}
+
+.biophi-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #2E4A21;
+    font-size: 0.9rem;
+}
+
+/* Campi di input */
+.biophi-form input, 
+.biophi-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    transition: 0.3s;
+    background-color: #fafafa;
+}
+
+/* Effetto quando clicchi sul campo */
+.biophi-form input:focus, 
+.biophi-form textarea:focus {
+    border-color: #6C9A46;
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(108, 154, 70, 0.1);
+}
+
+/* Bottone a larghezza intera */
+.full-width {
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Piccoli aggiustamenti di spaziatura */
+.mb-20 { margin-bottom: 20px; }
+.email-link {
+    font-size: 1.2rem;
+    color: #6C9A46;
+    font-weight: bold;
+}
+
+/* MOBILE: Mette il form sotto la card email */
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+/* =========================================
    8. FOOTER
    ========================================= */
 .main-footer {
@@ -442,6 +519,7 @@ img {
         width: 100%; /* Su mobile occupa tutto lo schermo */
     }
 }
+
 
 
 
