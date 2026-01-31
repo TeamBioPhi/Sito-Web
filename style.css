@@ -358,7 +358,7 @@ img {
 .timeline-step::before { 
    content: '';
    position: absolute; 
-   left: -9px; 
+   left: -7.5px; 
    top: 0; 
    width: 15px; 
    height: 15px; 
@@ -537,6 +537,7 @@ img {
         width: 100%; /* Su mobile occupa tutto lo schermo */
     }
 }
+
 
 
 
