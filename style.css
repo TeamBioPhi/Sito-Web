@@ -385,80 +385,78 @@ img {
 }
 
 /* =========================================
-   10. FORM DI CONTATTO (Nuovo Stile)
+   10. FORM DI CONTATTO (STYLE FIX)
    ========================================= */
 
-/* Layout specifico per i contatti */
-.contact-grid {
-    align-items: flex-start; /* Allinea in alto le colonne */
-}
-
-/* Stile del contenitore Form */
+/* Il contenitore bianco del form (deve sembrare una card) */
 .form-wrapper {
-    background: #ffffff;
+    background-color: #ffffff; /* Sfondo bianco obbligatorio */
     padding: 40px;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    border-top: 5px solid #6C9A46;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Stessa ombra delle altre card */
+    border-top: 5px solid #6C9A46; /* Bordo verde in alto */
+    height: 100%;
 }
 
-.biophi-form .form-group {
+/* Stile per ogni blocco (Label + Input) */
+.form-group {
     margin-bottom: 20px;
-    text-align: left; /* Etichette allineate a sinistra */
+    text-align: left; /* Allinea i testi a sinistra */
 }
 
+/* Le etichette (Nome, Email...) */
 .biophi-form label {
-    display: block;
-    font-weight: 600;
+    display: block; /* Manda a capo l'etichetta sopra il campo */
+    font-weight: 700;
     margin-bottom: 8px;
-    color: #2E4A21;
-    font-size: 0.9rem;
+    color: #2E4A21; /* Verde scuro per i titoli */
+    font-size: 0.95rem;
 }
 
-/* Campi di input */
-.biophi-form input, 
+/* I campi di scrittura (Input e Textarea) */
+.biophi-form input[type="text"],
+.biophi-form input[type="email"],
 .biophi-form textarea {
-    width: 100%;
+    width: 100%; /* Occupa tutto lo spazio disponibile */
     padding: 12px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-family: 'Open Sans', sans-serif;
+    border: 1px solid #ced4da; /* Bordo grigio sottile elegante */
+    border-radius: 8px; /* Angoli stondati */
+    font-family: 'Open Sans', sans-serif; /* Font del sito */
     font-size: 1rem;
-    transition: 0.3s;
-    background-color: #fafafa;
+    background-color: #f8f9fa; /* Sfondo grigio chiarissimo interno */
+    transition: all 0.3s;
+    box-sizing: border-box; /* Evita che il padding sballi la larghezza */
 }
 
-/* Effetto quando clicchi sul campo */
-.biophi-form input:focus, 
+/* Quando clicchi dentro il campo */
+.biophi-form input:focus,
 .biophi-form textarea:focus {
-    border-color: #6C9A46;
     background-color: #fff;
+    border-color: #6C9A46; /* Diventa verde quando scrivi */
     outline: none;
-    box-shadow: 0 0 0 3px rgba(108, 154, 70, 0.1);
+    box-shadow: 0 0 0 3px rgba(108, 154, 70, 0.2); /* Alone verde */
 }
 
-/* Bottone a larghezza intera */
-.full-width {
+/* Il bottone del form (Identico a quello in alto) */
+.btn-submit {
     width: 100%;
+    background-color: #6C9A46;
+    color: white;
+    padding: 15px;
     border: none;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1rem;
     cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     margin-top: 10px;
 }
 
-/* Piccoli aggiustamenti di spaziatura */
-.mb-20 { margin-bottom: 20px; }
-.email-link {
-    font-size: 1.2rem;
-    color: #6C9A46;
-    font-weight: bold;
-}
-
-/* MOBILE: Mette il form sotto la card email */
-@media (max-width: 768px) {
-    .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
+.btn-submit:hover {
+    background-color: #2E4A21; /* Diventa scuro al passaggio */
+    transform: translateY(-2px);
 }
 
 /* =========================================
@@ -519,6 +517,7 @@ img {
         width: 100%; /* Su mobile occupa tutto lo schermo */
     }
 }
+
 
 
 
