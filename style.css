@@ -395,12 +395,15 @@ img {
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Stessa ombra delle altre card */
     border-top: 5px solid #6C9A46; /* Bordo verde in alto */
+    border-bottom: none; /* Assicuriamoci che non ci siano altri bordi */
     height: 100%;
+    display: block; /* Assicura che prenda spazio */
 }
 
 /* Stile per ogni blocco (Label + Input) */
 .form-group {
     margin-bottom: 20px;
+    width: 100%;
     text-align: left; /* Allinea i testi a sinistra */
 }
 
@@ -411,6 +414,7 @@ img {
     margin-bottom: 8px;
     color: #2E4A21; /* Verde scuro per i titoli */
     font-size: 0.95rem;
+    text-align: left;
 }
 
 /* I campi di scrittura (Input e Textarea) */
@@ -426,6 +430,7 @@ img {
     background-color: #f8f9fa; /* Sfondo grigio chiarissimo interno */
     transition: all 0.3s;
     box-sizing: border-box; /* Evita che il padding sballi la larghezza */
+    display: block;
 }
 
 /* Quando clicchi dentro il campo */
@@ -517,6 +522,7 @@ img {
         width: 100%; /* Su mobile occupa tutto lo schermo */
     }
 }
+
 
 
 
