@@ -358,10 +358,10 @@ img {
 .timeline-step::before { 
    content: '';
    position: absolute; 
-   left: -9px; 
+   left: -6.5px; 
    top: 0; 
-   width: 15px; 
-   height: 15px; 
+   width: 16px; 
+   height: 16px; 
    background: #6C9A46;
    border-radius: 50%; 
    border: 3px solid #fff; 
@@ -537,6 +537,7 @@ img {
         width: 100%; /* Su mobile occupa tutto lo schermo */
     }
 }
+
 
 
 
