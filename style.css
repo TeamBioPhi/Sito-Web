@@ -340,42 +340,54 @@ img {
 }
 
 /* =========================================
-   7. ROADMAP (RIPRISTINATA)
+   7. ROADMAP (Stile "Bullseye" - Pallino Verde Pieno)
    ========================================= */
-.roadmap-container { 
-   max-width: 600px; 
-   margin: 0 auto; 
-   padding-left: 20px;
+.roadmap-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    padding-left: 20px; 
 }
 
-.timeline-step { 
-   border-left: 1px solid #6C9A46; 
-   padding: 0 0 40px 30px; 
-   position: relative; 
-   margin-left: 10px; 
+.timeline-step {
+    /* Linea verticale sottile */
+    border-left: 1px solid #6C9A46; 
+    padding: 0 0 40px 30px;
+    position: relative;
 }
 
-.timeline-step::before { 
-   content: '';
-   position: absolute; 
-   left: -7.5px; 
-   top: 0; 
-   width: 14px; 
-   height: 14px; 
-   background: #ffffff;
-   border-radius: 50%; 
-   border: 2px solid #6C9A46; 
-   box-shadow: 0 0 0 5px rgba(0,0,0,0.1); 
+.timeline-step::before {
+    content: '';
+    position: absolute;
+    
+    /* CALCOLO PERFETTO:
+       Pallino 16px. Metà = 8px.
+       Linea 1px. Metà = 0.5px.
+       8 - 0.5 = 7.5px di spostamento a sinistra.
+    */
+    left: -7.5px; 
+    top: 0;
+    width: 16px;
+    height: 16px;
+    
+    /* IL NUOVO STILE */
+    background: #6C9A46; /* Pallino interno VERDE PIENO */
+    border: 3px solid #ffffff; /* Bordo BIANCO spesso per staccare */
+    border-radius: 50%;
+    
+    /* Bordo esterno VERDE (creato con l'ombra) */
+    box-shadow: 0 0 0 2px #6C9A46; 
 }
 
-.timeline-step h5 { 
-   color: #2E4A21; 
-   margin-bottom: 5px; 
-   margin-top: -4px;
+.timeline-step h5 {
+    color: #2E4A21;
+    margin-bottom: 5px;
+    /* Allinea visivamente il testo al pallino */
+    margin-top: -4px; 
 }
 
-.no-border { 
-   border-left: 1px solid transparent; 
+/* Rimuove la linea dall'ultimo step per pulizia */
+.no-border {
+    border-left: 1px solid transparent;
 }
 
 /* =========================================
@@ -538,6 +550,7 @@ img {
         width: 100%; /* Su mobile occupa tutto lo schermo */
     }
 }
+
 
 
 
