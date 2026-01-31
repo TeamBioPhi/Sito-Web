@@ -358,7 +358,7 @@ img {
 .timeline-step::before { 
    content: '';
    position: absolute; 
-   left: -1.5px; 
+   left: 1.5px; 
    /* 2. Spostiamo il pallino indietro del 50% della sua larghezza per centrarlo su quel punto */
    transform: translateX(-50%);
    top: 0; 
@@ -539,6 +539,7 @@ img {
         width: 100%; /* Su mobile occupa tutto lo schermo */
     }
 }
+
 
 
 
