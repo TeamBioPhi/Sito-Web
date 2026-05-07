@@ -1,152 +1,1036 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioPhi - From Nature To Nature</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BioPhi S.r.l. trasforma gli scarti dell'industria agroalimentare in bioingredienti ad alto valore per la cosmesi sostenibile del futuro.">
+  <title>BioPhi S.r.l. | Circular Beauty Innovation</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Motion CDN (Framer Motion vanilla) -->
+  <script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.js"></script>
+
+  <!-- Splitting.js for char animations -->
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css">
+  <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Salta al contenuto</a>
 
-    <section id="slide1" class="slide hero">
-        <img src="images/logo.png" alt="BioPhi Logo" class="logo">
-        <h1>BioPhi</h1>
-        <p class="tagline">From Nature To Nature</p>
+  <!-- Cursor follower (desktop) -->
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav class="navbar" id="navbar" aria-label="Navigazione principale">
+    <div class="nav-inner">
+    <a href="#" class="nav-logo" aria-label="BioPhi S.r.l. — Home">
+       <img src="images/BioPhi_Simbolo.png" alt="BioPhi S.r.l." height="36" loading="lazy" 
+       style="display:block;width:auto;height:36px;object-fit:contain">
+    </a>
+
+      <div class="nav-links" role="list">
+        <a href="#innovation" role="listitem">Innovazione</a>
+        <a href="#vision" role="listitem">Visione</a>
+        <a href="#research" role="listitem">Ricerca</a>
+        <a href="#notizie" role="listitem">Notizie</a>
+        <a href="#roadmap"     role="listitem">Roadmap</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="btn-theme" data-theme-toggle aria-label="Cambia tema"></button>
+        <a href="#contact" class="btn-cta">Contattaci</a>
+        <button class="nav-hamburger" id="hamburger-btn" aria-label="Apri menu" aria-expanded="false" aria-controls="mobile-menu">
+          <i data-lucide="menu" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══ MOBILE MENU ══ -->
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu mobile">
+    <div class="mobile-menu-header">
+      <div class="nav-logo">
+        <div class="nav-logo">
+        <img src="images/BioPhi_Simbolo.png" alt="BioPhi S.r.l." height="36"
+       style="display:block;width:auto;height:36px;object-fit:contain">
+        </div>
+      <button class="mobile-menu-close" id="mobile-close-btn" aria-label="Chiudi menu">
+        <i data-lucide="x" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+    <a href="#innovation">Innovazione <i data-lucide="arrow-right" style="width:16px;height:16px" aria-hidden="true"></i></a>
+    <a href="#vision">Visione <i data-lucide="arrow-right" style="width:16px;height:16px" aria-hidden="true"></i></a>
+    <a href="#research">Ricerca <i data-lucide="arrow-right" style="width:16px;height:16px" aria-hidden="true"></i></a>
+    <a href="#roadmap">Roadmap <i data-lucide="arrow-right" style="width:16px;height:16px;" aria-hidden="true"></i></a>
+    <a href="#contact" class="mobile-cta">Richiedi Campione</a>
+   
+  </div>
+
+  <main id="main-content">
+
+    <!-- ══ HERO ══ -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-bg-dots" aria-hidden="true"></div>
+      <div class="hero-bg-orb-a" aria-hidden="true"></div>
+      <div class="hero-bg-orb-b" aria-hidden="true"></div>
+
+      <div class="hero-inner">
+        <!-- Text side -->
+        <div>
+          <div class="hero-badge" id="hero-badge">
+            <span class="hero-badge-dot" aria-hidden="true"></span>
+            Startup Innovativa
+          </div>
+
+          <h1 class="hero-title" id="hero-heading" data-splitting>
+            L'Essenza della<br>
+            <em>Natura Circolare</em>
+          </h1>
+
+          <p class="hero-desc" id="hero-desc">
+            Trasformiamo gli scarti dell'industria agroalimentare in molecole ad alto valore aggiunto.
+            Bioingredienti vegetali d'eccellenza per la cosmesi del futuro.
+          </p>
+
+          <div class="hero-cta-group" id="hero-ctas">
+            <a href="#innovation" class="btn-primary-hero">
+              <i data-lucide="flask-conical" style="width:16px;height:16px" aria-hidden="true"></i>
+              Scopri i Bioprocessi
+              <i data-lucide="arrow-right" style="width:14px;height:14px" aria-hidden="true"></i>
+            </a>
+            <a href="#contact" class="btn-ghost-hero">
+              Richiedi Campione
+              <i data-lucide="arrow-right" style="width:14px;height:14px" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Visual side -->
+        <div class="hero-visual" id="hero-visual" aria-hidden="true">
+          <div class="ring ring-outer"><span class="ring-dot"></span></div>
+          <div class="ring ring-mid"><span class="ring-dot-sm"></span></div>
+          <div class="ring ring-inner"></div>
+
+          <div class="hero-card">
+            <i data-lucide="leaf" style="width:76px;height:76px" class="hero-card-leaf"></i>
+            <i data-lucide="beaker" style="width:26px;height:26px;color:var(--color-text-faint);opacity:0.45"></i>
+            <span class="hero-card-sub">Bio‑Eccellenza<br>Circolare</span>
+          </div>
+
+          <div class="hero-tag hero-tag-1">
+            <span class="tag-dot" style="background:var(--color-primary)" aria-hidden="true"></span>
+            Upcycled 100%
+          </div>
+          <div class="hero-tag hero-tag-2">
+            <span class="tag-dot" style="background:var(--color-earth)" aria-hidden="true"></span>
+            Lab Verified
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-scroll" aria-hidden="true">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
     </section>
 
-    <section id="slide2" class="slide">
-        <div class="mission-vision">
-            <h2>MISSION</h2>
-            <p>Bioraffiniamo scarti in nuovi materiali chiudendo cicli industriali.</p>
+    <!-- ══ INNOVATION ══ -->
+    <section class="section" id="innovation" aria-labelledby="innovation-title">
+      <div class="section-inner">
+        <div class="reveal">
+          <div class="section-label">Innovazione</div>
+          <h2 class="section-title" id="innovation-title">Dallo Scarto<br>alla <em>Bellezza</em></h2>
+          <p class="section-desc">
+            Il nostro processo non crea solo estratti — crea valore. Selezioniamo le migliori biomasse
+            per estrarne il segreto della loro resilienza.
+          </p>
         </div>
-        <div class="mission-vision">
-            <h2>VISION</h2>
-            <p>Ogni scarto è un'opportunità. Ogni opportunità un nuovo inizio.</p>
-        </div>
-    </section>
 
-    <section id="slide3" class="slide two-columns">
-        <div class="content-left">
-            <h2>BioPhi - La Visione Industriale</h2>
-            <h3>Prima filiera per biopolimeri avanzati da scarti locali</h3>
-            <p>Un progetto con l'obiettivo di trasformare quotidianamente tonnellate di rifiuti agricoli in prodotti di ecodesign sostenibili e compostabili.</p>
-            <p><strong>Da dove veniamo:</strong></p>
-            <ul>
-                <li>Filiera industriale strutturata: trasformazione, compounding, produzione, logistica</li>
-                <li>Focus business: impatto su mercato reale con prodotti validati</li>
-                <li>Asset attivi: forniture sicure, partner industriali, co-sviluppo con atenei</li>
-            </ul>
-        </div>
-        <div class="content-right">
-            <img src="images/chart.png" alt="Grafico Scarti kton/anno: 360 Trebbie di Birra, 20 Flavovivaistica, 50 Pesce">
-        </div>
-    </section>
+        <div class="process-layout">
+          <!-- Tab list -->
+          <div class="tab-list" role="tablist" aria-label="Ingredienti BioPhi">
 
-    <section id="slide4" class="slide two-columns">
-        <div class="content-left">
-            <h2>Ecosistema Già Esistente</h2>
-            <p>BioPhi mira alla creazione di una bioraffineria valorizzando realtà locali partendo da scarti a km 0</p>
-            <p><strong>Roadmap BioPhi:</strong></p>
-            <ul>
-                <li>06/2026: Primo campione materiale</li>
-                <li>12/2026: Impianto pilota 300 kg/giorno di materia prima convertita</li>
-                <li>10/2027: Bioraffineria industriale</li>
-            </ul>
-        </div>
-        <div class="content-right">
-            <h3>Ad oggi abbiamo:</h3>
-            <ul class="icon-list">
-                <li><strong>Accordi con Birrifici:</strong> 600 kg/giorno di BSG garantite, con ecosistema in costante espansione</li>
-                <li><strong>Partner Tecnologico:</strong> Collaborazione con PoliMi e UniCatt per processo di estrazione Green</li>
-                <li><strong>Clienti:</strong> Portafoglio clienti in sviluppo (eventi, locali, ristoranti...)</li>
-            </ul>
-            <p class="highlight">Offriamo opportunità di accesso esclusivo a tecnologia proprietaria con portfolio IP in fase di protezione</p>
-        </div>
-    </section>
+            <button class="ingredient-tab" role="tab" aria-selected="true"
+                    aria-controls="detail-panel" id="tab-0" data-idx="0">
+              <div class="tab-icon-wrap" style="background:rgba(74,55,40,0.11);color:#4a3728">
+                <i data-lucide="droplets" style="width:20px;height:20px" aria-hidden="true"></i>
+              </div>
+              <span class="tab-name">Pellicole di Caffè</span>
+              <i data-lucide="chevron-right" class="tab-arrow" style="width:16px;height:16px" aria-hidden="true"></i>
+            </button>
 
-    <section id="slide5" class="slide">
-        <h2>I Nostri Mercati - 1</h2>
-        <h3>Eventi Sostenibili</h3>
-        <div class="image-gallery">
-            <img src="images/eventi-1.png" alt="Bicchiere biodegradabile">
-            <img src="images/eventi-2.png" alt="Bicchieri 'Spent Grains Cups'">
-            <img src="images/eventi-3.png" alt="Bicchiere 'Spent Grains'">
-        </div>
-        <div class="text-row">
-            <p>Per festival ed eventi fieristici</p>
-            <p>Effetto «Wow» ed eventi di gala</p>
-        </div>
-    </section>
+            <button class="ingredient-tab" role="tab" aria-selected="false"
+                    aria-controls="detail-panel" id="tab-1" data-idx="1">
+              <div class="tab-icon-wrap" style="background:rgba(212,163,115,0.14);color:#c9935a">
+                <i data-lucide="zap" style="width:20px;height:20px" aria-hidden="true"></i>
+              </div>
+              <span class="tab-name">Trebbie di Birra</span>
+              <i data-lucide="chevron-right" class="tab-arrow" style="width:16px;height:16px" aria-hidden="true"></i>
+            </button>
 
-    <section id="slide6" class="slide">
-        <h2>I Nostri Mercati - 2</h2>
-        <div class="market-grid">
-            <div class="market-item">
-                <img src="images/mercati2-foodtruck.jpg" alt="Ristorazione food truck">
-                <h3>Ristorazione</h3>
-                <p>Per ogni tipo di esperienza</p>
+            <button class="ingredient-tab" role="tab" aria-selected="false"
+                    aria-controls="detail-panel" id="tab-2" data-idx="2">
+              <div class="tab-icon-wrap" style="background:rgba(201,150,47,0.13);color:#c9962f">
+                <i data-lucide="shield-check" style="width:20px;height:20px" aria-hidden="true"></i>
+              </div>
+              <span class="tab-name">Panello di Girasole</span>
+              <i data-lucide="chevron-right" class="tab-arrow" style="width:16px;height:16px" aria-hidden="true"></i>
+            </button>
+
+          </div>
+
+          <!-- Detail panel -->
+          <div class="detail-panel reveal reveal-delay-2" id="detail-panel" role="tabpanel" aria-labelledby="tab-0">
+            <div class="detail-watermark" id="detail-watermark" aria-hidden="true">P</div>
+
+            <div class="detail-content" id="detail-content">
+              <div class="detail-tag">
+                <i data-lucide="flask-conical" style="width:13px;height:13px" aria-hidden="true"></i>
+                Molecola Estratta
+              </div>
+              <h3 class="detail-extract" id="detail-extract">Polifenoli &amp; Caffeina</h3>
+              <p class="detail-benefit" id="detail-benefit">
+                Azione antiossidante e drenante per il contorno occhi. Estratta con processi
+                a basso consumo energetico certificati dal Politecnico di Milano.
+              </p>
             </div>
-            <div class="market-item">
-                <img src="images/mercati2-chef.jpg" alt="Ristorazione chef">
-            </div>
-            <div class="market-item">
-                <img src="images/mercati2-cosmetics.jpg" alt="Packaging cosmetics e gourmet">
-                <h3>Packaging</h3>
-                <p>Packaging brandizzato e grandi spedizioni</p>
-            </div>
-            <div class="market-item">
-                <img src="images/mercati2-pallet.jpg" alt="Logistica e imballaggi pallet">
-                <h3>Logistica e Imballaggi</h3>
-            </div>
-        </div>
-    </section>
 
-    <section id="slide7" class="slide two-columns">
-        <div class="content-left">
-            <h2>Il Processo</h2>
-            <p>Partiamo da materie prime naturali molto comuni, raccolte come scarti dalle più grandi industrie d'Italia.</p>
-            <p>Attraverso un processo unico, siamo in grado di fornire il prodotto più adatto alle tue esigenze.</p>
-        </div>
-        <div class="content-right">
-            <div class="process-step">
-                <span class="icon">←</span>
-                <div>
-                    <h3>Input</h3>
-                    <p>Accordi di fornitura esclusiva di trebbie, crostacei e residui da floricoltura</p>
+            <div class="detail-footer">
+              <div class="detail-badge">
+                <div class="detail-badge-icon">
+                  <i data-lucide="refresh-cw" style="width:16px;height:16px" aria-hidden="true"></i>
                 </div>
-            </div>
-            <div class="process-step">
-                <span class="icon">✓</span>
-                <div>
-                    <h3>Cuore tecnologico</h3>
-                    <p>Processo innovativo Green con 2 brevetti in fase di deposito</p>
+                <span class="detail-badge-label">Processo Upcycled · 100% Sostenibile</span>
+              </div>
+              <div class="progress-bar-wrap">
+                <div class="progress-label">
+                  <span>Efficacia estrattiva</span>
+                  <span id="progress-pct">85%</span>
                 </div>
-            </div>
-            <div class="process-step">
-                <span class="icon">−</span>
-                <div>
-                    <h3>Output</h3>
-                    <p>Soluzioni per food-contact e packaging monouso sostenibile</p>
+                <div class="progress-track">
+                  <div class="progress-fill" id="progress-fill"></div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </section>
 
-    <section id="slide8" class="slide">
-        <h2>La Nostra Esperienza</h2>
-        <div class="image-gallery">
-            <img src="images/pellicola-1.jpg" alt="Pellicola biodegradabile da scarti ittici">
-            <img src="images/pellicola-2.jpg" alt="Pellicola biodegradabile da scarti ittici">
+       <!-- ══ VISION ══ -->
+    <section class="section section-alt" id="vision" aria-labelledby="vision-title">
+      <div class="section-inner">
+        <div class="vision-layout">
+
+          <!-- Bento grid -->
+          <div class="bento-grid">
+
+  <!-- Colonna 1: alta 3 righe -->
+  <div class="bento-card bento-a reveal">
+    <span class="bento-a-label">Filosofia</span>
+    <p class="bento-a-text">Una economia circolare locale, con scarti a km 0</p>
+  </div>
+
+  <!-- Colonna 2, riga 1: L'Espresso -->
+  <div class="bento-card bento-b reveal reveal-delay-1">
+    <img src="images/LogoL'Espresso.png" alt="L'Espresso" width="120" height="32" loading="lazy">
+    <div class="bento-num" data-countup="7">7</div>
+    <div class="bento-lbl">Idee per cambiare l'Italia</div>
+  </div>
+
+  <!-- Colonna 2, riga 2: Zero-Waste -->
+  <div class="bento-card bento-c reveal reveal-delay-2">
+    <i data-lucide="globe" style="width:40px;height:40px;margin-bottom:var(--space-3)" aria-hidden="true"></i>
+    <strong>Zero-Waste Supply Chain</strong>
+  </div>
+
+  <!-- Colonna 2, riga 3: citazione -->
+  <div class="bento-card bento-d reveal reveal-delay-3">
+    <p class="bento-quote">"Validiamo il futuro dell'estrazione green prima di produrre valore."</p>
+  </div>
+
+</div>
+          <!-- Text -->
+          <div class="reveal reveal-delay-1">
+            <div class="section-label">La Nostra Visione</div>
+            <h2 class="section-title" id="vision-title">
+              Una Visione<br><em>Senza Compromessi</em>
+            </h2>
+            <p class="section-desc" style="margin-bottom:0">
+              In BioPhi non acquistiamo materia prima — la riceviamo come risorsa preziosa da chi la considera
+              un costo. Il nostro modello trasforma la passività in pura bio-eccellenza.
+            </p>
+
+            <ul class="vision-list" aria-label="I pilastri della nostra visione">
+              <li class="vision-item">
+                <div class="vision-item-icon" aria-hidden="true">
+                  <i data-lucide="refresh-cw" style="width:18px;height:18px"></i>
+                </div>
+                <div>
+                  <h4>Risorse a Costo Zero</h4>
+                  <p>Approvvigionamento circolare che abbatte i costi di smaltimento industriale.</p>
+                </div>
+              </li>
+              <li class="vision-item">
+                <div class="vision-item-icon" aria-hidden="true">
+                  <i data-lucide="leaf" style="width:18px;height:18px"></i>
+                </div>
+                <div>
+                  <h4>Sostenibilità Misurabile</h4>
+                  <p>Processi a basso consumo energetico con impatto ambientale certificabile.</p>
+                </div>
+              </li>
+              <li class="vision-item">
+                <div class="vision-item-icon" aria-hidden="true">
+                  <i data-lucide="beaker" style="width:18px;height:18px"></i>
+                </div>
+                <div>
+                  <h4>Validazione Scientifica</h4>
+                  <p>In collaborazione con il Politecnico di Milano per garantire standard B2B eccelsi.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-        <p>Pellicole biodegradabili da scarti ittici</p>
+      </div>
     </section>
 
-    <section id="slide9" class="slide">
-        <h2>Contacts</h2>
-        <img src="images/qr-code.png" alt="QR Code Contatti" class="qr-code">
-        <a href="mailto:hello@biophi.it" class="contact-link">Click Here!</a>
-        <p>hello@biophi.it</p>
+
+    <!-- ══ AWARDS ══ -->
+    <section class="awards-band" id="research" aria-labelledby="awards-title">
+      <div class="awards-inner">
+        <div class="reveal">
+          <div class="awards-badge">
+            <i data-lucide="award" style="width:14px;height:14px;opacity:0.85" aria-hidden="true"></i>
+            <span>Eccellenza Riconosciuta</span>
+          </div>
+          <h2 class="awards-title" id="awards-title">Selezionati da<br>L'Espresso</h2>
+          <p class="awards-desc">
+            Vincitori della challenge <em>"7 idee per cambiare l'Italia"</em> — 2025.
+            Un riconoscimento alla nostra capacità di innovare in un mercato in espansione globale
+            per gli ingredienti sostenibili e tracciabili.
+          </p>
+        </div>
+
+        <div class="awards-logos reveal reveal-delay-2">
+          <div class="award-item">
+            <div class="award-item-icon">
+              <i data-lucide="flask-conical" style="width:26px;height:26px" aria-hidden="true"></i>
+            </div>
+            <div class="award-org">Scientific Partner</div>
+            <div class="award-name">Politecnico di Milano</div>
+          </div>
+          <div class="awards-sep" aria-hidden="true"></div>
+          <div class="award-item">
+            <div class="award-item-icon">
+              <i data-lucide="shield-check" style="width:26px;height:26px" aria-hidden="true"></i>
+            </div>
+            <div class="award-org">Validation</div>
+            <div class="award-name">Lab Verified</div>
+          </div>
+          <div class="awards-sep" aria-hidden="true"></div>
+          <div class="award-item">
+            <div class="award-item-icon">
+              <i data-lucide="award" style="width:26px;height:26px" aria-hidden="true"></i>
+            </div>
+            <div class="award-org">Riconoscimento</div>
+            <div class="award-name">L'Espresso 2025</div>
+          </div>
+        </div>
+      </div>
     </section>
+
+    <!-- ROADMAP -->
+<section class="section" id="roadmap" aria-labelledby="roadmap-title">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;margin-bottom:var(--space-12);">
+      <div class="section-label" style="justify-content:center;">Strategia</div>
+      <h2 class="section-title" id="roadmap-title">La Nostra Roadmap</h2>
+      <p class="section-desc" style="margin-inline:auto;">I prossimi passi verso l'industrializzazione.</p>
+    </div>
+
+    <div class="roadmap-grid">
+
+      <!-- Card 1 -->
+      <div class="roadmap-card reveal">
+        <div class="roadmap-card-top">
+          <span class="roadmap-badge">Q4 2026</span>
+          <div class="roadmap-bar-group" aria-hidden="true">
+            <span class="roadmap-bar"></span>
+          </div>
+        </div>
+        <h3 class="roadmap-card-title">Primo Campione</h3>
+        <p class="roadmap-card-desc">Produzione del primo lotto di materiale validato in laboratorio.</p>
+        <div class="roadmap-card-foot"></div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="roadmap-card reveal reveal-delay-1">
+        <div class="roadmap-card-top">
+          <span class="roadmap-badge">Q2 2027</span>
+          <div class="roadmap-bar-group" aria-hidden="true">
+            <span class="roadmap-bar"></span>
+            <span class="roadmap-bar"></span>
+          </div>
+        </div>
+        <h3 class="roadmap-card-title">Impianto Pilota</h3>
+        <p class="roadmap-card-desc">Scale-up della tecnologia per processare 1000 kg/giorno di biomassa.</p>
+        <div class="roadmap-card-foot"></div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="roadmap-card reveal reveal-delay-2">
+        <div class="roadmap-card-top">
+          <span class="roadmap-badge">Q2 2028</span>
+          <div class="roadmap-bar-group" aria-hidden="true">
+            <span class="roadmap-bar"></span>
+            <span class="roadmap-bar"></span>
+            <span class="roadmap-bar"></span>
+          </div>
+        </div>
+        <h3 class="roadmap-card-title">Industria</h3>
+        <p class="roadmap-card-desc">Avvio della Bioraffineria Industriale e commercializzazione su larga scala.</p>
+        <div class="roadmap-card-foot"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+    <!-- ══ CTA ══ -->
+    <section class="section cta-section" id="contact" aria-labelledby="cta-title">
+      <div class="cta-inner">
+        <div class="section-label reveal" style="justify-content:center">Partner Program</div>
+        <h2 class="section-title reveal reveal-delay-1" id="cta-title">
+          Siete pronti a formulare<br>
+          il futuro della <em>bellezza?</em>
+        </h2>
+        <p class="section-desc reveal reveal-delay-2">
+          Unisciti alla nostra rete di partner per integrare i bioingredienti BioPhi
+          nelle tue linee prodotto. Una scelta di innovazione, etica e performance.
+        </p>
+        <form class="cta-form reveal reveal-delay-3" id="cta-form" onsubmit="handleSubmit(event)" novalidate aria-label="Richiedi campione">
+          <label for="cta-email" class="sr-only">La tua email aziendale</label>
+          <input type="email" id="cta-email" name="email" placeholder="La tua email aziendale" required autocomplete="email">
+          <button type="submit" class="btn-cta">Richiedi Campione</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+     NOTIZIE & RICONOSCIMENTI
+     ══════════════════════════════════════ -->
+<section class="section" id="notizie" aria-labelledby="notizie-title">
+  <div class="section-inner">
+
+    <div class="section-header reveal">
+      <span class="section-label">Notizie & Riconoscimenti</span>
+      <h2 class="section-title" id="notizie-title">
+        BioPhi <em>sulla stampa</em>
+      </h2>
+      <p class="section-desc">
+        Articoli, interviste e premi che raccontano il nostro percorso verso una cosmetica davvero circolare.
+      </p>
+    </div>
+
+    <div class="news-grid">
+
+      <!-- Frecce -->
+<div class="news-nav" aria-label="Navigazione carosello">
+  <button class="news-nav-btn" id="news-prev" aria-label="Articolo precedente" disabled>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M15 18l-6-6 6-6"/>
+    </svg>
+  </button>
+  <button class="news-nav-btn" id="news-next" aria-label="Articolo successivo">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M9 18l6-6-6-6"/>
+    </svg>
+  </button>
+</div>
+
+<div class="news-carousel-wrap">
+  <div class="news-grid" id="news-track" role="region"
+       aria-label="Carosello notizie" tabindex="0">
+
+   <!-- Card 1 — articolo featured (grande) -->
+      <article class="news-card news-featured reveal">
+
+        <div class="news-card-img-wrap">
+
+          <a href="https://www.lespresso.it/c/sostenibilita/2026/2/5/startup-biophi-trasformazione-scarti-produzione-birra-nuovi-materiali-oggetti-uso-comune/59500"
+           target="_blank" rel="noopener noreferrer"
+            aria-hidden="true" tabindex="-1">
+            <img src="/images/Espresso - 7 Idee Premiazione - Edo.webp"
+               alt="Copertina articolo L'Espresso — 7 Idee per cambiare l'Italia"
+               width="800" height="450" loading="lazy">
+          </a>
+          <span class="news-source-badge">L'Espresso</span>
+        </div>
+
+        <div class="news-card-body">
+          <div class="news-meta">
+            <span class="news-category">Riconoscimento</span>
+            <time datetime="2026-02-05">Febbraio 2026</time>
+          </div>
+          <h3 class="news-title">
+            <a href="https://www.lespresso.it/c/sostenibilita/2026/2/5/startup-biophi-trasformazione-scarti-produzione-birra-nuovi-materiali-oggetti-uso-comune/59500"
+               target="_blank" rel="noopener noreferrer">
+              BioPhi: La Nuova Vita degli Scarti della Birra
+            </a>
+          </h3>
+          <p class="news-excerpt">
+            L’Espresso racconta come BioPhi stia rivoluzionando il concetto di scarto industriale. 
+            Le trebbie di birra smettono di essere un rifiuto per diventare ingredienti premium,
+            riducendo drasticamente l'impronta carbonica del settore agroalimentare.
+          </p>
+          <a href="https://www.lespresso.it/c/sostenibilita/2026/2/5/startup-biophi-trasformazione-scarti-produzione-birra-nuovi-materiali-oggetti-uso-comune/59500"
+             target="_blank" rel="noopener noreferrer"
+             class="news-read-more">
+            Leggi l'articolo
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M7 17L17 7M7 7h10v10"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 2 — articolo featured (grande) -->
+      <article class="news-card news-featured reveal">
+
+        <div class="news-card-img-wrap">
+
+          <a href="https://lespresso.it/c/attualita/2025/12/4/sette-idee-per-cambiare-italia-startup-bando-lespresso-premiazione/58735"
+           target="_blank" rel="noopener noreferrer"
+            aria-hidden="true" tabindex="-1">
+            <img src="/images/Espresso - 7 Idee Premiazione.webp"
+               alt="Copertina articolo L'Espresso — 7 Idee per cambiare l'Italia"
+               width="800" height="450" loading="lazy">
+          </a>
+          <span class="news-source-badge">L'Espresso</span>
+        </div>
+
+        <div class="news-card-body">
+          <div class="news-meta">
+            <span class="news-category">Riconoscimento</span>
+            <time datetime="2025-12-05">Dicembre 2025</time>
+          </div>
+          <h3 class="news-title">
+            <a href="https://lespresso.it/c/attualita/2025/12/4/sette-idee-per-cambiare-italia-startup-bando-lespresso-premiazione/58735"
+               target="_blank" rel="noopener noreferrer">
+              7 Idee per Cambiare l'Italia: BioPhi tra le startup più innovative
+            </a>
+          </h3>
+          <p class="news-excerpt">
+            L'Espresso ha selezionato BioPhi tra le sette idee italiane capaci
+            di trasformare gli scarti industriali in risorse ad alto valore
+            aggiunto.
+          </p>
+          <a href="https://lespresso.it/c/attualita/2025/12/4/sette-idee-per-cambiare-italia-startup-bando-lespresso-premiazione/58735"
+             target="_blank" rel="noopener noreferrer"
+             class="news-read-more">
+            Leggi l'articolo
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M7 17L17 7M7 7h10v10"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+
+    </div><!-- /news-grid -->
+
+  </div>
+</div>
+
+<!-- Dots -->
+  <div class="news-dots" id="news-dots" aria-hidden="true"></div>
+
+     
+  </div>
+</section>
+
+  </main>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer" aria-label="Piè di pagina">
+    <div class="footer-grid">
+      <div>
+        <div class="nav-logo" style="margin-bottom:0">
+          <img src="images/BioPhi_Simbolo.png" alt="" aria-hidden="true" width="36" height="36" style="width:36px;height:36px;object-fit:contain;border-radius:50%;">
+          <span>BIOPHI</span><span class="nav-logo-srl">srl</span>
+        </div>
+        <p class="footer-brand-desc">
+          Startup innovativa specializzata in biotecnologie per il recupero di biomasse agroalimentari.
+        </p>
+        <div class="footer-social" aria-label="Social e contatti">
+          <a href="https://www.biophi.it" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Sito BioPhi">
+            <i data-lucide="globe" style="width:17px;height:17px" aria-hidden="true"></i>
+          </a>
+          <a href="mailto:hello@biophi.it" class="social-icon" aria-label="Email">
+            <i data-lucide="mail" style="width:17px;height:17px" aria-hidden="true"></i>
+          </a>
+          <a href="https://linkedin.com/company/biophitaly" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
+            <img src="images/InBug-Black.png" alt="" width="17" height="17" loading="lazy" style="display:block;filter:var(--li-icon-filter)">
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Sede</h4>
+        <address>
+          Via Garibaldi, 253<br>
+          Desio (MB) 20832<br>
+          P.IVA/C.F. 14661600966
+        </address>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contatti</h4>
+        <a href="mailto:hello@biophi.it">hello@biophi.it</a>
+        <a href="https://www.biophi.it" target="_blank" rel="noopener noreferrer">www.biophi.it</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigazione</h4>
+        <a href="#vision">Visione</a>
+        <a href="#innovation">Innovazione</a>
+        <a href="#research">Ricerca</a>
+        <a href="#notizie">Notizie</a>
+        <a href="#contact">Partner</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 BioPhi S.r.l. Tutti i diritti riservati.</p>
+      <nav class="footer-legal" aria-label="Link legali">
+        <a href="https://www.iubenda.com/privacy-policy/84481063" class="iubenda-white iubenda-noiframe iubenda-embed" title="Privacy Policy ">Privacy Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
+        <a href="https://www.iubenda.com/privacy-policy/84481063/cookie-policy" class="iubenda-white iubenda-noiframe iubenda-embed" title="Cookie Policy ">Cookie Policy</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
+        <a href="https://www.iubenda.com/termini-e-condizioni/84481063" class="iubenda-white iubenda-noiframe iubenda-embed" title="Termini e Condizioni ">Termini e Condizioni</a><script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
+      </nav>
+    </div>
+  </footer>
+
+  <div id="sr-live" aria-live="polite" class="sr-only"></div>
+
+  <!-- ══════════════════════════════════════════
+       SCRIPTS
+       ══════════════════════════════════════════ -->
+  <script>
+  /* ─── 1. Lucide icons ─── */
+  lucide.createIcons();
+
+  /* ─── 2. Theme toggle (light/dark) ─── */
+  (function () {
+    const html = document.documentElement;
+    let theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+    function applyTheme(t) {
+      theme = t;
+      html.setAttribute('data-theme', t);
+      document.querySelectorAll('[data-theme-toggle]').forEach(btn => {
+        btn.setAttribute('aria-label', t === 'dark' ? 'Passa al tema chiaro' : 'Passa al tema scuro');
+        btn.innerHTML = t === 'dark'
+          ? `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`
+          : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+      });
+    }
+
+    applyTheme(theme);
+    document.querySelectorAll('[data-theme-toggle]').forEach(btn => {
+      btn.addEventListener('click', () => applyTheme(theme === 'dark' ? 'light' : 'dark'));
+    });
+  })();
+
+  /* ─── 3. Navbar scroll glass ─── */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  /* ─── 4. Mobile menu ─── */
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const mobileMenu   = document.getElementById('mobile-menu');
+  const mobileClose  = document.getElementById('mobile-close-btn');
+
+  function openMobileMenu() {
+    mobileMenu.classList.add('open');
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    mobileClose.focus();
+  }
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    hamburgerBtn.focus();
+  }
+
+  hamburgerBtn.addEventListener('click', openMobileMenu);
+  mobileClose.addEventListener('click', closeMobileMenu);
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileMenu));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMobileMenu();
+  });
+
+  /* ─── 5. Hero canvas — floating particles ─── */
+  (function () {
+    const canvas = document.getElementById('hero-canvas');
+    const ctx    = canvas.getContext('2d');
+    let W, H, particles = [];
+
+    function resize() {
+      W = canvas.width  = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+    }
+
+    function getRootVar(v) {
+      return getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+    }
+
+    class Particle {
+      constructor() { this.reset(true); }
+      reset(fresh) {
+        this.x  = Math.random() * W;
+        this.y  = fresh ? Math.random() * H : H + 10;
+        this.r  = Math.random() * 2.5 + 0.8;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = -(Math.random() * 0.5 + 0.2);
+        this.alpha = Math.random() * 0.4 + 0.1;
+      }
+      update() {
+        this.x += this.vx; this.y += this.vy;
+        if (this.y < -10) this.reset(false);
+      }
+      draw(color) {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.globalAlpha = this.alpha;
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function initParticles() {
+      particles = Array.from({ length: 60 }, () => new Particle());
+    }
+
+    let raf;
+    function loop() {
+      ctx.clearRect(0, 0, W, H);
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const color  = isDark ? '#72bf6a' : '#2d5a27';
+      particles.forEach(p => { p.update(); p.draw(color); });
+      raf = requestAnimationFrame(loop);
+    }
+
+    const hero = document.querySelector('.hero');
+    const obs  = new ResizeObserver(resize);
+    obs.observe(hero);
+    resize();
+    initParticles();
+    loop();
+
+    // Pause when off-screen
+    const heroObs = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) { cancelAnimationFrame(raf); }
+      else { loop(); }
+    }, { threshold: 0 });
+    heroObs.observe(hero);
+  })();
+
+  /* ─── 6. Hero entrance animations (Splitting + Motion) ─── */
+  (function () {
+    // Splitting.js — split hero title into chars
+    if (window.Splitting) {
+      Splitting({ target: '[data-splitting]', by: 'chars' });
+    }
+
+    const badge   = document.getElementById('hero-badge');
+    const title   = document.getElementById('hero-heading');
+    const desc    = document.getElementById('hero-desc');
+    const ctas    = document.getElementById('hero-ctas');
+    const visual  = document.getElementById('hero-visual');
+
+    // Badge fade-in
+    setTimeout(() => {
+      if (badge) badge.style.cssText += 'opacity:1;transform:translateY(0)';
+    }, 100);
+
+    // Char-by-char stagger on title
+    if (title) {
+      const chars = title.querySelectorAll('.char');
+      chars.forEach((ch, i) => {
+        ch.style.transitionDelay = (0.04 * i + 0.2) + 's';
+      });
+      requestAnimationFrame(() => title.classList.add('animated'));
+    }
+
+    // Stagger desc and CTAs
+    setTimeout(() => desc  && desc.classList.add('animated'),  600);
+    setTimeout(() => ctas  && ctas.classList.add('animated'),  800);
+    setTimeout(() => visual && visual.classList.add('animated'), 300);
+  })();
+
+  /* ─── 7. Ingredient tabs with animated transitions ─── */
+  const INGREDIENTS = [
+    {
+      letter:  'P',
+      extract: 'Polifenoli & Caffeina',
+      benefit: 'Azione antiossidante e drenante per il contorno occhi. Estratta con processi a basso consumo energetico certificati dal Politecnico di Milano.',
+      progress: 85
+    },
+    {
+      letter:  'T',
+      extract: 'Peptidi Bioattivi',
+      benefit: 'Rigenerazione cutanea e sintesi del collagene. Derivati dalle trebbie di birra con resa estrattiva ottimizzata via tecnologia enzimatica brevettata.',
+      progress: 78
+    },
+    {
+      letter:  'G',
+      extract: 'Lignina & Microcellulosa',
+      benefit: 'Protezione solare naturale e texture effetto seta. Sourced dal panello di girasole con zero solventi chimici in un processo completamente acquoso.',
+      progress: 92
+    }
+  ];
+
+  const tabs        = document.querySelectorAll('.ingredient-tab');
+  const watermark   = document.getElementById('detail-watermark');
+  const content     = document.getElementById('detail-content');
+  const extract     = document.getElementById('detail-extract');
+  const benefit     = document.getElementById('detail-benefit');
+  const fill        = document.getElementById('progress-fill');
+  const pct         = document.getElementById('progress-pct');
+  const panel       = document.getElementById('detail-panel');
+
+  // Trigger initial progress bar after a short delay
+  setTimeout(() => {
+    fill.style.width = INGREDIENTS[0].progress + '%';
+  }, 600);
+
+  function switchTab(idx) {
+    tabs.forEach(t => { t.setAttribute('aria-selected', 'false'); });
+    tabs[idx].setAttribute('aria-selected', 'true');
+    panel.setAttribute('aria-labelledby', 'tab-' + idx);
+
+    const d = INGREDIENTS[idx];
+
+    // Animate out
+    watermark.classList.add('out');
+    content.classList.add('out');
+    fill.style.width = '0';
+
+    setTimeout(() => {
+      // Update content
+      watermark.textContent = d.letter;
+      extract.textContent   = d.extract;
+      benefit.textContent   = d.benefit;
+      pct.textContent       = d.progress + '%';
+
+      // Animate in
+      watermark.classList.remove('out');
+      content.classList.remove('out');
+
+      // Trigger progress bar
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        fill.style.width = d.progress + '%';
+      }));
+    }, 350);
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => switchTab(parseInt(tab.dataset.idx, 10)));
+  });
+
+  /* ─── 8. Scroll reveal (IntersectionObserver) ─── */
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => revealObs.observe(el));
+
+  /* ─── 9. Count-up animation ─── */
+  function countUp(el) {
+    const target   = parseInt(el.dataset.countup, 10);
+    const duration = parseInt(el.dataset.duration || 1000, 10);
+    const start    = performance.now();
+
+    function step(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      // Ease out cubic
+      const ease     = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(ease * target);
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  const countObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting && e.target.dataset.countup !== undefined) {
+        countUp(e.target);
+        countObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-countup]').forEach(el => countObs.observe(el));
+
+  /* ─── 10. Custom cursor ─── */
+  (function () {
+    const dot  = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    if (!dot || !ring) return;
+
+    let cx = 0, cy = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      cx = e.clientX; cy = e.clientY;
+      dot.style.left  = cx + 'px';
+      dot.style.top   = cy + 'px';
+    });
+
+    // Ring lags behind dot
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    (function animate() {
+      rx = lerp(rx, cx, 0.12);
+      ry = lerp(ry, cy, 0.12);
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animate);
+    })();
+
+    // Hover state on interactive elements
+    const interactives = document.querySelectorAll('a, button, [role="button"], input, .ingredient-tab, .bento-card');
+    interactives.forEach(el => {
+      el.addEventListener('mouseenter', () => { dot.classList.add('hover'); ring.classList.add('hover'); });
+      el.addEventListener('mouseleave', () => { dot.classList.remove('hover'); ring.classList.remove('hover'); });
+    });
+  })();
+
+  /* ─── 11. CTA form submit ─── */
+  function handleSubmit(e) {
+    e.preventDefault();
+    const email = document.getElementById('cta-email').value.trim();
+    if (!email) return;
+    const live = document.getElementById('sr-live');
+    live.textContent = 'Grazie! Ti contatteremo presto all indirizzo ' + email;
+    const form = document.getElementById('cta-form');
+    form.innerHTML = `
+      <div class="cta-success">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Richiesta inviata — ti contatteremo presto!
+      </div>`;
+  }
+
+  /* ─── 12. Active nav link on scroll ─── */
+  (function () {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    const sectionObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(a => {
+            a.style.color = a.getAttribute('href') === '#' + e.target.id
+              ? 'var(--color-primary)' : '';
+          });
+        }
+      });
+    }, { threshold: 0.45 });
+
+    sections.forEach(s => sectionObs.observe(s));
+  })();
+
+  /* ── News Carousel ── */
+(function () {
+  const track  = document.getElementById('news-track');
+  const prev   = document.getElementById('news-prev');
+  const next   = document.getElementById('news-next');
+  const dotsEl = document.getElementById('news-dots');
+  if (!track) return;
+
+  const cards = Array.from(track.querySelectorAll('.news-card'));
+  const total = cards.length;
+  let current = 0;
+
+  /* Genera dots */
+  cards.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'news-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Vai alla notizia ' + (i + 1));
+    dot.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(dot);
+  });
+
+  /* Calcola l'offset di una card rispetto all'inizio del track
+     usando offsetLeft — stabile anche dopo lo scroll */
+  function getCardOffset(index) {
+    return cards[index].offsetLeft;
+  }
+
+  function goTo(index) {
+    current = Math.max(0, Math.min(index, total - 1));
+    track.scrollTo({ left: getCardOffset(current), behavior: 'smooth' });
+    updateUI();
+  }
+
+  function updateUI() {
+    Array.from(dotsEl.querySelectorAll('.news-dot'))
+      .forEach((d, i) => d.classList.toggle('active', i === current));
+    prev.disabled = current === 0;
+    next.disabled = current === total - 1;
+  }
+
+  prev.addEventListener('click', () => goTo(current - 1));
+  next.addEventListener('click', () => goTo(current + 1));
+
+  /* Aggiorna dot quando l'utente scorre manualmente col dito */
+  let scrollTimer;
+  track.addEventListener('scroll', () => {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      const scrollLeft = track.scrollLeft;
+      let closest = 0;
+      let minDist  = Infinity;
+      cards.forEach((_, i) => {
+        const dist = Math.abs(getCardOffset(i) - scrollLeft);
+        if (dist < minDist) { minDist = dist; closest = i; }
+      });
+      /* Aggiorna solo se è cambiata la card — evita flickering */
+      if (closest !== current) {
+        current = closest;
+        updateUI();
+      }
+    }, 80);
+  });
+
+  updateUI();
+})();
+
+  </script>
 
 </body>
 </html>
