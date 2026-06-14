@@ -174,7 +174,7 @@
             </button>-->
 
             <button class="ingredient-tab" role="tab" aria-selected="false"
-                    aria-controls="detail-panel" id="tab-1" data-idx="1">
+                    aria-controls="detail-panel" id="tab-1" data-idx="0">
               <div class="tab-icon-wrap" style="background:rgba(212,163,115,0.14);color:#c9935a">
                 <i data-lucide="zap" style="width:20px;height:20px" aria-hidden="true"></i>
               </div>
@@ -183,7 +183,7 @@
             </button>
 
             <button class="ingredient-tab" role="tab" aria-selected="false"
-                    aria-controls="detail-panel" id="tab-2" data-idx="2">
+                    aria-controls="detail-panel" id="tab-2" data-idx="1">
               <div class="tab-icon-wrap" style="background:rgba(201,150,47,0.13);color:#c9962f">
                 <i data-lucide="shield-check" style="width:20px;height:20px" aria-hidden="true"></i>
               </div>
@@ -195,7 +195,7 @@
 
           <!-- Detail panel -->
           <div class="detail-panel reveal reveal-delay-2" id="detail-panel" role="tabpanel" aria-labelledby="tab-0">
-            <div class="detail-watermark" id="detail-watermark" aria-hidden="true">P</div>
+            <div class="detail-watermark" id="detail-watermark" aria-hidden="true">T</div>
 
             <div class="detail-content" id="detail-content">
               <div class="detail-tag">
@@ -226,7 +226,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div>        
         </div>
       </div>
     </section>
@@ -798,24 +798,24 @@
 
   /* ─── 7. Ingredient tabs with animated transitions ─── */
   const INGREDIENTS = [
-    {
+   /* ─── {
       letter:  'P',
       extract: 'Polifenoli & Caffeina',
       benefit: 'Azione antiossidante e drenante per il contorno occhi. Estratta con processi a basso consumo energetico certificati dal Politecnico di Milano.',
       progress: 85
-    },
+    }, ─── */
     {
       letter:  'T',
-      extract: 'Peptidi Bioattivi',
-      benefit: 'Rigenerazione cutanea e sintesi del collagene. Derivati dalle trebbie di birra con resa estrattiva ottimizzata via tecnologia enzimatica brevettata.',
-      progress: 78
+      extract: 'Lignina & Microcellulosa',
+      benefit: 'Protezione solare naturale e texture effetto seta. Sourced dalle trebbie di birra con zero solventi chimici in un processo completamente acquoso.',
+      progress: 92
     },
     {
       letter:  'G',
-      extract: 'Lignina & Microcellulosa',
-      benefit: 'Protezione solare naturale e texture effetto seta. Sourced dal panello di girasole con zero solventi chimici in un processo completamente acquoso.',
-      progress: 92
-    }
+      extract: 'Peptidi Bioattivi',
+      benefit: 'Rigenerazione cutanea e sintesi del collagene. Derivati dal panello di girasole con resa estrattiva ottimizzata via tecnologia enzimatica.',
+      progress: 78
+    }    
   ];
 
   const tabs        = document.querySelectorAll('.ingredient-tab');
