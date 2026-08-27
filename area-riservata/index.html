@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Area Riservata · BioPhi S.r.l.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="assets/area-riservata.css">
+</head>
+<body class="ar-body">
+
+  <main class="ar-auth">
+    <div class="ar-card">
+      <a href="../index.html" class="ar-back">← Torna al sito</a>
+
+      <h1 class="ar-title">Area <em>Riservata</em></h1>
+      <p class="ar-sub">Accesso riservato al team BioPhi.</p>
+
+      <form id="login-form" class="ar-form" novalidate>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" autocomplete="email" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" autocomplete="current-password" required>
+
+        <button type="submit" class="ar-btn" id="login-btn">Accedi</button>
+        <button type="button" class="ar-link-btn" id="reset-btn">Password dimenticata?</button>
+
+        <p class="ar-msg" id="msg" role="alert" aria-live="polite"></p>
+      </form>
+    </div>
+  </main>
+
+  <script type="module" src="auth.js"></script>
+</body>
+</html>
