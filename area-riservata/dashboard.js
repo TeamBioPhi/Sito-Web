@@ -9,7 +9,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 import {
   collection, doc, onSnapshot, addDoc, updateDoc, deleteDoc,
-  getDoc, getDocs, setDoc, writeBatch, serverTimestamp,
+  getDocs, setDoc, writeBatch, serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
 /* ═══════════════ GUARDIA DI AUTENTICAZIONE ═══════════════ */
@@ -38,28 +38,9 @@ function startDashboard() {
   const CANTIERI = ["Raccolta fondi", "Biomasse", "Visibilità"];
   const today = new Date(); today.setHours(0, 0, 0, 0);
 
-  /* ---- Dati iniziali (seed): scritti su Firestore una sola volta ---- */
-  const seedTasks = [
-    { cantiere:"Raccolta fondi", text:"Verificare iscrizione startup innovativa", priorita:"Alta", scadenza:"2026-07-03", stato:"Da iniziare", tonight:true,  azione:"", note:"" },
-    { cantiere:"Raccolta fondi", text:"Fissare appuntamento in banca (Fondo Garanzia PMI)", priorita:"Media", scadenza:"2026-07-06", stato:"Da iniziare", tonight:false, azione:"", note:"" },
-    { cantiere:"Raccolta fondi", text:"Avviare business plan / piano economico-finanziario", priorita:"Alta", scadenza:"2026-07-13", stato:"Da iniziare", tonight:true,  azione:"", note:"" },
-    { cantiere:"Biomasse", text:"Preparare lista 12-15 birrifici + 6-8 oleifici", priorita:"Alta", scadenza:"2026-07-06", stato:"Da iniziare", tonight:true,  azione:"", note:"" },
-    { cantiere:"Biomasse", text:"Scrivere email icebreaker per fornitori", priorita:"Media", scadenza:"2026-07-06", stato:"Da iniziare", tonight:false, azione:"", note:"" },
-    { cantiere:"Visibilità", text:"Aggiornare sito e LinkedIn", priorita:"Bassa", scadenza:"2026-07-06", stato:"Da iniziare", tonight:false, azione:"", note:"" },
-    { cantiere:"Visibilità", text:"Iscriversi update Ecomondo / Making Cosmetics", priorita:"Bassa", scadenza:"2026-07-06", stato:"Da iniziare", tonight:false, azione:"", note:"" },
-  ];
-  const seedDeadlines = [
-    { name:"Firma accordo PoliMi + sblocco 1ª tranche", data:"2026-09-07", cantiere:"Raccolta fondi", stato:"Da fare", note:"" },
-    { name:"Domanda Smart&Start", data:"2026-09-14", cantiere:"Raccolta fondi", stato:"Da fare", note:"" },
-    { name:"ECOMONDO — Rimini", data:"2026-11-03", cantiere:"Visibilità", stato:"Da fare", note:"" },
-    { name:"MAKING COSMETICS — Milano", data:"2026-11-25", cantiere:"Visibilità", stato:"Da fare", note:"" },
-    { name:"GATE MS1 GO/NO-GO", data:"2026-12-14", cantiere:"Progetto", stato:"Da fare", note:"" },
-  ];
-  const seedEmails = [
-    { who:"PoliMi — referente scientifico", ctx:"Sollecito proposta economica", cantiere:"Progetto", stato:"Da inviare", next:"2026-07-03", note:"" },
-    { who:"Birrifici", ctx:"Icebreaker + richiesta scheda tecnica BSG", cantiere:"Biomasse", stato:"Da scrivere", next:"2026-07-06", note:"" },
-    { who:"Banca", ctx:"Richiesta appuntamento Fondo Garanzia PMI", cantiere:"Raccolta fondi", stato:"Da inviare", next:"2026-07-03", note:"" },
-  ];
+  // Nessun dato iniziale nel codice: al primo accesso la dashboard è vuota.
+  // I dati reali vivono SOLO su Firestore. Per popolarla: "Importa da Excel"
+  // (una volta), oppure aggiungili a mano dalla dashboard / console Firestore.
 
   /* ---- Riferimenti Firestore ---- */
   const tasksCol     = collection(db, "tasks");
@@ -70,7 +51,6 @@ function startDashboard() {
   /* ---- Stato locale (specchio dei dati Firestore) ---- */
   let tasks = [], deadlines = [], emails = [], lastImport = null;
   const ready = { tasks: false, deadlines: false, emails: false };
-  let seedChecked = false;
   let importing = false;
 
   const app = document.getElementById("app");
@@ -82,48 +62,23 @@ function startDashboard() {
 
   onSnapshot(tasksCol, (snap) => {
     tasks = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-    ready.tasks = true; maybeSeed(); render();
+    ready.tasks = true; render();
   }, onErr("tasks"));
 
   onSnapshot(deadlinesCol, (snap) => {
     deadlines = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-    ready.deadlines = true; maybeSeed(); render();
+    ready.deadlines = true; render();
   }, onErr("deadlines"));
 
   onSnapshot(emailsCol, (snap) => {
     emails = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-    ready.emails = true; maybeSeed(); render();
+    ready.emails = true; render();
   }, onErr("emails"));
 
   onSnapshot(metaRef, (snap) => {
     lastImport = snap.exists() ? (snap.data().lastImport || null) : null;
     render();
   }, onErr("meta"));
-
-  /* ---- Seeding one-shot: solo se le 3 collection sono vuote ---- */
-  async function maybeSeed() {
-    if (seedChecked) return;
-    if (!(ready.tasks && ready.deadlines && ready.emails)) return;
-    seedChecked = true;
-    try {
-      const metaSnap = await getDoc(metaRef);
-      if (metaSnap.exists() && metaSnap.data().seeded) return;
-      if (tasks.length || deadlines.length || emails.length) {
-        await setDoc(metaRef, { seeded: true }, { merge: true });
-        return;
-      }
-      const batch = writeBatch(db);
-      seedTasks.forEach((t)     => batch.set(doc(tasksCol), t));
-      seedDeadlines.forEach((d) => batch.set(doc(deadlinesCol), d));
-      seedEmails.forEach((e)    => batch.set(doc(emailsCol), e));
-      batch.set(metaRef, { seeded: true }, { merge: true });
-      await batch.commit();
-    } catch (err) {
-      console.error("Seed iniziale non riuscito:", err);
-    }
-  }
-
-  const uid = () => "t" + Date.now() + Math.floor(Math.random() * 1000);
 
   /* ═══════════ IMPORT DA EXCEL ═══════════ */
   function sheetToRows(wb, name) {
@@ -207,7 +162,6 @@ function startDashboard() {
         await Promise.all(jobs);
         await setDoc(metaRef, {
           lastImport: new Date().toLocaleString("it-IT"),
-          seeded: true,
         }, { merge: true });
       } catch (err) {
         console.error(err);
