@@ -13,14 +13,26 @@ const loginBtn  = document.getElementById("login-btn");
 const resetBtn  = document.getElementById("reset-btn");
 const msgEl     = document.getElementById("msg");
 
+const DASHBOARD_URL = "/area-riservata/dashboard.html";
+
 function showMsg(text, kind = "error") {
   msgEl.textContent = text;
   msgEl.className = "ar-msg" + (text ? " ar-msg--" + kind : "");
 }
 
+function setLoading(on) {
+  loginBtn.disabled = on;
+  loginBtn.textContent = on ? "Accesso in corso…" : "Accedi";
+}
+
+// Ripristina lo stato del bottone anche quando la pagina torna dalla
+// cache di navigazione (tasto "indietro" del browser): in quel caso gli
+// script del modulo non vengono rieseguiti.
+window.addEventListener("pageshow", () => setLoading(false));
+
 // Se l'utente è già autenticato, salta il login e vai alla dashboard.
 onAuthStateChanged(auth, (user) => {
-  if (user) window.location.replace("dashboard.html");
+  if (user) window.location.replace(DASHBOARD_URL);
 });
 
 form.addEventListener("submit", async (e) => {
@@ -31,15 +43,13 @@ form.addEventListener("submit", async (e) => {
   const pass  = passEl.value;
   if (!email || !pass) { showMsg("Inserisci email e password."); return; }
 
-  loginBtn.disabled = true;
-  loginBtn.textContent = "Accesso in corso…";
+  setLoading(true);
   try {
     await signInWithEmailAndPassword(auth, email, pass);
-    window.location.replace("dashboard.html");
+    window.location.replace(DASHBOARD_URL);
   } catch (err) {
     showMsg(firebaseErrorIt(err.code));
-    loginBtn.disabled = false;
-    loginBtn.textContent = "Accedi";
+    setLoading(false);
   }
 });
 

@@ -241,6 +241,7 @@ main { max-width: var(--content-wide); margin: 0 auto; padding: var(--space-6); 
   font-size: 11px; cursor: pointer; font-family: var(--ar-mono); padding: 0;
 }
 #app .task .actions button:hover { color: var(--ar-accent); }
+#app .cant-more { font-size: 11px; color: var(--color-text-muted); font-family: var(--ar-mono); padding: 4px 2px 2px; font-style: italic; }
 
 #app .email-row {
   display: flex; justify-content: space-between; align-items: center;

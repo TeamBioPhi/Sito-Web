@@ -18,7 +18,7 @@ const shell  = document.getElementById("ar-shell");
 const userEl = document.getElementById("ar-user");
 
 onAuthStateChanged(auth, (user) => {
-  if (!user) { window.location.replace("index.html"); return; }
+  if (!user) { window.location.replace("/area-riservata/index.html"); return; }
   userEl.textContent = user.email;
   gate.hidden  = true;
   shell.hidden = false;
@@ -26,7 +26,7 @@ onAuthStateChanged(auth, (user) => {
 });
 
 document.getElementById("logout-btn").addEventListener("click", async () => {
-  try { await signOut(auth); } finally { window.location.replace("index.html"); }
+  try { await signOut(auth); } finally { window.location.replace("/area-riservata/index.html"); }
 });
 
 /* ═══════════════ CENTRALE OPERATIVA ═══════════════ */
@@ -252,7 +252,17 @@ function startDashboard() {
     }
 
     const tonight = pickTonight();
-    const openTasksByCantiere = (c) => tasks.filter((t) => t.cantiere === c && t.stato !== "Fatto");
+    const PRIO_ORDER = { Alta: 0, Media: 1, Bassa: 2 };
+    const taskTime = (t) => {
+      const ms = new Date(t.scadenza).getTime();
+      return Number.isNaN(ms) ? Infinity : ms;   // task senza scadenza in fondo
+    };
+    // Task aperti del cantiere, ordinati per scadenza più imminente (poi priorità)
+    const openTasksByCantiere = (c) => tasks
+      .filter((t) => t.cantiere === c && t.stato !== "Fatto")
+      .sort((a, b) => taskTime(a) - taskTime(b)
+        || (PRIO_ORDER[a.priorita] ?? 3) - (PRIO_ORDER[b.priorita] ?? 3));
+    const MAX_TASK_PER_CANTIERE = 5;
     const sortedDeadlines = [...deadlines].sort((a, b) => new Date(a.data) - new Date(b.data)).slice(0, 6);
     const sortedEmails = [...emails].sort((a, b) => new Date(a.next) - new Date(b.next));
 
@@ -304,9 +314,11 @@ function startDashboard() {
 
       <div class="cantieri">
         ${CANTIERI.map((c) => {
-          const items = openTasksByCantiere(c);
+          const all = openTasksByCantiere(c);
+          const items = all.slice(0, MAX_TASK_PER_CANTIERE);
+          const hidden = all.length - items.length;
           return `<div class="cant-col">
-            <h3>${escapeHtml(c)} <span>${items.length}</span></h3>
+            <h3>${escapeHtml(c)} <span>${all.length}</span></h3>
             ${items.length ? items.map((t) => `
               <div class="task">
                 <div class="top">
@@ -318,6 +330,7 @@ function startDashboard() {
                   <button data-tonight="${t.id}">${t.tonight ? "✓ stasera" : "metti stasera"}</button>
                 </div>
               </div>`).join("") : '<div class="empty">Tutto fatto qui.</div>'}
+            ${hidden > 0 ? `<div class="cant-more">+${hidden} meno urgenti — esporta l'Excel per l'elenco completo</div>` : ""}
           </div>`;
         }).join("")}
       </div>
