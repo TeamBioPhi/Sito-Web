@@ -39,6 +39,72 @@
     </main>
   </div>
 
+  <!-- Modale modifica / nuovo task -->
+  <dialog id="task-dialog" class="ar-dialog">
+    <form id="task-form" method="dialog">
+      <h3 id="task-dialog-title">Modifica task</h3>
+
+      <label>Attività
+        <input name="text" type="text" required autocomplete="off">
+      </label>
+
+      <div class="dlg-row">
+        <label>Cantiere
+          <select name="cantiere">
+            <option>Raccolta fondi</option>
+            <option>Biomasse</option>
+            <option>Visibilità</option>
+          </select>
+        </label>
+        <label>Tipo
+          <select name="tipo">
+            <option value="iniziativa">iniziativa</option>
+            <option value="routine">routine</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="dlg-row">
+        <label>Priorità
+          <select name="priorita"><option>Alta</option><option>Media</option><option>Bassa</option></select>
+        </label>
+        <label>Scadenza
+          <input name="scadenza" type="date">
+        </label>
+      </div>
+
+      <div class="dlg-row">
+        <label>Stato
+          <select name="stato">
+            <option>Da iniziare</option><option>In corso</option><option>In attesa</option><option>Fatto</option>
+          </select>
+        </label>
+        <label>Assegnatario
+          <select name="assignee"></select>
+        </label>
+      </div>
+
+      <label>Vincolo collegato (scadenza di Livello 1)
+        <select name="linkedDeadlineId"></select>
+      </label>
+
+      <label>Prossima azione concreta
+        <input name="azione" type="text" autocomplete="off">
+      </label>
+
+      <label>Note
+        <textarea name="note" rows="2"></textarea>
+      </label>
+
+      <div class="dlg-actions">
+        <button type="button" id="task-delete" class="ar-btn ar-btn--ghost danger">Elimina</button>
+        <span class="spacer"></span>
+        <button type="button" id="task-cancel" class="ar-btn ar-btn--ghost">Annulla</button>
+        <button type="submit" class="ar-btn">Salva</button>
+      </div>
+    </form>
+  </dialog>
+
   <script type="module" src="dashboard.js"></script>
 </body>
 </html>

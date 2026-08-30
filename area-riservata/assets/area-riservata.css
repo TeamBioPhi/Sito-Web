@@ -260,3 +260,134 @@ main { max-width: var(--content-wide); margin: 0 auto; padding: var(--space-6); 
   border-radius: 6px; padding: 3px 9px; font-size: 11px; cursor: pointer; font-family: var(--ar-mono);
 }
 #app .email-row button:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+/* ============================================================
+   Dashboard a 3 livelli (vedi ARCHITETTURA.md §10)
+   ============================================================ */
+#app .header-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+#app .empty-state { text-align: center; margin-bottom: 18px; }
+#app .empty-state p { color: var(--color-text-muted); font-size: 13px; margin: 6px 0 12px; }
+
+/* Toolbar: quick-add + filtro */
+#app .toolbar {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 12px; flex-wrap: wrap; margin-bottom: 22px;
+}
+#app .toolbar .quickadd { margin: 0; flex: 1; min-width: 260px; }
+#app .quickadd select, #app .routine-add select {
+  background: var(--color-surface-2); border: 1px solid var(--color-border);
+  color: var(--color-text); border-radius: 8px; padding: 0 8px; font-size: 13px;
+  font-family: var(--font-body);
+}
+#app .toolbar-right { display: flex; gap: 8px; align-items: center; }
+#app .chip-toggle {
+  background: var(--color-surface-2); border: 1px solid var(--color-border);
+  color: var(--color-text-muted); border-radius: 20px; padding: 6px 12px;
+  font-size: 12px; font-family: var(--ar-mono); cursor: pointer; white-space: nowrap;
+}
+#app .chip-toggle.on { color: var(--color-primary); border-color: var(--color-primary); }
+
+/* Livelli */
+#app .level { margin-bottom: 22px; }
+#app .level-head, #app details > summary {
+  display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px;
+  list-style: none;
+}
+#app details > summary { cursor: pointer; }
+#app details > summary::-webkit-details-marker { display: none; }
+#app details > summary::before {
+  content: "▸"; color: var(--color-text-muted); font-size: 11px;
+  transition: transform .15s; display: inline-block;
+}
+#app details[open] > summary::before { transform: rotate(90deg); }
+#app .level-head h2, #app details > summary h2 {
+  font-family: var(--font-display); font-weight: 600; font-size: 17px; margin: 0;
+}
+#app .level-head .tag, #app details > summary .tag {
+  font-family: var(--ar-mono); font-size: 10px; color: var(--color-text-muted);
+  background: var(--color-surface-2); padding: 2px 7px; border-radius: 20px;
+  border: 1px solid var(--color-border);
+}
+#app .level-tag {
+  font-family: var(--ar-mono); font-size: 10px; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--ar-accent);
+}
+#app .level-1 .card { border-left: 3px solid var(--ar-urgent); }
+#app .level-2 .card, #app .level-2 .cantieri { border-left: 3px solid var(--color-primary); padding-left: 14px; }
+#app .level-2 .cantieri { border-radius: 0; margin-bottom: 0; }
+#app .level-3 .card { border-left: 3px solid var(--color-text-faint); }
+
+/* Livello 1 — righe vincolo */
+#app .constraint-row {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--color-border); font-size: 13px;
+}
+#app .constraint-row:last-child { border-bottom: none; }
+#app .c-main { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+#app .c-kind {
+  font-family: var(--ar-mono); font-size: 9px; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--color-primary);
+}
+#app .c-kind.doc { color: var(--ar-accent); }
+#app .c-name { font-weight: 600; }
+#app .c-meta { font-size: 11px; color: var(--color-text-muted); font-family: var(--ar-mono); }
+#app .constraint-sep {
+  font-family: var(--ar-mono); font-size: 10px; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--color-text-muted);
+  margin: 14px 0 4px; padding-top: 10px; border-top: 1px dashed var(--color-border);
+}
+#app .days { font-family: var(--ar-mono); font-size: 11px; padding: 3px 9px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+
+/* Livello 2 — sotto-riga task */
+#app .task-sub { display: flex; flex-wrap: wrap; gap: 5px; margin: 5px 0 2px; align-items: center; }
+#app .chip {
+  font-family: var(--ar-mono); font-size: 10px; padding: 2px 7px; border-radius: 20px;
+  background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text-muted);
+}
+#app .chip.who { color: var(--color-primary); border-color: var(--color-primary); }
+#app .mini {
+  background: none; border: none; color: var(--color-text-muted);
+  font-size: 13px; cursor: pointer; padding: 0 4px; flex-shrink: 0;
+}
+#app .mini:hover { color: var(--ar-accent); }
+
+/* Livello 3 — routine */
+#app .routine-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 9px 0; border-bottom: 1px solid var(--color-border); font-size: 13px;
+}
+#app .routine-row:last-of-type { border-bottom: none; }
+#app .routine-row.off { opacity: .5; }
+#app .r-main { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+#app .r-label { font-weight: 600; }
+#app .routine-row .actions { display: flex; gap: 8px; }
+#app .routine-row .actions button {
+  background: none; border: 1px solid var(--color-border); color: var(--color-text-muted);
+  border-radius: 6px; padding: 3px 9px; font-size: 11px; cursor: pointer; font-family: var(--ar-mono);
+}
+#app .routine-row .actions button:hover { border-color: var(--color-primary); color: var(--color-primary); }
+#app .routine-add { display: flex; gap: 8px; padding: 12px 0 4px; }
+#app .routine-add input { flex: 1; background: var(--color-surface-2); border: 1px solid var(--color-border); color: var(--color-text); border-radius: 8px; padding: 8px 10px; font-size: 13px; font-family: var(--font-body); }
+#app .routine-add button { background: var(--ar-accent); color: #241606; border: none; border-radius: 8px; padding: 0 14px; font-weight: 600; font-size: 13px; cursor: pointer; }
+
+/* ---------- Modale task ---------- */
+.ar-dialog {
+  border: 1px solid var(--color-border); border-radius: var(--radius-xl);
+  background: var(--color-surface); color: var(--color-text);
+  padding: 0; max-width: 520px; width: calc(100% - 32px);
+}
+.ar-dialog::backdrop { background: rgba(0, 0, 0, .55); }
+.ar-dialog form { padding: 22px; display: flex; flex-direction: column; gap: 12px; }
+.ar-dialog h3 { font-family: var(--font-display); font-weight: 600; font-size: 18px; margin: 0 0 4px; }
+.ar-dialog label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--color-text-muted); font-family: var(--ar-mono); }
+.ar-dialog input, .ar-dialog select, .ar-dialog textarea {
+  background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  color: var(--color-text); padding: 8px 10px; font-size: 14px; font-family: var(--font-body);
+}
+.ar-dialog input:focus, .ar-dialog select:focus, .ar-dialog textarea:focus { outline: none; border-color: var(--color-primary); }
+.ar-dialog .dlg-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ar-dialog .dlg-actions { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.ar-dialog .dlg-actions .spacer { flex: 1; }
+.ar-dialog .danger { color: var(--ar-urgent); border-color: var(--ar-urgent); }
+@media (max-width: 460px) { .ar-dialog .dlg-row { grid-template-columns: 1fr; } }
