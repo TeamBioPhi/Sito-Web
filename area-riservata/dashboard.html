@@ -34,6 +34,11 @@
         <button id="logout-btn" class="ar-btn ar-btn--ghost" type="button">Esci</button>
       </div>
     </header>
+    <nav class="ar-views" aria-label="Viste">
+      <a href="#operativa">Operativa</a>
+      <a href="#calendario">Calendario</a>
+      <a href="#gantt">Gantt</a>
+    </nav>
     <main>
       <div id="app"></div>
     </main>
@@ -68,25 +73,28 @@
         <label>Priorità
           <select name="priorita"><option>Alta</option><option>Media</option><option>Bassa</option></select>
         </label>
-        <label>Scadenza
-          <input name="scadenza" type="date">
+        <label>Inizio (per il Gantt)
+          <input name="inizio" type="date">
         </label>
       </div>
 
       <div class="dlg-row">
-        <label>Stato
-          <select name="stato">
-            <option>Da iniziare</option><option>In corso</option><option>In attesa</option><option>Fatto</option>
-          </select>
+        <label>Scadenza
+          <input name="scadenza" type="date">
         </label>
-        <label>Assegnatario
-          <select name="assignee"></select>
+        <label>Stato
+          <select name="stato"></select>
         </label>
       </div>
 
-      <label>Vincolo collegato (scadenza di Livello 1)
-        <select name="linkedDeadlineId"></select>
-      </label>
+      <div class="dlg-row">
+        <label>Assegnatario
+          <select name="assignee"></select>
+        </label>
+        <label>Vincolo collegato (scadenza)
+          <select name="linkedDeadlineId"></select>
+        </label>
+      </div>
 
       <label>Prossima azione concreta
         <input name="azione" type="text" autocomplete="off">

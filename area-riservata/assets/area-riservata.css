@@ -262,114 +262,118 @@ main { max-width: var(--content-wide); margin: 0 auto; padding: var(--space-6); 
 #app .email-row button:hover { border-color: var(--color-primary); color: var(--color-primary); }
 
 /* ============================================================
-   Dashboard a 3 livelli (vedi ARCHITETTURA.md §10)
+   Dashboard — viste, quick-add, chip, routine, calendario, gantt
    ============================================================ */
 #app .header-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
 #app .empty-state { text-align: center; margin-bottom: 18px; }
 #app .empty-state p { color: var(--color-text-muted); font-size: 13px; margin: 6px 0 12px; }
 
-/* Toolbar: quick-add + filtro */
-#app .toolbar {
-  display: flex; justify-content: space-between; align-items: center;
-  gap: 12px; flex-wrap: wrap; margin-bottom: 22px;
+/* Barra viste (in dashboard.html, sotto la topbar) */
+.ar-views { display: flex; gap: 2px; flex-wrap: wrap; padding: 8px var(--space-6) 0; border-bottom: 1px solid var(--color-border); }
+.ar-views a {
+  padding: 8px 16px; font-size: 13px; font-weight: 600; color: var(--color-text-muted);
+  border: 1px solid transparent; border-bottom: none; border-radius: 8px 8px 0 0;
 }
-#app .toolbar .quickadd { margin: 0; flex: 1; min-width: 260px; }
-#app .quickadd select, #app .routine-add select {
-  background: var(--color-surface-2); border: 1px solid var(--color-border);
-  color: var(--color-text); border-radius: 8px; padding: 0 8px; font-size: 13px;
-  font-family: var(--font-body);
+.ar-views a:hover { color: var(--color-text); }
+.ar-views a.active { color: var(--color-primary); border-color: var(--color-border); background: var(--color-surface); }
+
+/* Quick-add: select cantiere + input + bottoni (layout originale, esteso) */
+#app .quickadd { flex-wrap: wrap; }
+#app .quickadd select {
+  background: var(--color-surface-2); border: 1px solid var(--color-border); color: var(--color-text);
+  border-radius: 8px; padding: 0 8px; font-size: 13px; font-family: var(--font-body);
 }
-#app .toolbar-right { display: flex; gap: 8px; align-items: center; }
 #app .chip-toggle {
-  background: var(--color-surface-2); border: 1px solid var(--color-border);
-  color: var(--color-text-muted); border-radius: 20px; padding: 6px 12px;
-  font-size: 12px; font-family: var(--ar-mono); cursor: pointer; white-space: nowrap;
+  background: var(--color-surface-2); border: 1px solid var(--color-border); color: var(--color-text-muted);
+  border-radius: 8px; padding: 0 12px; font-size: 12px; font-family: var(--ar-mono); cursor: pointer; white-space: nowrap;
 }
 #app .chip-toggle.on { color: var(--color-primary); border-color: var(--color-primary); }
 
-/* Livelli */
-#app .level { margin-bottom: 22px; }
-#app .level-head, #app details > summary {
-  display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px;
-  list-style: none;
+/* Separatore "Documenti da sistemare" dentro la card Scadenze */
+#app .deadline-sep {
+  font-family: var(--ar-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--color-text-muted); margin: 12px 0 2px; padding-top: 10px; border-top: 1px dashed var(--color-border);
 }
-#app details > summary { cursor: pointer; }
-#app details > summary::-webkit-details-marker { display: none; }
-#app details > summary::before {
-  content: "▸"; color: var(--color-text-muted); font-size: 11px;
-  transition: transform .15s; display: inline-block;
-}
-#app details[open] > summary::before { transform: rotate(90deg); }
-#app .level-head h2, #app details > summary h2 {
-  font-family: var(--font-display); font-weight: 600; font-size: 17px; margin: 0;
-}
-#app .level-head .tag, #app details > summary .tag {
-  font-family: var(--ar-mono); font-size: 10px; color: var(--color-text-muted);
-  background: var(--color-surface-2); padding: 2px 7px; border-radius: 20px;
-  border: 1px solid var(--color-border);
-}
-#app .level-tag {
-  font-family: var(--ar-mono); font-size: 10px; letter-spacing: .06em;
-  text-transform: uppercase; color: var(--ar-accent);
-}
-#app .level-1 .card { border-left: 3px solid var(--ar-urgent); }
-#app .level-2 .card, #app .level-2 .cantieri { border-left: 3px solid var(--color-primary); padding-left: 14px; }
-#app .level-2 .cantieri { border-radius: 0; margin-bottom: 0; }
-#app .level-3 .card { border-left: 3px solid var(--color-text-faint); }
-
-/* Livello 1 — righe vincolo */
-#app .constraint-row {
-  display: flex; justify-content: space-between; align-items: center; gap: 12px;
-  padding: 10px 0; border-bottom: 1px solid var(--color-border); font-size: 13px;
-}
-#app .constraint-row:last-child { border-bottom: none; }
-#app .c-main { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-#app .c-kind {
-  font-family: var(--ar-mono); font-size: 9px; text-transform: uppercase;
-  letter-spacing: .08em; color: var(--color-primary);
-}
-#app .c-kind.doc { color: var(--ar-accent); }
-#app .c-name { font-weight: 600; }
 #app .c-meta { font-size: 11px; color: var(--color-text-muted); font-family: var(--ar-mono); }
-#app .constraint-sep {
-  font-family: var(--ar-mono); font-size: 10px; text-transform: uppercase;
-  letter-spacing: .08em; color: var(--color-text-muted);
-  margin: 14px 0 4px; padding-top: 10px; border-top: 1px dashed var(--color-border);
-}
 #app .days { font-family: var(--ar-mono); font-size: 11px; padding: 3px 9px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
 
-/* Livello 2 — sotto-riga task */
+/* Sotto-riga task (scadenza + chip) */
 #app .task-sub { display: flex; flex-wrap: wrap; gap: 5px; margin: 5px 0 2px; align-items: center; }
 #app .chip {
   font-family: var(--ar-mono); font-size: 10px; padding: 2px 7px; border-radius: 20px;
   background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text-muted);
 }
 #app .chip.who { color: var(--color-primary); border-color: var(--color-primary); }
-#app .mini {
-  background: none; border: none; color: var(--color-text-muted);
-  font-size: 13px; cursor: pointer; padding: 0 4px; flex-shrink: 0;
-}
+#app .mini { background: none; border: none; color: var(--color-text-muted); font-size: 13px; cursor: pointer; padding: 0 4px; flex-shrink: 0; }
 #app .mini:hover { color: var(--ar-accent); }
 
-/* Livello 3 — routine */
-#app .routine-row {
-  display: flex; align-items: center; gap: 12px;
-  padding: 9px 0; border-bottom: 1px solid var(--color-border); font-size: 13px;
-}
+/* Card Routine (details) */
+#app .routine-card { padding-top: 14px; }
+#app .routine-card > summary { list-style: none; cursor: pointer; display: flex; align-items: center; }
+#app .routine-card > summary::-webkit-details-marker { display: none; }
+#app .routine-card > summary h2 { display: inline-flex; }
+#app .routine-card > summary::before { content: "▸"; color: var(--color-text-muted); font-size: 11px; margin-right: 6px; }
+#app .routine-card[open] > summary::before { content: "▾"; }
+#app .routine-row { display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--color-border); font-size: 13px; }
 #app .routine-row:last-of-type { border-bottom: none; }
 #app .routine-row.off { opacity: .5; }
 #app .r-main { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 #app .r-label { font-weight: 600; }
 #app .routine-row .actions { display: flex; gap: 8px; }
-#app .routine-row .actions button {
+#app .routine-row .actions button, #app .routine-add button {
   background: none; border: 1px solid var(--color-border); color: var(--color-text-muted);
   border-radius: 6px; padding: 3px 9px; font-size: 11px; cursor: pointer; font-family: var(--ar-mono);
 }
 #app .routine-row .actions button:hover { border-color: var(--color-primary); color: var(--color-primary); }
 #app .routine-add { display: flex; gap: 8px; padding: 12px 0 4px; }
 #app .routine-add input { flex: 1; background: var(--color-surface-2); border: 1px solid var(--color-border); color: var(--color-text); border-radius: 8px; padding: 8px 10px; font-size: 13px; font-family: var(--font-body); }
-#app .routine-add button { background: var(--ar-accent); color: #241606; border: none; border-radius: 8px; padding: 0 14px; font-weight: 600; font-size: 13px; cursor: pointer; }
+#app .routine-add select { background: var(--color-surface-2); border: 1px solid var(--color-border); color: var(--color-text); border-radius: 8px; padding: 0 8px; font-size: 13px; }
+
+/* ---------- Calendario ---------- */
+#app .cal-toolbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+#app .cal-title { font-family: var(--font-display); font-size: 18px; font-weight: 600; text-transform: capitalize; margin-left: 4px; }
+#app .cal-legend { margin-left: auto; font-family: var(--ar-mono); font-size: 11px; color: var(--color-text-muted); display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+#app .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-left: 6px; }
+#app .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--color-border); border: 1px solid var(--color-border); border-radius: 10px; overflow: hidden; }
+#app .cal-dow { background: var(--color-surface-2); font-family: var(--ar-mono); font-size: 10px; text-transform: uppercase; color: var(--color-text-muted); text-align: center; padding: 6px 0; }
+#app .cal-cell { background: var(--color-surface); min-height: 96px; padding: 4px 5px; display: flex; flex-direction: column; gap: 2px; overflow: hidden; }
+#app .cal-cell.other { background: var(--color-surface-offset); }
+#app .cal-cell.other .cal-num { opacity: .4; }
+#app .cal-cell.today { outline: 2px solid var(--color-primary); outline-offset: -2px; }
+#app .cal-num { font-family: var(--ar-mono); font-size: 11px; color: var(--color-text-muted); }
+#app .cal-chip { font-size: 10px; line-height: 1.35; padding: 1px 5px; border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-left: 3px solid var(--color-border); background: var(--color-surface-2); }
+#app .cal-chip[data-edit] { cursor: pointer; }
+#app .cal-chip.done { opacity: .45; text-decoration: line-through; }
+#app .cal-more { font-size: 9px; color: var(--color-text-muted); font-family: var(--ar-mono); }
+@media (max-width: 640px) { #app .cal-cell { min-height: 70px; } #app .cal-chip { font-size: 0; padding: 2px; } #app .cal-chip::before { content: "•"; font-size: 12px; } }
+
+/* colori per tipo — condivisi calendario + gantt */
+#app .dot.task,     #app .cal-chip.task     { border-left-color: var(--color-primary); }
+#app .dot.deadline, #app .cal-chip.deadline { border-left-color: var(--ar-urgent); }
+#app .dot.routine,  #app .cal-chip.routine  { border-left-color: var(--ar-accent); }
+#app .dot.email,    #app .cal-chip.email    { border-left-color: var(--color-leaf); }
+#app .dot.task { background: var(--color-primary); }
+#app .dot.deadline { background: var(--ar-urgent); }
+#app .dot.routine { background: var(--ar-accent); }
+#app .dot.email { background: var(--color-leaf); }
+
+/* ---------- Gantt ---------- */
+#app .gantt-scroll { overflow-x: auto; border: 1px solid var(--color-border); border-radius: 10px; background: var(--color-surface); }
+#app .gantt-canvas { position: relative; padding: 28px 0 10px; min-height: 120px; }
+#app .gantt-axis { position: absolute; inset: 0 0 auto 0; height: 28px; border-bottom: 1px solid var(--color-border); }
+#app .gantt-week { position: absolute; top: 0; bottom: 0; border-left: 1px dashed var(--color-divider); font-family: var(--ar-mono); font-size: 10px; color: var(--color-text-muted); padding-left: 3px; }
+#app .gantt-today { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--color-primary); z-index: 3; }
+#app .gantt-grouprow { position: relative; padding: 10px 0 2px 8px; font-family: var(--ar-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--color-text-muted); z-index: 2; }
+#app .gantt-row { position: relative; height: 26px; }
+#app .g-bar { position: absolute; top: 5px; height: 16px; border-radius: 4px; background: var(--color-primary); overflow: hidden; cursor: pointer; z-index: 2; }
+#app .g-bar.deadline { background: var(--ar-urgent); }
+#app .g-barlabel { font-size: 10px; color: #06210b; padding: 1px 6px; white-space: nowrap; display: block; }
+#app .g-diamond { position: absolute; top: 5px; width: 12px; height: 12px; background: var(--ar-urgent); transform: rotate(45deg); cursor: pointer; z-index: 2; }
+#app .g-diamond.task { background: var(--color-primary); }
+#app .g-tick { position: absolute; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--ar-accent); z-index: 2; }
+#app .g-rowlabel { position: absolute; top: 4px; left: 4px; font-size: 11px; color: var(--color-text); white-space: nowrap; padding: 0 4px; z-index: 2; background: var(--color-surface); border-radius: 3px; }
+#app .gantt-hint { font-family: var(--ar-mono); font-size: 11px; color: var(--color-text-muted); margin-top: 10px; }
 
 /* ---------- Modale task ---------- */
 .ar-dialog {
