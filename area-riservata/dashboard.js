@@ -36,6 +36,42 @@ const PRIO_ORDER = { Alta: 0, Media: 1, Bassa: 2 };
 const MAX_TASK_PER_CANTIERE = 5;
 const DOC_STALE_GIORNI = 30;
 const DOC_STATI_ALERT = ["Da creare", "Da verificare"];
+
+// Soci: mappa nome ⇄ email di login. In import/export "Simone"/"Edoardo"/"Entrambi"
+// vengono convertiti automaticamente nelle email; `assignee` è salvato come
+// email singola oppure lista "email1,email2" (Entrambi).
+const MEMBERS = {
+  "simone.battisti.sb@gmail.com": "Simone",
+  "edoardomontiwork@gmail.com": "Edoardo",
+};
+const MEMBER_BY_NAME = Object.fromEntries(
+  Object.entries(MEMBERS).map(([email, name]) => [name.toLowerCase(), email]));
+const BOTH_EMAILS = Object.keys(MEMBERS).join(",");
+const BOTH_WORDS = ["entrambi", "both", "tutti e due", "tutti", "edoardo e simone", "simone e edoardo"];
+
+function normalizeAssignee(raw) {
+  const s = (raw ?? "").toString().trim();
+  if (!s) return "";
+  if (BOTH_WORDS.includes(s.toLowerCase())) return BOTH_EMAILS;
+  const emails = s.split(/[,;/]+/).map((p) => {
+    const t = p.trim();
+    return MEMBER_BY_NAME[t.toLowerCase()] || t;
+  }).filter(Boolean);
+  return [...new Set(emails)].join(",");
+}
+const assigneeEmails = (a) => (a || "").split(",").map((x) => x.trim()).filter(Boolean);
+function assigneeLabel(a, myEmail) {
+  const em = assigneeEmails(a);
+  if (!em.length) return "";
+  if (em.length > 1) return "entrambi";
+  return em[0] === myEmail ? "io" : (MEMBERS[em[0]] || em[0].split("@")[0]);
+}
+function assigneeExportLabel(a) {
+  const em = assigneeEmails(a);
+  if (!em.length) return "";
+  if (em.length > 1 && em.every((e) => MEMBERS[e])) return "Entrambi";
+  return em.map((e) => MEMBERS[e] || e).join(", ");
+}
 const VIEWS = ["operativa", "calendario", "gantt"];
 const GG = ["lun", "mar", "mer", "gio", "ven", "sab", "dom"];
 const MESI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno",
@@ -146,13 +182,9 @@ function startDashboard() {
   }
   const taskTipo = (t) => (t.tipo === "routine" ? "routine" : "iniziativa");
   const deadlineName = (id) => deadlines.find((d) => d.id === id)?.name || "";
-  const mine = (t) => !myTasksOnly || t.assignee === myEmail();
-  function assigneeOptions() {
-    const set = new Set(tasks.map((t) => t.assignee).filter(Boolean));
-    if (myEmail()) set.add(myEmail());
-    return [...set].sort();
-  }
-  const assigneeLabel = (a) => !a ? "" : a === myEmail() ? "io" : a.split("@")[0];
+  const isMine = (t) => assigneeEmails(t.assignee).includes(myEmail());
+  const mine = (t) => !myTasksOnly || isMine(t);
+  const aLabel = (a) => assigneeLabel(a, myEmail());
 
   /* ═══════════ MUTAZIONI ═══════════ */
   const toggleDone = (id) => {
@@ -210,8 +242,13 @@ function startDashboard() {
     dlgForm.linkedDeadlineId.innerHTML = '<option value="">— nessun vincolo —</option>' +
       [...deadlines].filter(isDeadlineOpen).sort((a, b) => dateSortKey(a.data) - dateSortKey(b.data))
         .map((d) => `<option value="${escapeHtml(d.id)}">${escapeHtml(d.name)}</option>`).join("");
-    dlgForm.assignee.innerHTML = '<option value="">— nessuno —</option>' +
-      assigneeOptions().map((a) => `<option value="${escapeHtml(a)}">${escapeHtml(a)}</option>`).join("");
+    const curA = normalizeAssignee(t.assignee);
+    const knownA = ["", BOTH_EMAILS, ...Object.keys(MEMBERS)];
+    dlgForm.assignee.innerHTML =
+      '<option value="">— nessuno —</option>' +
+      Object.entries(MEMBERS).map(([email, name]) => `<option value="${escapeHtml(email)}">${escapeHtml(name)}</option>`).join("") +
+      `<option value="${escapeHtml(BOTH_EMAILS)}">Entrambi</option>` +
+      (curA && !knownA.includes(curA) ? `<option value="${escapeHtml(curA)}">${escapeHtml(curA)}</option>` : "");
     const stati = ["Da iniziare", "In corso", "In attesa", "Fatto"];
     if (t.stato && !stati.includes(t.stato)) stati.unshift(t.stato);
     dlgForm.stato.innerHTML = stati.map((s) => `<option>${escapeHtml(s)}</option>`).join("");
@@ -223,7 +260,7 @@ function startDashboard() {
     dlgForm.inizio.value = /^\d{4}-\d{2}-\d{2}$/.test(t.inizio) ? t.inizio : "";
     dlgForm.scadenza.value = /^\d{4}-\d{2}-\d{2}$/.test(t.scadenza) ? t.scadenza : "";
     dlgForm.stato.value = t.stato || "Da iniziare";
-    dlgForm.assignee.value = t.assignee || "";
+    dlgForm.assignee.value = curA;
     dlgForm.linkedDeadlineId.value = t.linkedDeadlineId || "";
     dlgForm.azione.value = t.azione || "";
     dlgForm.note.value = t.note || "";
@@ -235,7 +272,7 @@ function startDashboard() {
       text: dlgForm.text.value.trim(), cantiere: dlgForm.cantiere.value,
       tipo: dlgForm.tipo.value, priorita: dlgForm.priorita.value,
       inizio: dlgForm.inizio.value || "", scadenza: dlgForm.scadenza.value || "",
-      stato: dlgForm.stato.value, assignee: dlgForm.assignee.value || null,
+      stato: dlgForm.stato.value, assignee: normalizeAssignee(dlgForm.assignee.value) || null,
       linkedDeadlineId: dlgForm.linkedDeadlineId.value || null,
       azione: dlgForm.azione.value.trim(), note: dlgForm.note.value.trim(),
     };
@@ -287,7 +324,7 @@ function startDashboard() {
           priorita: r["Priorità"] || "Media",
           inizio: asDateStr(r["Inizio"]), scadenza: asDateStr(r["Scadenza"]),
           stato: r["Stato"] || "Da iniziare", tonight: false,
-          assignee: (r["Assegnatario"] || "").toString().trim() || null, linkedDeadlineId: null,
+          assignee: normalizeAssignee(r["Assegnatario"]) || null, linkedDeadlineId: null,
           azione: r["Prossima azione concreta"] || "", note: r["Note"] || "",
         }))));
         const D = sheetToRows(wb, "Scadenze chiave");
@@ -328,7 +365,7 @@ function startDashboard() {
     add(tasks.map((t) => ({
       "Cantiere": t.cantiere, "Attività": t.text, "Tipo": taskTipo(t), "Priorità": t.priorita,
       "Inizio": t.inizio || "", "Scadenza": t.scadenza || "", "Stato": t.stato,
-      "Assegnatario": t.assignee || "", "Vincolo collegato": deadlineName(t.linkedDeadlineId),
+      "Assegnatario": assigneeExportLabel(t.assignee), "Vincolo collegato": deadlineName(t.linkedDeadlineId),
       "Prossima azione concreta": t.azione || "", "Note": t.note || "",
     })), "Task");
     add(deadlines.map((d) => ({
@@ -360,7 +397,10 @@ function startDashboard() {
       { cantiere: "Biomasse", text: "Contattare 3 birrifici locali", tipo: "iniziativa", priorita: "Alta", inizio: "", scadenza: soon(3), stato: "Da iniziare", tonight: true, azione: "Email icebreaker", note: "" },
       { cantiere: "Biomasse", text: "Scheda tecnica scarto tipo A", tipo: "iniziativa", priorita: "Bassa", inizio: "", scadenza: "", stato: "Da iniziare", tonight: false, azione: "", note: "" },
       { cantiere: "Visibilità", text: "Restyling pagina LinkedIn", tipo: "iniziativa", priorita: "Media", inizio: soon(1), scadenza: soon(21), stato: "Da iniziare", tonight: false, azione: "", note: "" },
-    ].forEach((t) => batch.set(doc(tasksCol), { ...t, assignee: null, linkedDeadlineId: null, createdAt: serverTimestamp() }));
+    ].forEach((t, i) => batch.set(doc(tasksCol), {
+      ...t, linkedDeadlineId: null, createdAt: serverTimestamp(),
+      assignee: [normalizeAssignee("Simone"), normalizeAssignee("Edoardo"), normalizeAssignee("Entrambi"), null, normalizeAssignee("Edoardo")][i],
+    }));
     [
       { name: "Scadenza domanda bando (esempio)", data: soon(9), cantiere: "Raccolta fondi", stato: "Da fare", note: "" },
       { name: "Fiera di settore (esempio)", data: soon(40), cantiere: "Visibilità", stato: "Da fare", note: "" },
@@ -492,7 +532,7 @@ function startDashboard() {
                 ${(t.scadenza || t.linkedDeadlineId || t.assignee) ? `<div class="task-sub">
                   ${t.scadenza ? urgencyBadge(t.scadenza) : ""}
                   ${t.linkedDeadlineId ? `<span class="chip">↳ ${escapeHtml(deadlineName(t.linkedDeadlineId))}</span>` : ""}
-                  ${t.assignee ? `<span class="chip who">${escapeHtml(assigneeLabel(t.assignee))}</span>` : ""}
+                  ${t.assignee ? `<span class="chip who">${escapeHtml(aLabel(t.assignee))}</span>` : ""}
                 </div>` : ""}
                 <div class="actions">
                   <button data-toggle="${t.id}">${t.stato === "Fatto" ? "riapri" : "fatto"}</button>
