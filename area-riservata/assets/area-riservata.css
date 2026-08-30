@@ -343,10 +343,12 @@ main { max-width: var(--content-wide); margin: 0 auto; padding: var(--space-6); 
 #app .cal-cell.today { outline: 2px solid var(--color-primary); outline-offset: -2px; }
 #app .cal-num { font-family: var(--ar-mono); font-size: 11px; color: var(--color-text-muted); }
 #app .cal-chip { font-size: 10px; line-height: 1.35; padding: 1px 5px; border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-left: 3px solid var(--color-border); background: var(--color-surface-2); }
-#app .cal-chip[data-edit] { cursor: pointer; }
+#app .cal-chip[data-id] { cursor: pointer; }
+#app .cal-chip[data-id]:hover { background: var(--color-surface-dynamic); }
 #app .cal-chip.done { opacity: .45; text-decoration: line-through; }
+#app .cal-chip.moved { border-left-style: double; }
 #app .cal-more { font-size: 9px; color: var(--color-text-muted); font-family: var(--ar-mono); }
-@media (max-width: 640px) { #app .cal-cell { min-height: 70px; } #app .cal-chip { font-size: 0; padding: 2px; } #app .cal-chip::before { content: "•"; font-size: 12px; } }
+@media (max-width: 640px) { #app .cal-cell { min-height: 70px; } }
 
 /* colori per tipo — condivisi calendario + gantt */
 #app .dot.task,     #app .cal-chip.task     { border-left-color: var(--color-primary); }
@@ -358,22 +360,62 @@ main { max-width: var(--content-wide); margin: 0 auto; padding: var(--space-6); 
 #app .dot.routine { background: var(--ar-accent); }
 #app .dot.email { background: var(--color-leaf); }
 
-/* ---------- Gantt ---------- */
-#app .gantt-scroll { overflow-x: auto; border: 1px solid var(--color-border); border-radius: 10px; background: var(--color-surface); }
-#app .gantt-canvas { position: relative; padding: 28px 0 10px; min-height: 120px; }
-#app .gantt-axis { position: absolute; inset: 0 0 auto 0; height: 28px; border-bottom: 1px solid var(--color-border); }
-#app .gantt-week { position: absolute; top: 0; bottom: 0; border-left: 1px dashed var(--color-divider); font-family: var(--ar-mono); font-size: 10px; color: var(--color-text-muted); padding-left: 3px; }
-#app .gantt-today { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--color-primary); z-index: 3; }
-#app .gantt-grouprow { position: relative; padding: 10px 0 2px 8px; font-family: var(--ar-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--color-text-muted); z-index: 2; }
-#app .gantt-row { position: relative; height: 26px; }
-#app .g-bar { position: absolute; top: 5px; height: 16px; border-radius: 4px; background: var(--color-primary); overflow: hidden; cursor: pointer; z-index: 2; }
-#app .g-bar.deadline { background: var(--ar-urgent); }
-#app .g-barlabel { font-size: 10px; color: #06210b; padding: 1px 6px; white-space: nowrap; display: block; }
-#app .g-diamond { position: absolute; top: 5px; width: 12px; height: 12px; background: var(--ar-urgent); transform: rotate(45deg); cursor: pointer; z-index: 2; }
-#app .g-diamond.task { background: var(--color-primary); }
-#app .g-tick { position: absolute; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--ar-accent); z-index: 2; }
-#app .g-rowlabel { position: absolute; top: 4px; left: 4px; font-size: 11px; color: var(--color-text); white-space: nowrap; padding: 0 4px; z-index: 2; background: var(--color-surface); border-radius: 3px; }
-#app .gantt-hint { font-family: var(--ar-mono); font-size: 11px; color: var(--color-text-muted); margin-top: 10px; }
+/* badge "data spostata" */
+#app .days.moved { background: color-mix(in oklab, var(--color-leaf) 22%, transparent); color: var(--color-text); }
+
+/* ---------- Gantt (colonna nomi fissa + timeline scrollabile) ---------- */
+#app .g2 {
+  display: flex; border: 1px solid var(--color-border); border-radius: 10px;
+  overflow: hidden; background: var(--color-surface);
+  --g2-axis: 34px; --g2-group: 24px; --g2-row: 30px;
+}
+#app .g2-side { flex: 0 0 190px; border-right: 1px solid var(--color-border); background: var(--color-surface-2); }
+#app .g2-main { flex: 1; overflow-x: auto; }
+#app .g2-canvas { position: relative; }
+
+#app .g2-axis-spacer, #app .g2-axis { height: var(--g2-axis); }
+#app .g2-axis { position: relative; border-bottom: 1px solid var(--color-border); }
+#app .g2-month { position: absolute; top: 3px; font-family: var(--ar-mono); font-size: 10px; font-weight: 600; color: var(--color-text-muted); text-transform: capitalize; padding-left: 4px; border-left: 1px solid var(--color-border); }
+#app .g2-wk { position: absolute; top: 18px; font-family: var(--ar-mono); font-size: 9px; color: var(--color-text-faint); padding-left: 2px; }
+#app .g2-monthline { position: absolute; top: var(--g2-axis); bottom: 0; width: 1px; background: var(--color-border); }
+#app .g2-today { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--color-primary); z-index: 4; }
+
+#app .g2-grouprow { height: var(--g2-group); background: var(--color-surface-offset); }
+#app .g2-side .g2-grouprow {
+  display: flex; align-items: center; padding: 0 10px; font-family: var(--ar-mono);
+  font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: var(--color-text-muted);
+}
+#app .g2-name {
+  height: var(--g2-row); display: flex; align-items: center; padding: 0 10px;
+  font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  border-top: 1px solid var(--color-divider); cursor: pointer;
+}
+#app .g2-name:hover { color: var(--color-primary); background: var(--color-surface); }
+
+#app .g2-track { position: relative; height: var(--g2-row); border-top: 1px solid var(--color-divider); }
+#app .g-bar {
+  position: absolute; top: 7px; height: 16px; border-radius: 4px;
+  background: var(--color-primary); cursor: pointer; z-index: 2;
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-primary) 60%, #000);
+}
+#app .g-bar:hover { filter: brightness(1.12); }
+#app .g-ms { position: absolute; top: 8px; width: 13px; height: 13px; transform: rotate(45deg); cursor: pointer; z-index: 3; margin-left: -6px; }
+#app .g-ms.deadline { background: var(--ar-urgent); }
+#app .g-ms.task { background: var(--color-primary); }
+#app .g-ms:hover { filter: brightness(1.15); }
+#app .g-orig { position: absolute; top: 10px; width: 9px; height: 9px; margin-left: -4px; border: 1px dashed var(--color-text-faint); transform: rotate(45deg); z-index: 2; }
+#app .g-tick { position: absolute; top: 12px; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: var(--ar-accent); z-index: 2; }
+
+#app .gantt-hint { font-family: var(--ar-mono); font-size: 11px; color: var(--color-text-muted); margin-top: 10px; line-height: 1.5; }
+
+/* ---------- Note "data spostata" nelle modali ---------- */
+.ar-dialog .dlg-moved {
+  margin: 0; font-size: 12px; font-family: var(--ar-mono);
+  color: var(--color-text); background: color-mix(in oklab, var(--color-leaf) 18%, transparent);
+  border-radius: var(--radius-md); padding: 8px 10px;
+}
+.ar-dialog .dlg-check { flex-direction: row; align-items: center; gap: 8px; font-family: var(--font-body); font-size: 13px; color: var(--color-text); }
+.ar-dialog .dlg-check input { width: auto; }
 
 /* ---------- Modale task ---------- */
 .ar-dialog {

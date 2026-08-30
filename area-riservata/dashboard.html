@@ -104,10 +104,58 @@
         <textarea name="note" rows="2"></textarea>
       </label>
 
+      <label class="dlg-check">
+        <input type="checkbox" name="tonight"> Metti tra le cose di stasera
+      </label>
+
+      <p id="task-moved" class="dlg-moved" hidden></p>
+
       <div class="dlg-actions">
         <button type="button" id="task-delete" class="ar-btn ar-btn--ghost danger">Elimina</button>
         <span class="spacer"></span>
         <button type="button" id="task-cancel" class="ar-btn ar-btn--ghost">Annulla</button>
+        <button type="submit" class="ar-btn">Salva</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Modale modifica scadenza -->
+  <dialog id="deadline-dialog" class="ar-dialog">
+    <form id="deadline-form" method="dialog">
+      <h3>Modifica scadenza</h3>
+
+      <label>Milestone / Evento
+        <input name="name" type="text" required autocomplete="off">
+      </label>
+
+      <div class="dlg-row">
+        <label>Data
+          <input name="data" type="date">
+        </label>
+        <label>Cantiere
+          <select name="cantiere"></select>
+        </label>
+      </div>
+
+      <div class="dlg-row">
+        <label>Stato
+          <input name="stato" type="text" autocomplete="off">
+        </label>
+        <label class="dlg-check" style="align-self:end">
+          <input type="checkbox" name="makeTask"> Crea task per oggi
+        </label>
+      </div>
+
+      <label>Note
+        <textarea name="note" rows="2"></textarea>
+      </label>
+
+      <p id="deadline-moved" class="dlg-moved" hidden></p>
+
+      <div class="dlg-actions">
+        <button type="button" id="deadline-delete" class="ar-btn ar-btn--ghost danger">Elimina</button>
+        <span class="spacer"></span>
+        <button type="button" id="deadline-cancel" class="ar-btn ar-btn--ghost">Annulla</button>
         <button type="submit" class="ar-btn">Salva</button>
       </div>
     </form>

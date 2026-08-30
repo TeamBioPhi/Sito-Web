@@ -174,6 +174,17 @@ function startDashboard() {
     const label = days < 0 ? "in ritardo" : days === 0 ? "oggi" : `tra ${days}g`;
     return `<span class="days ${cls}">${label}</span>`;
   }
+  const dateMoved = (orig, cur) => !!(orig && cur && orig !== cur);
+  // Nota "spostata da X a Y" (X = prima data inserita, fissa)
+  function movedNote(orig, cur) {
+    if (!dateMoved(orig, cur)) return "";
+    const dd = daysBetween(parseYmd(orig), parseYmd(cur));
+    const verso = dd > 0 ? "posticipata" : "anticipata";
+    return `spostata da ${fmtDate(orig)} a ${fmtDate(cur)} · ${verso} di ${Math.abs(dd)}g`;
+  }
+  const movedBadge = (orig, cur) => dateMoved(orig, cur)
+    ? `<span class="days moved" title="Data originale: ${escapeHtml(fmtDate(orig))}">↔ da ${escapeHtml(fmtDate(orig))}</span>` : "";
+
   const isDeadlineOpen = (d) => !/fatt|complet|chius/i.test(d.stato || "");
   function docIsAlert(dc) {
     if (!DOC_STATI_ALERT.includes(dc.stato)) return false;
@@ -200,7 +211,7 @@ function startDashboard() {
     addDoc(tasksCol, {
       cantiere: CANTIERI.includes(cantiere) ? cantiere : CANTIERI[0],
       text: text.trim(), tipo: "iniziativa", priorita: "Media",
-      inizio: "", scadenza: "", stato: "Da iniziare", tonight: true,
+      inizio: "", scadenza: "", scadenzaOrig: "", stato: "Da iniziare", tonight: true,
       assignee: null, linkedDeadlineId: null, azione: "", note: "",
       createdAt: serverTimestamp(),
     });
@@ -233,9 +244,9 @@ function startDashboard() {
   const dlgDelete = document.getElementById("task-delete");
   let editingId = null;
 
-  function openTaskModal(id) {
+  function openTaskModal(id, prefill) {
     editingId = id || null;
-    const t = (id && tasks.find((x) => x.id === id)) || {};
+    const t = (id && tasks.find((x) => x.id === id)) || prefill || {};
     dlgTitle.textContent = id ? "Modifica task" : "Nuovo task";
     dlgDelete.hidden = !id;
 
@@ -264,21 +275,30 @@ function startDashboard() {
     dlgForm.linkedDeadlineId.value = t.linkedDeadlineId || "";
     dlgForm.azione.value = t.azione || "";
     dlgForm.note.value = t.note || "";
+    dlgForm.tonight.checked = !!t.tonight;
+    const mvEl = document.getElementById("task-moved");
+    const mv = movedNote(t.scadenzaOrig, t.scadenza);
+    mvEl.textContent = mv ? "Scadenza " + mv : "";
+    mvEl.hidden = !mv;
     dlg.showModal();
   }
   dlgForm.addEventListener("submit", (e) => {
     e.preventDefault();
+    const prev = editingId ? tasks.find((x) => x.id === editingId) : null;
     const p = {
       text: dlgForm.text.value.trim(), cantiere: dlgForm.cantiere.value,
       tipo: dlgForm.tipo.value, priorita: dlgForm.priorita.value,
       inizio: dlgForm.inizio.value || "", scadenza: dlgForm.scadenza.value || "",
-      stato: dlgForm.stato.value, assignee: normalizeAssignee(dlgForm.assignee.value) || null,
+      stato: dlgForm.stato.value, tonight: dlgForm.tonight.checked,
+      assignee: normalizeAssignee(dlgForm.assignee.value) || null,
       linkedDeadlineId: dlgForm.linkedDeadlineId.value || null,
       azione: dlgForm.azione.value.trim(), note: dlgForm.note.value.trim(),
     };
     if (!p.text) return;
+    // scadenzaOrig = prima data mai inserita, poi fissa
+    p.scadenzaOrig = (prev && prev.scadenzaOrig) || p.scadenza || "";
     if (editingId) updateDoc(doc(tasksCol, editingId), p);
-    else addDoc(tasksCol, { ...p, tonight: false, createdAt: serverTimestamp() });
+    else addDoc(tasksCol, { ...p, createdAt: serverTimestamp() });
     dlg.close();
   });
   dlgDelete.addEventListener("click", () => {
@@ -287,6 +307,59 @@ function startDashboard() {
     }
   });
   document.getElementById("task-cancel").addEventListener("click", () => dlg.close());
+
+  /* ═══════════ MODALE MODIFICA SCADENZA ═══════════ */
+  const ddlg = document.getElementById("deadline-dialog");
+  const ddForm = document.getElementById("deadline-form");
+  let editingDeadlineId = null;
+
+  function openDeadlineModal(id) {
+    const d = deadlines.find((x) => x.id === id);
+    if (!d) return;
+    editingDeadlineId = id;
+    const opts = ["", ...CANTIERI];
+    if (d.cantiere && !opts.includes(d.cantiere)) opts.push(d.cantiere);
+    ddForm.cantiere.innerHTML = opts.map((o) => `<option value="${escapeHtml(o)}">${o || "— nessuno —"}</option>`).join("");
+    ddForm.name.value = d.name || "";
+    ddForm.data.value = /^\d{4}-\d{2}-\d{2}$/.test(d.data) ? d.data : "";
+    ddForm.cantiere.value = d.cantiere || "";
+    ddForm.stato.value = d.stato || "Da fare";
+    ddForm.note.value = d.note || "";
+    ddForm.makeTask.checked = false;
+    const mvEl = document.getElementById("deadline-moved");
+    const mv = movedNote(d.dataOrig, d.data);
+    mvEl.textContent = mv ? "Data " + mv : "";
+    mvEl.hidden = !mv;
+    ddlg.showModal();
+  }
+  ddForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const d = deadlines.find((x) => x.id === editingDeadlineId);
+    if (!d) { ddlg.close(); return; }
+    const data = ddForm.data.value || "";
+    updateDoc(doc(deadlinesCol, editingDeadlineId), {
+      name: ddForm.name.value.trim() || d.name,
+      data,
+      dataOrig: d.dataOrig || data || "",
+      cantiere: ddForm.cantiere.value,
+      stato: ddForm.stato.value.trim() || "Da fare",
+      note: ddForm.note.value.trim(),
+    });
+    if (ddForm.makeTask.checked) {
+      openTaskModal(null, {
+        cantiere: CANTIERI.includes(d.cantiere) ? d.cantiere : CANTIERI[0],
+        text: d.name, scadenza: ymd(today), linkedDeadlineId: editingDeadlineId, tonight: true,
+      });
+    }
+    ddlg.close();
+  });
+  document.getElementById("deadline-delete").addEventListener("click", () => {
+    if (editingDeadlineId && confirm("Eliminare questa scadenza?")) {
+      deleteDoc(doc(deadlinesCol, editingDeadlineId));
+      ddlg.close();
+    }
+  });
+  document.getElementById("deadline-cancel").addEventListener("click", () => ddlg.close());
 
   /* ═══════════ IMPORT / EXPORT EXCEL ═══════════ */
   function sheetToRows(wb, name) {
@@ -323,6 +396,7 @@ function startDashboard() {
           tipo: (r["Tipo"] || "").toLowerCase() === "routine" ? "routine" : "iniziativa",
           priorita: r["Priorità"] || "Media",
           inizio: asDateStr(r["Inizio"]), scadenza: asDateStr(r["Scadenza"]),
+          scadenzaOrig: asDateStr(r["Scadenza originale"]) || asDateStr(r["Scadenza"]),
           stato: r["Stato"] || "Da iniziare", tonight: false,
           assignee: normalizeAssignee(r["Assegnatario"]) || null, linkedDeadlineId: null,
           azione: r["Prossima azione concreta"] || "", note: r["Note"] || "",
@@ -330,6 +404,7 @@ function startDashboard() {
         const D = sheetToRows(wb, "Scadenze chiave");
         if (D) jobs.push(replaceCollection(deadlinesCol, D.filter((r) => r["Milestone / Evento"]).map((r) => ({
           name: r["Milestone / Evento"] || "", data: asDateStr(r["Data"]),
+          dataOrig: asDateStr(r["Data originale"]) || asDateStr(r["Data"]),
           cantiere: r["Cantiere"] || "", stato: r["Stato"] || "Da fare", note: r["Note"] || "",
         }))));
         const E = sheetToRows(wb, "Email");
@@ -364,12 +439,13 @@ function startDashboard() {
     const add = (rows, name) => XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(rows), name);
     add(tasks.map((t) => ({
       "Cantiere": t.cantiere, "Attività": t.text, "Tipo": taskTipo(t), "Priorità": t.priorita,
-      "Inizio": t.inizio || "", "Scadenza": t.scadenza || "", "Stato": t.stato,
-      "Assegnatario": assigneeExportLabel(t.assignee), "Vincolo collegato": deadlineName(t.linkedDeadlineId),
+      "Inizio": t.inizio || "", "Scadenza": t.scadenza || "", "Scadenza originale": t.scadenzaOrig || t.scadenza || "",
+      "Stato": t.stato, "Assegnatario": assigneeExportLabel(t.assignee), "Vincolo collegato": deadlineName(t.linkedDeadlineId),
       "Prossima azione concreta": t.azione || "", "Note": t.note || "",
     })), "Task");
     add(deadlines.map((d) => ({
-      "Data": d.data, "Milestone / Evento": d.name, "Cantiere": d.cantiere || "", "Stato": d.stato || "Da fare", "Note": d.note || "",
+      "Data": d.data, "Data originale": d.dataOrig || d.data || "", "Milestone / Evento": d.name,
+      "Cantiere": d.cantiere || "", "Stato": d.stato || "Da fare", "Note": d.note || "",
     })), "Scadenze chiave");
     add(emails.map((e) => ({
       "Destinatario": e.who, "Oggetto / contesto": e.ctx, "Cantiere": e.cantiere || "",
@@ -399,12 +475,13 @@ function startDashboard() {
       { cantiere: "Visibilità", text: "Restyling pagina LinkedIn", tipo: "iniziativa", priorita: "Media", inizio: soon(1), scadenza: soon(21), stato: "Da iniziare", tonight: false, azione: "", note: "" },
     ].forEach((t, i) => batch.set(doc(tasksCol), {
       ...t, linkedDeadlineId: null, createdAt: serverTimestamp(),
+      scadenzaOrig: i === 0 ? soon(2) : (t.scadenza || ""),   // il 1° task simula una scadenza spostata
       assignee: [normalizeAssignee("Simone"), normalizeAssignee("Edoardo"), normalizeAssignee("Entrambi"), null, normalizeAssignee("Edoardo")][i],
     }));
     [
-      { name: "Scadenza domanda bando (esempio)", data: soon(9), cantiere: "Raccolta fondi", stato: "Da fare", note: "" },
-      { name: "Fiera di settore (esempio)", data: soon(40), cantiere: "Visibilità", stato: "Da fare", note: "" },
-      { name: "Rinnovo iscrizione registro (esempio)", data: soon(80), cantiere: "Raccolta fondi", stato: "Da fare", note: "" },
+      { name: "Scadenza domanda bando (esempio)", data: soon(9), dataOrig: soon(9), cantiere: "Raccolta fondi", stato: "Da fare", note: "" },
+      { name: "Fiera di settore (esempio)", data: soon(40), dataOrig: soon(33), cantiere: "Visibilità", stato: "Da fare", note: "spostata" },
+      { name: "Rinnovo iscrizione registro (esempio)", data: soon(80), dataOrig: soon(80), cantiere: "Raccolta fondi", stato: "Da fare", note: "" },
     ].forEach((d) => batch.set(doc(deadlinesCol), d));
     [
       { who: "Referente scientifico (esempio)", ctx: "Sollecito proposta", cantiere: "Raccolta fondi", stato: "Da inviare", next: soon(0), note: "" },
@@ -503,8 +580,8 @@ function startDashboard() {
         <div class="card">
           <h2>Scadenze imminenti</h2>
           ${openDeadlines.length ? openDeadlines.map((d) => `
-            <div class="deadline-row">
-              <div class="name">${escapeHtml(d.name)}</div>
+            <div class="deadline-row" data-deadline="${d.id}">
+              <div class="name">${escapeHtml(d.name)} ${movedBadge(d.dataOrig, d.data)}</div>
               ${urgencyBadge(d.data)}
             </div>`).join("") : '<div class="empty">Nessuna scadenza aperta.</div>'}
           ${docAlerts.length ? `<div class="deadline-sep">Documenti da sistemare</div>` +
@@ -531,6 +608,7 @@ function startDashboard() {
                 </div>
                 ${(t.scadenza || t.linkedDeadlineId || t.assignee) ? `<div class="task-sub">
                   ${t.scadenza ? urgencyBadge(t.scadenza) : ""}
+                  ${movedBadge(t.scadenzaOrig, t.scadenza)}
                   ${t.linkedDeadlineId ? `<span class="chip">↳ ${escapeHtml(deadlineName(t.linkedDeadlineId))}</span>` : ""}
                   ${t.assignee ? `<span class="chip who">${escapeHtml(aLabel(t.assignee))}</span>` : ""}
                 </div>` : ""}
@@ -598,6 +676,7 @@ function startDashboard() {
     app.querySelectorAll("[data-toggle]").forEach((el) => el.onclick = () => toggleDone(el.dataset.toggle));
     app.querySelectorAll("[data-tonight]").forEach((el) => el.onclick = () => toggleTonight(el.dataset.tonight));
     app.querySelectorAll("[data-edit]").forEach((el) => el.onclick = () => openTaskModal(el.dataset.edit));
+    app.querySelectorAll("[data-deadline]").forEach((el) => el.onclick = () => openDeadlineModal(el.dataset.deadline));
     app.querySelectorAll("[data-snooze]").forEach((el) => el.onclick = () => snoozeEmail(el.dataset.snooze));
     app.querySelectorAll("[data-doneemail]").forEach((el) => el.onclick = () => doneEmail(el.dataset.doneemail));
     app.querySelectorAll("[data-routinedone]").forEach((el) => el.onclick = () => routineDone(el.dataset.routinedone));
@@ -625,11 +704,11 @@ function startDashboard() {
     const inRange = (d) => d && d >= from && d <= to;
     tasks.forEach((t) => {
       const d = parseYmd(t.scadenza);
-      if (inRange(d) && mine(t)) ev.push({ date: d, type: "task", label: t.text, cantiere: t.cantiere, id: t.id, done: t.stato === "Fatto" });
+      if (inRange(d) && mine(t)) ev.push({ date: d, type: "task", label: t.text, cantiere: t.cantiere, id: t.id, done: t.stato === "Fatto", moved: dateMoved(t.scadenzaOrig, t.scadenza) });
     });
     deadlines.forEach((d) => {
       const dd = parseYmd(d.data);
-      if (inRange(dd)) ev.push({ date: dd, type: "deadline", label: d.name, cantiere: d.cantiere });
+      if (inRange(dd)) ev.push({ date: dd, type: "deadline", label: d.name, cantiere: d.cantiere, id: d.id, moved: dateMoved(d.dataOrig, d.data) });
     });
     emails.forEach((e) => {
       const dd = parseYmd(e.next);
@@ -672,85 +751,123 @@ function startDashboard() {
           return `<div class="cal-cell ${other ? "other" : ""} ${isToday ? "today" : ""}">
             <div class="cal-num">${c.getDate()}</div>
             ${items.slice(0, 4).map((e) => `
-              <div class="cal-chip ${e.type} ${e.done ? "done" : ""}" ${e.id ? `data-edit="${e.id}"` : ""} title="${escapeHtml(TYPE_LABEL[e.type] + ": " + e.label)}">${escapeHtml(e.label)}</div>`).join("")}
+              <div class="cal-chip ${e.type} ${e.done ? "done" : ""} ${e.moved ? "moved" : ""}"
+                   ${(e.type === "task" || e.type === "deadline") ? `data-kind="${e.type}" data-id="${e.id}"` : ""}
+                   title="${escapeHtml(TYPE_LABEL[e.type] + ": " + e.label + (e.moved ? " (data spostata)" : ""))}">${e.moved ? "↔ " : ""}${escapeHtml(e.label)}</div>`).join("")}
             ${items.length > 4 ? `<div class="cal-more">+${items.length - 4}</div>` : ""}
           </div>`;
         }).join("")}
       </div>
+      <p class="gantt-hint">Clicca un task o una scadenza per modificarlo. ↔ = data spostata dall'originale.</p>
     `;
     wireCommon();
     document.getElementById("cal-prev").onclick = () => { calMonth = addMonths(calMonth, -1); render(); };
     document.getElementById("cal-next").onclick = () => { calMonth = addMonths(calMonth, 1); render(); };
     document.getElementById("cal-today").onclick = () => { calMonth = firstOfMonth(new Date()); render(); };
-    app.querySelectorAll("[data-edit]").forEach((el) => el.onclick = () => openTaskModal(el.dataset.edit));
+    app.querySelectorAll("[data-kind]").forEach((el) => el.onclick = () =>
+      (el.dataset.kind === "task" ? openTaskModal(el.dataset.id) : openDeadlineModal(el.dataset.id)));
   }
 
   /* ═══════════ VISTA: GANTT ═══════════ */
   function renderGantt() {
-    const DAY = 26;                              // px per giorno
-    const from = addDays(today, -14);
-    const to = addDays(today, 120);
-    const totalDays = daysBetween(from, to) + 1;
-    const width = totalDays * DAY;
+    const DAY = 22;                                   // px per giorno
+    const from = firstOfMonth(addMonths(today, -1));  // dal 1° del mese scorso
+    const to = addDays(today, 150);
+    const width = (daysBetween(from, to) + 1) * DAY;
     const xOf = (d) => daysBetween(from, d) * DAY;
 
-    // righe: iniziative aperte con almeno una data + scadenze + routine
-    const rows = [];
-    CANTIERI.forEach((c) => {
-      const group = [];
-      tasks.filter((t) => t.cantiere === c && t.stato !== "Fatto" && taskTipo(t) === "iniziativa" && mine(t))
-        .forEach((t) => {
-          const s = parseYmd(t.inizio), e = parseYmd(t.scadenza);
-          if (!s && !e) return;
-          const start = s || e, end = e || s;
-          group.push({ label: t.text, id: t.id, start, end, kind: start < end ? "bar" : "milestone", type: "task" });
-        });
-      deadlines.filter((d) => d.cantiere === c && isDeadlineOpen(d) && parseYmd(d.data))
-        .forEach((d) => group.push({ label: d.name, start: parseYmd(d.data), end: parseYmd(d.data), kind: "milestone", type: "deadline" }));
-      routines.filter((r) => r.cantiere === c && r.attiva !== false)
-        .forEach((r) => group.push({ label: r.label, kind: "routine", type: "routine", ticks: routineOccurrences(r, from, to) }));
-      if (group.length) rows.push({ cantiere: c, group });
+    // Costruzione righe: gruppi di cantiere + "Altre scadenze"
+    const groups = [];
+    [...CANTIERI, "Altre scadenze"].forEach((c) => {
+      const isOther = c === "Altre scadenze";
+      const items = [];
+      if (!isOther) {
+        tasks.filter((t) => t.cantiere === c && t.stato !== "Fatto" && taskTipo(t) === "iniziativa" && mine(t))
+          .forEach((t) => {
+            const s = parseYmd(t.inizio), e = parseYmd(t.scadenza);
+            if (!s && !e) return;
+            const start = s || e, end = e || s;
+            items.push({
+              label: t.text, id: t.id, dkind: "task", kind: (s && e && s < e) ? "bar" : "milestone",
+              start, end, moved: dateMoved(t.scadenzaOrig, t.scadenza),
+              orig: dateMoved(t.scadenzaOrig, t.scadenza) ? parseYmd(t.scadenzaOrig) : null,
+            });
+          });
+      }
+      deadlines.filter((d) => isDeadlineOpen(d) && parseYmd(d.data)
+          && (isOther ? !CANTIERI.includes(d.cantiere) : d.cantiere === c))
+        .forEach((d) => items.push({
+          label: d.name, id: d.id, dkind: "deadline", kind: "milestone",
+          start: parseYmd(d.data), end: parseYmd(d.data),
+          moved: dateMoved(d.dataOrig, d.data),
+          orig: dateMoved(d.dataOrig, d.data) ? parseYmd(d.dataOrig) : null,
+        }));
+      if (!isOther) {
+        routines.filter((r) => r.cantiere === c && r.attiva !== false)
+          .forEach((r) => items.push({ label: r.label, dkind: "routine", kind: "routine", ticks: routineOccurrences(r, from, to) }));
+      }
+      if (items.length) groups.push({ name: c, items });
     });
-    // deadline senza cantiere valido
-    const orphan = deadlines.filter((d) => !CANTIERI.includes(d.cantiere) && isDeadlineOpen(d) && parseYmd(d.data))
-      .map((d) => ({ label: d.name, start: parseYmd(d.data), end: parseYmd(d.data), kind: "milestone", type: "deadline" }));
-    if (orphan.length) rows.push({ cantiere: "Altre scadenze", group: orphan });
 
-    // tacche di settimana (lunedì)
-    const weekLines = [];
+    // Etichette dei mesi + linee di mese
+    const months = [];
+    let m = firstOfMonth(from);
+    for (; m <= to; m = addMonths(m, 1)) months.push(new Date(m));
+    // Tacche di settimana (lunedì)
+    const weeks = [];
     let w = addDays(from, (8 - from.getDay()) % 7);
-    for (; w <= to; w = addDays(w, 7)) weekLines.push(w);
+    for (; w <= to; w = addDays(w, 7)) weeks.push(new Date(w));
 
-    const hasData = rows.length > 0;
+    if (!groups.length) {
+      app.innerHTML = headerHtml("Gantt") +
+        '<div class="card"><div class="empty">Nessuna attività datata. Aggiungi Inizio/Scadenza ai task o importa l\'Excel.</div></div>';
+      wireCommon();
+      return;
+    }
+
+    const nameCol = (rows) => rows.map((r) => r.group
+      ? `<div class="g2-grouprow">${escapeHtml(r.group)}</div>`
+      : `<div class="g2-name" ${r.id ? `data-kind="${r.dkind}" data-id="${r.id}"` : ""} title="${escapeHtml(r.label)}">${r.moved ? "↔ " : ""}${escapeHtml(r.label)}</div>`).join("");
+
+    // Sequenza piatta di righe (gruppo + item…)
+    const flat = [];
+    groups.forEach((g) => { flat.push({ group: g.name }); g.items.forEach((it) => flat.push(it)); });
+
+    const bg = `background-image:linear-gradient(90deg,var(--color-divider) 1px,transparent 1px);background-size:${DAY}px 100%;`;
+
     app.innerHTML = headerHtml("Gantt — attività per cantiere sulla linea del tempo") + `
-      <div class="gantt-wrap">
-        ${hasData ? `
-        <div class="gantt-scroll">
-          <div class="gantt-canvas" style="width:${width}px">
-            <div class="gantt-axis">
-              ${weekLines.map((d) => `<div class="gantt-week" style="left:${xOf(d)}px">${d.getDate()}/${d.getMonth() + 1}</div>`).join("")}
+      <div class="g2">
+        <div class="g2-side">
+          <div class="g2-axis-spacer"></div>
+          ${nameCol(flat)}
+        </div>
+        <div class="g2-main">
+          <div class="g2-canvas" style="width:${width}px;${bg}">
+            <div class="g2-axis">
+              ${months.map((d) => `<span class="g2-month" style="left:${xOf(d)}px">${MESI[d.getMonth()].slice(0, 3)} ${String(d.getFullYear()).slice(2)}</span>`).join("")}
+              ${weeks.map((d) => `<span class="g2-wk" style="left:${xOf(d)}px">${d.getDate()}</span>`).join("")}
             </div>
-            <div class="gantt-today" style="left:${xOf(today)}px" title="oggi"></div>
-            ${rows.map((row) => `
-              <div class="gantt-grouprow"><span>${escapeHtml(row.cantiere)}</span></div>
-              ${row.group.map((it) => {
-                if (it.kind === "routine") {
-                  return `<div class="gantt-row">${it.ticks.map((d) => `<span class="g-tick" style="left:${xOf(d)}px" title="${escapeHtml(it.label)}"></span>`).join("")}<span class="g-rowlabel">${escapeHtml(it.label)}</span></div>`;
-                }
-                if (it.kind === "milestone") {
-                  return `<div class="gantt-row"><span class="g-diamond ${it.type}" style="left:${xOf(it.start)}px" ${it.id ? `data-edit="${it.id}"` : ""} title="${escapeHtml(it.label)}"></span><span class="g-rowlabel" style="left:${xOf(it.start) + 14}px">${escapeHtml(it.label)}</span></div>`;
-                }
-                const bw = Math.max(DAY, (daysBetween(it.start, it.end) + 1) * DAY);
-                return `<div class="gantt-row"><span class="g-bar ${it.type}" style="left:${xOf(it.start)}px;width:${bw}px" ${it.id ? `data-edit="${it.id}"` : ""} title="${escapeHtml(it.label)}"><span class="g-barlabel">${escapeHtml(it.label)}</span></span></div>`;
-              }).join("")}
-            `).join("")}
+            ${months.slice(1).map((d) => `<span class="g2-monthline" style="left:${xOf(d)}px"></span>`).join("")}
+            <span class="g2-today" style="left:${xOf(today)}px" title="oggi"></span>
+            ${flat.map((r) => {
+              if (r.group) return '<div class="g2-grouprow"></div>';
+              if (r.kind === "routine") {
+                return `<div class="g2-track">${(r.ticks || []).map((d) => `<span class="g-tick" style="left:${xOf(d)}px"></span>`).join("")}</div>`;
+              }
+              if (r.kind === "milestone") {
+                const o = r.orig ? `<span class="g-orig" style="left:${xOf(r.orig)}px" title="originale"></span>` : "";
+                return `<div class="g2-track">${o}<span class="g-ms ${r.dkind}" style="left:${xOf(r.start)}px" data-kind="${r.dkind}" data-id="${r.id}"></span></div>`;
+              }
+              const bw = Math.max(DAY, (daysBetween(r.start, r.end) + 1) * DAY);
+              return `<div class="g2-track"><span class="g-bar" style="left:${xOf(r.start)}px;width:${bw}px" data-kind="task" data-id="${r.id}"></span></div>`;
+            }).join("")}
           </div>
         </div>
-        <p class="gantt-hint">Barra = task con Inizio→Scadenza · rombo = milestone/scadenza · pallini = occorrenze routine · linea = oggi. Scorri in orizzontale.</p>
-        ` : '<div class="card"><div class="empty">Nessuna attività datata da mostrare. Aggiungi Inizio/Scadenza ai task o importa l\'Excel.</div></div>'}
       </div>
+      <p class="gantt-hint">Barra = task con Inizio→Scadenza · rombo = scadenza/milestone · quadratino tratteggiato = data originale · pallini = routine · linea verde = oggi. Clicca un nome, una barra o un rombo per modificarlo.</p>
     `;
     wireCommon();
-    app.querySelectorAll("[data-edit]").forEach((el) => el.onclick = () => openTaskModal(el.dataset.edit));
+    app.querySelectorAll("[data-kind]").forEach((el) => el.onclick = () =>
+      (el.dataset.kind === "task" ? openTaskModal(el.dataset.id) : openDeadlineModal(el.dataset.id)));
   }
 }
