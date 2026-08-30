@@ -20,7 +20,7 @@ const userEl = document.getElementById("ar-user");
 onAuthStateChanged(auth, (user) => {
   if (!user) { window.location.replace("/area-riservata/index.html"); return; }
   userEl.textContent = user.email;
-  gate.hidden  = true;
+  gate.remove();                  // via del tutto il placeholder a tutto schermo
   shell.hidden = false;
   startDashboard();               // idempotente
 });

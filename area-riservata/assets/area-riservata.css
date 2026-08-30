@@ -11,6 +11,10 @@
    system senza perdere la leggibilità serale.
    ============================================================ */
 
+/* L'attributo [hidden] deve sempre vincere sulle regole display qui sotto
+   (es. .ar-gate ha display:grid, che altrimenti lo terrebbe visibile). */
+[hidden] { display: none !important; }
+
 .ar-body {
   /* Il sito usa --font-display: "Gotham" (non caricato) -> qui lo
      riportiamo a Playfair Display come da design system dichiarato. */
