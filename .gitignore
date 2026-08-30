@@ -1,3 +1,7 @@
 # Documento di architettura interno: contiene note di sicurezza
 # che non devono finire nel repo pubblico. Tenerlo solo in locale.
 ARCHITETTURA.md
+
+# Nessun file dati operativi nel repo
+*.xlsx
+*.xls
