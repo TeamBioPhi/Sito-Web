@@ -221,8 +221,9 @@ main { max-width: var(--content-wide); margin: 0 auto; padding: var(--space-6); 
 #app .days.mid  { background: rgba(232,163,61,.18); color: var(--ar-accent); }
 #app .days.far  { background: rgba(143,185,150,.15); color: var(--color-primary); }
 
-#app .cantieri { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 18px; }
-@media (max-width: 900px) { #app .cantieri { grid-template-columns: 1fr; } }
+#app .cantieri { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 18px; }
+@media (max-width: 1100px) { #app .cantieri { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 620px)  { #app .cantieri { grid-template-columns: 1fr; } }
 #app .cant-col h3 {
   font-family: var(--ar-mono); font-size: 11px; text-transform: uppercase;
   letter-spacing: .08em; color: var(--color-text-muted); margin: 0 0 10px;

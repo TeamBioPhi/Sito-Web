@@ -31,7 +31,7 @@ document.getElementById("logout-btn").addEventListener("click", async () => {
 });
 
 /* ═══════════════ COSTANTI ═══════════════ */
-const CANTIERI = ["Raccolta fondi", "Biomasse", "Visibilità"];
+const CANTIERI = ["Raccolta fondi", "Biomasse", "Visibilità", "Commerciale"];
 const PRIO_ORDER = { Alta: 0, Media: 1, Bassa: 2 };
 const MAX_TASK_PER_CANTIERE = 5;
 const DOC_STALE_GIORNI = 30;
@@ -473,10 +473,11 @@ function startDashboard() {
       { cantiere: "Biomasse", text: "Contattare 3 birrifici locali", tipo: "iniziativa", priorita: "Alta", inizio: "", scadenza: soon(3), stato: "Da iniziare", tonight: true, azione: "Email icebreaker", note: "" },
       { cantiere: "Biomasse", text: "Scheda tecnica scarto tipo A", tipo: "iniziativa", priorita: "Bassa", inizio: "", scadenza: "", stato: "Da iniziare", tonight: false, azione: "", note: "" },
       { cantiere: "Visibilità", text: "Restyling pagina LinkedIn", tipo: "iniziativa", priorita: "Media", inizio: soon(1), scadenza: soon(21), stato: "Da iniziare", tonight: false, azione: "", note: "" },
+      { cantiere: "Commerciale", text: "Preparare 5 preventivi tipo", tipo: "iniziativa", priorita: "Media", inizio: soon(2), scadenza: soon(14), stato: "Da iniziare", tonight: false, azione: "", note: "" },
     ].forEach((t, i) => batch.set(doc(tasksCol), {
       ...t, linkedDeadlineId: null, createdAt: serverTimestamp(),
       scadenzaOrig: i === 0 ? soon(2) : (t.scadenza || ""),   // il 1° task simula una scadenza spostata
-      assignee: [normalizeAssignee("Simone"), normalizeAssignee("Edoardo"), normalizeAssignee("Entrambi"), null, normalizeAssignee("Edoardo")][i],
+      assignee: [normalizeAssignee("Simone"), normalizeAssignee("Edoardo"), normalizeAssignee("Entrambi"), null, normalizeAssignee("Edoardo"), normalizeAssignee("Edoardo")][i],
     }));
     [
       { name: "Scadenza domanda bando (esempio)", data: soon(9), dataOrig: soon(9), cantiere: "Raccolta fondi", stato: "Da fare", note: "" },
@@ -578,7 +579,7 @@ function startDashboard() {
         </div>
 
         <div class="card">
-          <h2>Scadenze imminenti</h2>
+          <h2>Scadenze chiave</h2>
           ${openDeadlines.length ? openDeadlines.map((d) => `
             <div class="deadline-row" data-deadline="${d.id}">
               <div class="name">${escapeHtml(d.name)} ${movedBadge(d.dataOrig, d.data)}</div>
