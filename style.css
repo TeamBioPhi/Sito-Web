@@ -336,6 +336,8 @@ a, button, [role="button"], input, textarea, select {
   overflow: hidden;
 }
 .hero-title em { color: var(--color-primary); font-style: italic; }
+.hero-title { hyphens: none; word-break: normal; overflow-wrap: normal; }
+.hero-title .word { display: inline-block; white-space: nowrap; }
 
 /* Splitting.js char animation */
 .hero-title .char {
