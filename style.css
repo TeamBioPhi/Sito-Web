@@ -559,6 +559,17 @@ a, button, [role="button"], input, textarea, select {
   .detail-panel { min-height: auto; }
 }
 
+/* Le quattro famiglie di valore */
+.fraction-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); margin-block: var(--space-10) var(--space-6); }
+.fraction-card { background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius-2xl); padding: var(--space-6); transition: transform var(--t-base), box-shadow var(--t-base); }
+.fraction-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.fraction-icon { width: 44px; height: 44px; border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-4); }
+.fraction-name { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; margin-bottom: var(--space-1); }
+.fraction-text { color: var(--color-text-muted); font-size: var(--text-sm); }
+.fraction-note { text-align: center; color: var(--color-text-muted); font-size: var(--text-sm); margin-bottom: var(--space-10); max-width: none; }
+@media (max-width: 1024px) { .fraction-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px)  { .fraction-grid { grid-template-columns: 1fr; } }
+
 /* ══════════════════════════════════════
    VISION SECTION
    ══════════════════════════════════════ */
