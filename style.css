@@ -602,13 +602,15 @@ a, button, [role="button"], input, textarea, select {
 }
 .bento-c {
   background: var(--color-leaf);
-  color: #fff;
+  color: var(--color-text);
   grid-column: 2;
   grid-row: 2;
   flex-direction: column;
-  align-items: center;
-  gap: var(--space-3);
+  align-items: flex-start;
+  justify-content: flex-start;
 }
+[data-theme="dark"] .bento-c { color: var(--color-surface-offset); }
+.bento-c .bento-lbl { opacity: 0.85; }
 .bento-d {
   background: var(--color-surface-2);
   border: 1px solid var(--color-border);
@@ -692,6 +694,7 @@ a, button, [role="button"], input, textarea, select {
 @media (max-width: 767px) {
   .vision-layout  { grid-template-columns: 1fr; }
   .bento-grid     { grid-template-columns: 120px 1fr; grid-template-rows: repeat(3, 140px); }
+  .bento-c        { padding: var(--space-4) var(--space-6); }
 }
 
 /* ══════════════════════════════════════
