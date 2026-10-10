@@ -516,7 +516,7 @@ function startDashboard() {
     return `
       <div class="header">
         <div>
-          <h1>BioPhi — Centrale Operativa</h1>
+          <h1>biophi — Centrale Operativa</h1>
           <div class="sub">${sub}${lastImport ? " · ultimo import: " + lastImport : ""}</div>
         </div>
         <div class="header-actions">

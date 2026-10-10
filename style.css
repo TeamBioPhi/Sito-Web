@@ -194,6 +194,7 @@ a, button, [role="button"], input, textarea, select {
   transition: opacity var(--t-base);
 }
 .nav-logo:hover { opacity: 0.8; }
+.footer .nav-logo, .brand-name { text-transform: none; }
 .nav-logo-mark {
   width: 36px; height: 36px; border-radius: var(--radius-full);
   background: var(--color-primary); color: #fff;
