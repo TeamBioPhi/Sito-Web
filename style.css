@@ -552,13 +552,6 @@ a, button, [role="button"], input, textarea, select {
 .detail-badge-icon { width: 34px; height: 34px; border-radius: var(--radius-md); background: color-mix(in oklab, var(--color-primary) 9%, transparent); display: flex; align-items: center; justify-content: center; color: var(--color-primary); }
 .detail-badge-label { font-size: var(--text-sm); font-weight: 600; }
 
-.progress-bar-wrap { 
-    margin-top: var(--space-10); display: flex; flex-direction: column; gap: var(--space-4);
-}
-.progress-label { font-size: var(--text-xs); font-weight: 600; color: var(--color-text-muted); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: var(--space-2); display: flex; justify-content: space-between; }
-.progress-track { height: 4px; background: var(--color-surface-offset); border-radius: var(--radius-full); overflow: hidden; }
-.progress-fill { height: 100%; background: var(--color-primary); border-radius: var(--radius-full); width: 0; transition: width 0.9s cubic-bezier(0.16,1,0.3,1); }
-
 @media (max-width: 900px) {
   .process-layout { grid-template-columns: 1fr; }
   .detail-panel { min-height: auto; }

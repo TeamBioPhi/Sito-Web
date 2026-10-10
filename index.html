@@ -177,8 +177,7 @@
           <div class="section-label">Innovazione</div>
           <h2 class="section-title" id="innovation-title">Dallo Scarto<br>alla <em>Bellezza</em></h2>
           <p class="section-desc">
-            Il nostro processo non crea solo estratti — crea valore. Selezioniamo le migliori biomasse
-            per estrarne il segreto della loro resilienza.
+            Il vero oro delle trebbie: vogliamo estrarlo fino all'ultima frazione.
           </p>
         </div>
 
@@ -186,30 +185,30 @@
           <!-- Tab list -->
           <div class="tab-list" role="tablist" aria-label="Ingredienti BioPhi">
 
-          <!--  <button class="ingredient-tab" role="tab" aria-selected="true"
+            <button class="ingredient-tab" role="tab" aria-selected="true"
                     aria-controls="detail-panel" id="tab-0" data-idx="0">
-              <div class="tab-icon-wrap" style="background:rgba(74,55,40,0.11);color:#4a3728">
-                <i data-lucide="droplets" style="width:20px;height:20px" aria-hidden="true"></i>
-              </div>
-              <span class="tab-name">Pellicole di Caffè</span>
-              <i data-lucide="chevron-right" class="tab-arrow" style="width:16px;height:16px" aria-hidden="true"></i>
-            </button>-->
-
-            <button class="ingredient-tab" role="tab" aria-selected="false"
-                    aria-controls="detail-panel" id="tab-1" data-idx="0">
               <div class="tab-icon-wrap" style="background:rgba(212,163,115,0.14);color:#c9935a">
                 <i data-lucide="zap" style="width:20px;height:20px" aria-hidden="true"></i>
               </div>
-              <span class="tab-name">Trebbie di Birra</span>
+              <span class="tab-name">Water-positive</span>
               <i data-lucide="chevron-right" class="tab-arrow" style="width:16px;height:16px" aria-hidden="true"></i>
             </button>
 
             <button class="ingredient-tab" role="tab" aria-selected="false"
-                    aria-controls="detail-panel" id="tab-2" data-idx="1">
+                    aria-controls="detail-panel" id="tab-1" data-idx="1">
               <div class="tab-icon-wrap" style="background:rgba(201,150,47,0.13);color:#c9962f">
                 <i data-lucide="shield-check" style="width:20px;height:20px" aria-hidden="true"></i>
               </div>
-              <span class="tab-name">Panello di Girasole</span>
+              <span class="tab-name">Zero rifiuti</span>
+              <i data-lucide="chevron-right" class="tab-arrow" style="width:16px;height:16px" aria-hidden="true"></i>
+            </button>
+
+            <button class="ingredient-tab" role="tab" aria-selected="false"
+                    aria-controls="detail-panel" id="tab-2" data-idx="2">
+              <div class="tab-icon-wrap" style="background:rgba(74,55,40,0.11);color:#4a3728">
+                <i data-lucide="droplets" style="width:20px;height:20px" aria-hidden="true"></i>
+              </div>
+              <span class="tab-name">Altre biomasse</span>
               <i data-lucide="chevron-right" class="tab-arrow" style="width:16px;height:16px" aria-hidden="true"></i>
             </button>
 
@@ -217,18 +216,15 @@
 
           <!-- Detail panel -->
           <div class="detail-panel reveal reveal-delay-2" id="detail-panel" role="tabpanel" aria-labelledby="tab-0">
-            <div class="detail-watermark" id="detail-watermark" aria-hidden="true">T</div>
+            <div class="detail-watermark" id="detail-watermark" aria-hidden="true">W</div>
 
             <div class="detail-content" id="detail-content">
               <div class="detail-tag">
                 <i data-lucide="flask-conical" style="width:13px;height:13px" aria-hidden="true"></i>
-                Molecola Estratta
+                Il nostro approccio
               </div>
-              <h3 class="detail-extract" id="detail-extract">Polifenoli &amp; Caffeina</h3>
-              <p class="detail-benefit" id="detail-benefit">
-                Azione antiossidante e drenante per il contorno occhi. Estratta con processi
-                a basso consumo energetico.
-              </p>
+              <h3 class="detail-extract" id="detail-extract">Un processo water-positive</h3>
+              <p class="detail-benefit" id="detail-benefit">Pensato per restituire più acqua di quanta ne usa, senza solventi aggressivi.</p>
             </div>
 
             <div class="detail-footer">
@@ -236,16 +232,7 @@
                 <div class="detail-badge-icon">
                   <i data-lucide="refresh-cw" style="width:16px;height:16px" aria-hidden="true"></i>
                 </div>
-                <span class="detail-badge-label">Processo Upcycled · 100% Sostenibile</span>
-              </div>
-              <div class="progress-bar-wrap">
-                <div class="progress-label">
-                  <span>Efficacia estrattiva</span>
-                  <span id="progress-pct">85%</span>
-                </div>
-                <div class="progress-track">
-                  <div class="progress-fill" id="progress-fill"></div>
-                </div>
+                <span class="detail-badge-label">Upcycling</span>
               </div>
             </div>
           </div>        
@@ -822,24 +809,21 @@
 
   /* ─── 7. Ingredient tabs with animated transitions ─── */
   const INGREDIENTS = [
-   /* ─── {
-      letter:  'P',
-      extract: 'Polifenoli & Caffeina',
-      benefit: 'Azione antiossidante e drenante per il contorno occhi. Estratta con processi a basso consumo energetico certificati dal Politecnico di Milano.',
-      progress: 85
-    }, ─── */
     {
-      letter:  'T',
-      extract: 'Lignina & Microcellulosa',
-      benefit: 'Protezione solare naturale e texture effetto seta. Sourced dalle trebbie di birra con zero solventi chimici in un processo completamente acquoso.',
-      progress: 92
+      letter:  'W',
+      extract: 'Un processo water-positive',
+      benefit: 'Pensato per restituire più acqua di quanta ne usa, senza solventi aggressivi.'
     },
     {
-      letter:  'G',
-      extract: 'Polifenoli & Peptidi Bioattivi',
-      benefit: 'Rigenerazione cutanea e sintesi del collagene. Derivati dal panello di girasole con resa estrattiva ottimizzata via tecnologia enzimatica.',
-      progress: 78
-    }    
+      letter:  'Z',
+      extract: 'Obiettivo zero rifiuti entro il 2029',
+      benefit: 'Nessuna parte della trebbia da buttare.'
+    },
+    {
+      letter:  'M',
+      extract: 'Dal 2030, non solo trebbie',
+      benefit: 'Lo stesso approccio, applicato ad altre biomasse agroindustriali.'
+    }
   ];
 
   const tabs        = document.querySelectorAll('.ingredient-tab');
@@ -847,44 +831,35 @@
   const content     = document.getElementById('detail-content');
   const extract     = document.getElementById('detail-extract');
   const benefit     = document.getElementById('detail-benefit');
-  const fill        = document.getElementById('progress-fill');
-  const pct         = document.getElementById('progress-pct');
   const panel       = document.getElementById('detail-panel');
 
-  // Trigger initial progress bar after a short delay
-  setTimeout(() => {
-    fill.style.width = INGREDIENTS[0].progress + '%';
-  }, 600);
-
-  function switchTab(idx) {
+  // Aggiorna selezione, aria e testi senza animazione
+  function renderTab(idx) {
     tabs.forEach(t => { t.setAttribute('aria-selected', 'false'); });
     tabs[idx].setAttribute('aria-selected', 'true');
     panel.setAttribute('aria-labelledby', 'tab-' + idx);
 
     const d = INGREDIENTS[idx];
+    watermark.textContent = d.letter;
+    extract.textContent   = d.extract;
+    benefit.textContent   = d.benefit;
+  }
 
+  function switchTab(idx) {
     // Animate out
     watermark.classList.add('out');
     content.classList.add('out');
-    fill.style.width = '0';
 
     setTimeout(() => {
-      // Update content
-      watermark.textContent = d.letter;
-      extract.textContent   = d.extract;
-      benefit.textContent   = d.benefit;
-      pct.textContent       = d.progress + '%';
+      renderTab(idx);
 
       // Animate in
       watermark.classList.remove('out');
       content.classList.remove('out');
-
-      // Trigger progress bar
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        fill.style.width = d.progress + '%';
-      }));
     }, 350);
   }
+
+  renderTab(0);
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => switchTab(parseInt(tab.dataset.idx, 10)));
