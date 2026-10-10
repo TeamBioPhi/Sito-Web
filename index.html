@@ -178,8 +178,7 @@
           <div class="section-label">Innovazione</div>
           <h2 class="section-title" id="innovation-title">Dallo Scarto<br>alla <em>Bellezza</em></h2>
           <p class="section-desc">
-            Il nostro processo non crea solo estratti — crea valore. Selezioniamo le migliori biomasse
-            per estrarne il segreto della loro resilienza.
+            Una sola biomassa, una cascata di frazioni. Dalle trebbie di birra esauste ricaviamo in sequenza lipidi, proteine e peptidi, zuccheri prebiotici (XOS), lignina e cellulosa. Il processo è progettato per essere water-positive: l'umidità delle trebbie diventa il solvente e non servono solventi aggressivi.
           </p>
         </div>
 
@@ -187,30 +186,30 @@
           <!-- Tab list -->
           <div class="tab-list" role="tablist" aria-label="Ingredienti BioPhi">
 
-          <!--  <button class="ingredient-tab" role="tab" aria-selected="true"
+            <button class="ingredient-tab" role="tab" aria-selected="true"
                     aria-controls="detail-panel" id="tab-0" data-idx="0">
-              <div class="tab-icon-wrap" style="background:rgba(74,55,40,0.11);color:#4a3728">
-                <i data-lucide="droplets" style="width:20px;height:20px" aria-hidden="true"></i>
-              </div>
-              <span class="tab-name">Pellicole di Caffè</span>
-              <i data-lucide="chevron-right" class="tab-arrow" style="width:16px;height:16px" aria-hidden="true"></i>
-            </button>-->
-
-            <button class="ingredient-tab" role="tab" aria-selected="false"
-                    aria-controls="detail-panel" id="tab-1" data-idx="0">
               <div class="tab-icon-wrap" style="background:rgba(212,163,115,0.14);color:#c9935a">
                 <i data-lucide="zap" style="width:20px;height:20px" aria-hidden="true"></i>
               </div>
-              <span class="tab-name">Trebbie di Birra</span>
+              <span class="tab-name">Peptidi bioattivi</span>
               <i data-lucide="chevron-right" class="tab-arrow" style="width:16px;height:16px" aria-hidden="true"></i>
             </button>
 
             <button class="ingredient-tab" role="tab" aria-selected="false"
-                    aria-controls="detail-panel" id="tab-2" data-idx="1">
+                    aria-controls="detail-panel" id="tab-1" data-idx="1">
               <div class="tab-icon-wrap" style="background:rgba(201,150,47,0.13);color:#c9962f">
                 <i data-lucide="shield-check" style="width:20px;height:20px" aria-hidden="true"></i>
               </div>
-              <span class="tab-name">Panello di Girasole</span>
+              <span class="tab-name">XOS prebiotici</span>
+              <i data-lucide="chevron-right" class="tab-arrow" style="width:16px;height:16px" aria-hidden="true"></i>
+            </button>
+
+            <button class="ingredient-tab" role="tab" aria-selected="false"
+                    aria-controls="detail-panel" id="tab-2" data-idx="2">
+              <div class="tab-icon-wrap" style="background:rgba(74,55,40,0.11);color:#4a3728">
+                <i data-lucide="droplets" style="width:20px;height:20px" aria-hidden="true"></i>
+              </div>
+              <span class="tab-name">Cellulosa e olio</span>
               <i data-lucide="chevron-right" class="tab-arrow" style="width:16px;height:16px" aria-hidden="true"></i>
             </button>
 
@@ -218,18 +217,15 @@
 
           <!-- Detail panel -->
           <div class="detail-panel reveal reveal-delay-2" id="detail-panel" role="tabpanel" aria-labelledby="tab-0">
-            <div class="detail-watermark" id="detail-watermark" aria-hidden="true">T</div>
+            <div class="detail-watermark" id="detail-watermark" aria-hidden="true">P</div>
 
             <div class="detail-content" id="detail-content">
               <div class="detail-tag">
                 <i data-lucide="flask-conical" style="width:13px;height:13px" aria-hidden="true"></i>
-                Molecola Estratta
+                Frazione della cascata
               </div>
-              <h3 class="detail-extract" id="detail-extract">Polifenoli &amp; Caffeina</h3>
-              <p class="detail-benefit" id="detail-benefit">
-                Azione antiossidante e drenante per il contorno occhi. Estratta con processi
-                a basso consumo energetico.
-              </p>
+              <h3 class="detail-extract" id="detail-extract">Peptidi da 2 a 50 amminoacidi</h3>
+              <p class="detail-benefit" id="detail-benefit">Frammenti di proteina delle trebbie, pensati per la cura di pelle e capelli. La fascia sotto 1 kDa è la più pregiata. La lunghezza si regola con enzima, tempo di digestione e taglio di filtrazione: stesso impianto, gradi diversi per mercati diversi.</p>
             </div>
 
             <div class="detail-footer">
@@ -237,17 +233,9 @@
                 <div class="detail-badge-icon">
                   <i data-lucide="refresh-cw" style="width:16px;height:16px" aria-hidden="true"></i>
                 </div>
-                <span class="detail-badge-label">Processo Upcycled · 100% Sostenibile</span>
+                <span class="detail-badge-label">Upcycling · Water-positive by design</span>
               </div>
-              <div class="progress-bar-wrap">
-                <div class="progress-label">
-                  <span>Efficacia estrattiva</span>
-                  <span id="progress-pct">85%</span>
-                </div>
-                <div class="progress-track">
-                  <div class="progress-fill" id="progress-fill"></div>
-                </div>
-              </div>
+              <p class="detail-note">Obiettivo di progetto · in validazione di laboratorio</p>
             </div>
           </div>        
         </div>
@@ -823,24 +811,21 @@
 
   /* ─── 7. Ingredient tabs with animated transitions ─── */
   const INGREDIENTS = [
-   /* ─── {
-      letter:  'P',
-      extract: 'Polifenoli & Caffeina',
-      benefit: 'Azione antiossidante e drenante per il contorno occhi. Estratta con processi a basso consumo energetico certificati dal Politecnico di Milano.',
-      progress: 85
-    }, ─── */
     {
-      letter:  'T',
-      extract: 'Lignina & Microcellulosa',
-      benefit: 'Protezione solare naturale e texture effetto seta. Sourced dalle trebbie di birra con zero solventi chimici in un processo completamente acquoso.',
-      progress: 92
+      letter:  'P',
+      extract: 'Peptidi da 2 a 50 amminoacidi',
+      benefit: 'Frammenti di proteina delle trebbie, pensati per la cura di pelle e capelli. La fascia sotto 1 kDa è la più pregiata. La lunghezza si regola con enzima, tempo di digestione e taglio di filtrazione: stesso impianto, gradi diversi per mercati diversi.'
     },
     {
-      letter:  'G',
-      extract: 'Polifenoli & Peptidi Bioattivi',
-      benefit: 'Rigenerazione cutanea e sintesi del collagene. Derivati dal panello di girasole con resa estrattiva ottimizzata via tecnologia enzimatica.',
-      progress: 78
-    }    
+      letter:  'X',
+      extract: 'Zuccheri prebiotici (XOS)',
+      benefit: 'Zuccheri prebiotici dalla frazione emicellulosica, per la cosmetica e, dopo l'iter regolatorio Novel Food, per la nutraceutica.'
+    },
+    {
+      letter:  'C',
+      extract: 'Microcapsule esfolianti e tocoferoli',
+      benefit: 'Cellulosa purificata per microcapsule esfolianti biodegradabili e olio con tocoferoli: le frazioni che completano la cascata.'
+    }
   ];
 
   const tabs        = document.querySelectorAll('.ingredient-tab');
@@ -848,44 +833,35 @@
   const content     = document.getElementById('detail-content');
   const extract     = document.getElementById('detail-extract');
   const benefit     = document.getElementById('detail-benefit');
-  const fill        = document.getElementById('progress-fill');
-  const pct         = document.getElementById('progress-pct');
   const panel       = document.getElementById('detail-panel');
 
-  // Trigger initial progress bar after a short delay
-  setTimeout(() => {
-    fill.style.width = INGREDIENTS[0].progress + '%';
-  }, 600);
-
-  function switchTab(idx) {
+  // Aggiorna selezione, aria e testi senza animazione
+  function renderTab(idx) {
     tabs.forEach(t => { t.setAttribute('aria-selected', 'false'); });
     tabs[idx].setAttribute('aria-selected', 'true');
     panel.setAttribute('aria-labelledby', 'tab-' + idx);
 
     const d = INGREDIENTS[idx];
+    watermark.textContent = d.letter;
+    extract.textContent   = d.extract;
+    benefit.textContent   = d.benefit;
+  }
 
+  function switchTab(idx) {
     // Animate out
     watermark.classList.add('out');
     content.classList.add('out');
-    fill.style.width = '0';
 
     setTimeout(() => {
-      // Update content
-      watermark.textContent = d.letter;
-      extract.textContent   = d.extract;
-      benefit.textContent   = d.benefit;
-      pct.textContent       = d.progress + '%';
+      renderTab(idx);
 
       // Animate in
       watermark.classList.remove('out');
       content.classList.remove('out');
-
-      // Trigger progress bar
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        fill.style.width = d.progress + '%';
-      }));
     }, 350);
   }
+
+  renderTab(0);
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => switchTab(parseInt(tab.dataset.idx, 10)));
