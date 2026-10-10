@@ -952,11 +952,18 @@ a, button, [role="button"], input, textarea, select {
   padding-bottom: var(--space-2);
 }
 
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+.team-grid .roadmap-card-top { justify-content: flex-start; }
+
 @media (min-width: 769px) and (max-width: 1100px) {
   .roadmap-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
-  .roadmap-grid { grid-template-columns: 1fr; }
+  .roadmap-grid, .team-grid { grid-template-columns: 1fr; }
 }
 
 /* ══════════════════════════════════════
