@@ -737,6 +737,12 @@ a, button, [role="button"], input, textarea, select {
   padding: var(--space-3) var(--space-6); font-size: var(--text-sm); color: var(--color-text); min-width: 0;
 }
 .cta-form input::placeholder { color: var(--color-text-faint); }
+.cta-form { flex-wrap: wrap; border-radius: var(--radius-2xl); }
+.cta-form input { flex: 1 1 12rem; }
+.cta-form .btn-cta { flex: 1 1 auto; display: block; } /* visibile anche sotto 768px */
+.cta-privacy { margin: var(--space-4) auto 0; font-size: var(--text-xs); color: var(--color-text-muted); }
+.cta-privacy a { text-decoration: underline; text-underline-offset: 2px; }
+.cta-privacy a:hover { color: var(--color-primary); }
 .cta-form .btn-cta { border-radius: var(--radius-full); flex-shrink: 0; padding-inline: var(--space-6); letter-spacing: 0.05em; }
 .cta-success { padding: var(--space-4) var(--space-6); font-weight: 600; font-size: var(--text-sm); color: var(--color-primary); display: flex; align-items: center; gap: var(--space-2); justify-content: center; }
 

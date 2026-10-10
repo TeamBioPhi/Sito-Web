@@ -436,25 +436,25 @@
     <!-- ══ CTA ══ -->
     <section class="section cta-section" id="contact" aria-labelledby="cta-title">
       <div class="cta-inner">
-        <div class="section-label reveal" style="justify-content:center">Partner Program</div>
+        <div class="section-label reveal" style="justify-content:center">Brindiamo insieme</div>
         <h2 class="section-title reveal reveal-delay-1" id="cta-title">
           Siete pronti a formulare<br>
           il futuro della <em>bellezza?</em>
         </h2>
         <p class="section-desc reveal reveal-delay-2">
-          Unisciti alla nostra rete di partner per integrare i bioingredienti BioPhi
-          nelle tue linee prodotto. Una scelta di innovazione, etica e performance.
+          Entra tra i primi partner BioPhi.
         </p>
-        <form class="cta-form reveal reveal-delay-3"
+        <form class="cta-form reveal reveal-delay-3" id="cta-form"
       action="https://formspree.io/f/mlgzwnvz"
       method="POST"
-      aria-label="Richiedi campione">
+      aria-label="Entra nella lista partner">
   <label for="cta-email" class="sr-only">La tua email aziendale</label>
   <input type="email" id="cta-email" name="email"
          placeholder="La tua email aziendale"
          required autocomplete="email">
-  <button type="submit" class="btn-cta">Richiedi Campione</button>
+  <button type="submit" class="btn-cta">Entra nella lista partner</button>
 </form>
+        <p class="cta-privacy">Le informazioni tecniche sono condivise previo accordo di riservatezza. Inviando la richiesta accetti la <a href="https://www.iubenda.com/privacy-policy/84481063" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</p>
       </div>
     </section>
 
@@ -948,20 +948,37 @@
     });
   })();
 
-  /* ─── 11. CTA form submit ─── */
-  function handleSubmit(e) {
-    e.preventDefault();
-    const email = document.getElementById('cta-email').value.trim();
-    if (!email) return;
-    const live = document.getElementById('sr-live');
-    live.textContent = 'Grazie! Ti contatteremo presto all indirizzo ' + email;
+  /* ─── 11. CTA form submit (Formspree via fetch, fallback all'invio normale) ─── */
+  (function () {
     const form = document.getElementById('cta-form');
-    form.innerHTML = `
-      <div class="cta-success">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-        Richiesta inviata — ti contatteremo presto!
-      </div>`;
-  }
+    if (!form) return;
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const email = document.getElementById('cta-email').value.trim();
+      if (!email) return;
+      const btn = form.querySelector('button[type="submit"]');
+      if (btn) btn.disabled = true;
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+
+        document.getElementById('sr-live').textContent = "Grazie! Ti contatteremo presto all'indirizzo " + email;
+        form.innerHTML = `
+          <div class="cta-success">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Richiesta inviata — ti contatteremo presto!
+          </div>`;
+      } catch (err) {
+        form.submit();
+      }
+    });
+  })();
 
   /* ─── 12. Active nav link on scroll ─── */
   (function () {
